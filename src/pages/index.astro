@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Phone from "../components/Phone.astro";
+import StoreBadge from "../components/StoreBadge.astro";
+import "../styles/global.css";
+
+// Phone trio arrangement
+const trio = [
+  { city: "yosemite", x: -170, y:  30, rotate: -10, scale: 0.78, z: 1, featured: false },
+  { city: "paris",    x:  -10, y: -14, rotate:  -2, scale: 0.86, z: 2, featured: false },
+  { city: "sf",       x:  165, y:  12, rotate:   7, scale: 0.94, z: 3, featured: true  },
+];
+---
+<Layout>
+  <div class="page">
+    <div class="page-frame" aria-hidden="true"></div>
+
+    <!-- Masthead -->
+    <header class="masthead">
+      <div class="wordmark">
+        <span class="wordmark-name">Vista&nbsp;Weather</span>
+      </div>
+      <nav></nav>
+    </header>
+
+    <div class="rule" style="margin-top:14px"></div>
+
+    <!-- Hero -->
+    <main class="hero-grid">
+      <section class="hero-left">
+        <h1 class="headline">
+          See the weather<br />
+          <em>through the beauty</em><br />
+          of each place.
+        </h1>
+
+        <p class="dek">
+          A weather app that sets every forecast against a photograph of where you are.
+          The temperature you check feels less like data and more like a&nbsp;<em class="serif">window</em>.
+        </p>
+
+        <div class="cta-row">
+          <StoreBadge kind="ios" />
+          <StoreBadge kind="android" />
+        </div>
+
+        <form id="cta" class="waitlist" action="#" method="post">
+          <label for="email-input" class="kicker" style="display:block;margin-bottom:8px">
+            Be the first to know &mdash; we&rsquo;ll write the moment it&rsquo;s on the stores.
+          </label>
+          <div class="waitlist-row">
+            <input id="email-input" type="email" name="email" placeholder="your@address.com" required />
+            <button type="submit">
+              Notify&nbsp;me
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8 H13 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+          <div class="kicker" style="margin-top:10px;color:var(--ink-3)">
+            No spam · One letter at launch
+          </div>
+        </form>
+      </section>
+
+      <section class="hero-right">
+        <div class="phone-stage">
+          {trio.map((p) => (
+            <Phone
+              cityKey={p.city}
+              x={p.x}
+              y={p.y}
+              rotate={p.rotate}
+              scale={p.scale}
+              z={p.z}
+              featured={p.featured}
+            />
+          ))}
+        </div>
+      </section>
+    </main>
+
+    <div class="rule" style="margin:32px 0 16px"></div>
+
+    <footer class="foot">
+      <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
+      <div class="kicker" style="text-align:center">Coming&nbsp;soon &middot; iOS &middot; Android</div>
+      <div class="kicker" style="text-align:right">Support &middot; Privacy</div>
+    </footer>
+  </div>
+</Layout>

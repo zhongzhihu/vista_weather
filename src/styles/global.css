@@ -1,0 +1,216 @@
+/* ─── Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --paper: #f3ece1;
+  --paper-2: #ebe3d4;
+  --ink: #15110b;
+  --ink-2: #2b251c;
+  --ink-3: #6b6253;
+  --rule: rgba(21, 17, 11, 0.18);
+  --rule-soft: rgba(21, 17, 11, 0.10);
+  --coral: oklch(0.66 0.14 32);
+
+  --serif: "Instrument Serif", "Times New Roman", serif;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(21,17,11,0.045) 1px, transparent 0);
+  background-size: 22px 22px;
+  min-height: 100vh;
+}
+
+::selection { background: var(--coral); color: var(--paper); }
+
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ─── Utilities ────────────────────────────────────────────────────────── */
+.serif { font-family: var(--serif); font-weight: 400; }
+.mono  { font-family: var(--mono); }
+em { font-style: italic; }
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.rule { height: 1px; background: var(--rule); width: 100%; }
+
+/* iOS-y font on phone mockup */
+.ios { font-family: -apple-system, "SF Pro Display", "Geist", system-ui, sans-serif; }
+
+/* ─── Page shell ───────────────────────────────────────────────────────── */
+.page {
+  position: relative;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 28px 44px 24px;
+  min-height: 100vh;
+}
+.page-frame {
+  position: absolute;
+  inset: 16px 22px;
+  border: 1px solid var(--rule-soft);
+  pointer-events: none;
+}
+
+/* ─── Masthead ─────────────────────────────────────────────────────────── */
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.wordmark-v {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1;
+}
+.wordmark-name {
+  font-size: 12.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.notify-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Hero grid ────────────────────────────────────────────────────────── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 1fr) minmax(560px, 1.15fr);
+  gap: 40px;
+  padding-top: 28px;
+  align-items: start;
+}
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 12px;
+}
+.headline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(48px, 6.2vw, 104px);
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+.headline em { color: var(--coral); }
+.dek {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 520px;
+  margin: 0;
+  text-wrap: pretty;
+}
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ─── Waitlist form ───────────────────────────────────────────────────── */
+.waitlist { max-width: 480px; padding-top: 4px; }
+.waitlist-row { display: flex; gap: 8px; align-items: stretch; }
+.waitlist input {
+  flex: 1;
+  height: 48px;
+  padding: 0 16px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  outline: none;
+  border-radius: 0;
+}
+.waitlist input::placeholder { color: var(--ink-3); }
+.waitlist input:focus { border-color: var(--ink); }
+.waitlist button {
+  height: 48px;
+  padding: 0 20px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0;
+}
+
+/* ─── Phone stage ─────────────────────────────────────────────────────── */
+.hero-right { display: flex; flex-direction: column; gap: 16px; }
+.phone-stage {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  min-height: 640px;
+  overflow: visible;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────────────── */
+.foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  padding-bottom: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 1040px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-right { order: -1; }
+}
+@media (max-width: 720px) {
+  .page { padding: 22px 22px 18px; }
+  .foot { grid-template-columns: 1fr; gap: 4px; }
+  .foot > *:nth-child(2), .foot > *:nth-child(3) { text-align: left; }
+  .phone-stage { height: 520px; min-height: 520px; }
+}
