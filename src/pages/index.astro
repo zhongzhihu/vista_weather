@@ -4,6 +4,8 @@ import Phone from "../components/Phone.astro";
 import StoreBadge from "../components/StoreBadge.astro";
 import "../styles/global.css";
 
+const baseUrl = import.meta.env.BASE_URL;
+
 // Phone trio arrangement
 const trio = [
   { city: "yosemite", x: -170, y:  30, rotate: -10, scale: 0.78, z: 1, featured: false },
@@ -36,7 +38,6 @@ const trio = [
 
         <p class="dek">
           A weather app that sets every forecast against a photograph of where you are.
-          The temperature you check feels less like data and more like a&nbsp;<em class="serif">window</em>.
         </p>
 
         <div class="cta-row">
@@ -85,7 +86,7 @@ const trio = [
     <footer class="foot">
       <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
       <div class="kicker" style="text-align:center">Coming&nbsp;soon &middot; iOS &middot; Android</div>
-      <div class="kicker" style="text-align:right">Support &middot; Privacy</div>
+      <div class="kicker" style="text-align:right">Support &middot; <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a></div>
     </footer>
   </div>
 </Layout>

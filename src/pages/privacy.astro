@@ -1,0 +1,179 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+
+const baseUrl = import.meta.env.BASE_URL;
+const supportEmail = "support@vistaweather.app";
+const effectiveDate = "May 20, 2026";
+---
+<Layout
+  title="Privacy Policy — Vista Weather"
+  description="Vista Weather privacy policy for iOS: data is never sold, and location is only used to fetch the forecast."
+>
+  <div class="page privacy-page">
+    <div class="page-frame" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <a class="wordmark wordmark-link" href={baseUrl} aria-label="Vista Weather home">
+        <span class="wordmark-name">Vista&nbsp;Weather</span>
+      </a>
+      <nav class="policy-nav" aria-label="Privacy navigation">
+        <a class="kicker" href={baseUrl}>Home</a>
+      </nav>
+    </header>
+
+    <div class="rule" style="margin-top:14px"></div>
+
+    <main class="policy">
+      <section class="policy-hero" aria-labelledby="privacy-title">
+        <p class="kicker">Privacy Policy</p>
+        <h1 id="privacy-title">Privacy Policy</h1>
+        <p class="policy-lede">
+          Vista Weather is designed to collect as little data as possible. Your data is never sold to
+          advertisers or third parties. Your location is only used to fetch the forecast.
+        </p>
+
+        <div class="policy-summary" aria-label="Privacy summary">
+          <div>
+            <span>Never sold</span>
+            <p>We do not sell, rent, or trade your personal data.</p>
+          </div>
+          <div>
+            <span>Forecast only</span>
+            <p>Location is used only to show weather for your area.</p>
+          </div>
+          <div>
+            <span>No tracking</span>
+            <p>We do not track you across other companies' apps or websites.</p>
+          </div>
+        </div>
+
+        <p class="policy-updated">Effective date: {effectiveDate}</p>
+      </section>
+
+      <section class="policy-body" aria-label="Privacy policy details">
+        <h2>Scope</h2>
+        <p>
+          This policy explains how Vista Weather handles information in the Vista Weather mobile app
+          and on the Vista Weather website.
+        </p>
+
+        <h2>Information We Collect</h2>
+        <p>
+          We collect only the information needed to provide the app and respond to requests you make.
+        </p>
+        <ul>
+          <li>
+            <strong>Location.</strong> If you allow location access, Vista Weather uses your device's
+            location to request the forecast for your area. We do not keep a history of your location.
+          </li>
+          <li>
+            <strong>Searches and saved places.</strong> If you search for or save a place in the app,
+            that place may be used to show its forecast. Saved places are stored on your device unless
+            the app clearly tells you otherwise.
+          </li>
+          <li>
+            <strong>Email address.</strong> If you join the waitlist or contact support, we collect the
+            email address and message you provide so we can send the requested update or respond to you.
+          </li>
+          <li>
+            <strong>Basic website delivery data.</strong> Our website host may process standard server
+            log data, such as IP address, browser type, and request time, to deliver and protect the
+            website. We do not use this data for advertising or tracking.
+          </li>
+        </ul>
+
+        <h2>How We Use Information</h2>
+        <ul>
+          <li>To fetch and display weather forecasts.</li>
+          <li>To remember places you choose to save on your device.</li>
+          <li>To send launch or product updates you requested.</li>
+          <li>To respond to support, privacy, or deletion requests.</li>
+          <li>To maintain, secure, and improve the app and website.</li>
+        </ul>
+
+        <h2>Location</h2>
+        <p>
+          Location access is optional and controlled by iOS. If you grant permission, Vista Weather may
+          send your current location or an approximate location to a weather service provider only as
+          needed to return the forecast. Your location is not used for advertising, sold to anyone, or
+          used to build a profile about you.
+        </p>
+
+        <h2>Third-Party Services</h2>
+        <p>
+          We may use service providers, such as weather data providers, website hosting providers, and
+          email delivery providers, to operate Vista Weather. These providers may process data only to
+          provide their services to us, and they must protect user data at least as carefully as this
+          policy requires.
+        </p>
+        <p>
+          We do not use third-party advertising SDKs, data brokers, or tracking services.
+        </p>
+
+        <h2>Retention and Deletion</h2>
+        <p>
+          Location used to fetch a forecast is not retained by Vista Weather after the forecast request
+          is served. Saved places and cached app data are stored on your device and can be removed by
+          deleting them in the app, where available, or by deleting the app.
+        </p>
+        <p>
+          Waitlist and support emails are kept only as long as needed to send requested updates, provide
+          support, meet legal obligations, or maintain basic business records. You can request deletion
+          of your email or support messages at any time.
+        </p>
+
+        <h2>Your Choices</h2>
+        <ul>
+          <li>
+            You can grant, deny, or revoke location permission in iOS Settings under
+            Privacy &amp; Security, then Location Services, then Vista Weather.
+          </li>
+          <li>You can unsubscribe from waitlist or product update emails using the unsubscribe link.</li>
+          <li>You can request access to, correction of, or deletion of personal data you provided.</li>
+        </ul>
+
+        <h2>Children's Privacy</h2>
+        <p>
+          Vista Weather is not directed to children under 13, and we do not knowingly collect personal
+          information from children under 13.
+        </p>
+
+        <h2>Security</h2>
+        <p>
+          We use reasonable administrative, technical, and organizational safeguards to protect personal
+          data. No method of transmission or storage is completely secure, but we design Vista Weather to
+          minimize the data we handle.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+          We may update this policy as Vista Weather changes. If we make material changes, we will update
+          the effective date and provide additional notice when appropriate.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For privacy questions or deletion requests, email
+          <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.
+        </p>
+
+        <h2>Conclusion</h2>
+        <p>
+          Your data is never sold to advertisers or third parties. Your location is only used to fetch
+          the forecast.
+        </p>
+      </section>
+    </main>
+
+    <div class="rule" style="margin:32px 0 16px"></div>
+
+    <footer class="foot">
+      <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
+      <div class="kicker" style="text-align:center">Coming&nbsp;soon &middot; iOS &middot; Android</div>
+      <div class="kicker" style="text-align:right">
+        <a href={`mailto:${supportEmail}`}>Support</a> &middot; <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
+      </div>
+    </footer>
+  </div>
+</Layout>
