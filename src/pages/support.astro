@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+
+const baseUrl = import.meta.env.BASE_URL;
+const supportEmail = "linguico.app@gmail.com";
+---
+<Layout
+  title="Support — Vista Weather"
+  description="Vista Weather support contact information."
+>
+  <div class="page">
+    <div class="page-frame" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <a class="wordmark wordmark-link" href={baseUrl} aria-label="Vista Weather home">
+        <span class="wordmark-name">Vista&nbsp;Weather</span>
+      </a>
+      <nav class="policy-nav" aria-label="Support navigation">
+        <a class="kicker" href={baseUrl}>Home</a>
+      </nav>
+    </header>
+
+    <div class="rule" style="margin-top:14px"></div>
+
+    <main class="policy">
+      <section class="policy-hero" aria-labelledby="support-title">
+        <p class="kicker">Support</p>
+        <h1 id="support-title">Support</h1>
+        <p class="policy-lede">
+          For Vista Weather support, email <a href={`mailto:${supportEmail}`}>{supportEmail}</a> and we will get back to you as soon as possible.
+        </p>
+      </section>
+    </main>
+
+    <div class="rule" style="margin:32px 0 16px"></div>
+
+    <footer class="foot">
+      <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
+      <div class="kicker" style="text-align:center">Coming&nbsp;soon &middot; iOS &middot; Android</div>
+      <div class="kicker" style="text-align:right">
+        <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a> &middot; <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
+      </div>
+    </footer>
+  </div>
+</Layout>
