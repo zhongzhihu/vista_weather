@@ -2,11 +2,18 @@
 export interface Props {
   kind: "ios" | "android";
   soon?: boolean;
+  href?: string;
 }
-const { kind, soon = true } = Astro.props;
+const { kind, soon = true, href = "#" } = Astro.props;
 const isIos = kind === "ios";
+const isExternal = href.startsWith("http");
 ---
-<a href="#" class="store-badge" aria-label={`${soon ? "Coming soon to" : "Download on"} ${isIos ? "the App Store" : "Google Play"}`}>
+<a
+  href={href}
+  class="store-badge"
+  aria-label={`${soon ? "Coming soon to" : "Download on"} ${isIos ? "the App Store" : "Google Play"}`}
+  {...isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {}}
+>
   <span class="store-badge-icon">
     {isIos ? (
       <svg width="22" height="26" viewBox="0 0 24 28" fill="currentColor">
