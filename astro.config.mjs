@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://zhongzhihu.github.io",
-  base: "/vista_weather",
+  site: "https://vistaweather.com",
   compressHTML: true,
 });
+
