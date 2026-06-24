@@ -6,6 +6,8 @@ import mockupsImage from "../images/Vista Weather Beautiful City & Nature Photos
 import "../styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
+const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
+const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY || "";
 ---
 <Layout>
   <div class="page">
@@ -38,12 +40,24 @@ const baseUrl = import.meta.env.BASE_URL;
           <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
         </div>
 
-        <form id="cta" class="waitlist" action="#" method="post">
+        <form
+          id="cta"
+          class="waitlist"
+          action={googleFormUrl}
+          method="POST"
+          target="hidden_iframe"
+        >
           <label for="email-input" class="kicker" style="display:block;margin-bottom:8px">
             Join the Google Play Store waitlist
           </label>
           <div class="waitlist-row">
-            <input id="email-input" type="email" name="email" placeholder="your@address.com" required />
+            <input
+              id="email-input"
+              type="email"
+              name={googleFormEmailEntry}
+              placeholder="your@address.com"
+              required
+            />
             <button type="submit">
               Notify&nbsp;me
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -51,10 +65,15 @@ const baseUrl = import.meta.env.BASE_URL;
               </svg>
             </button>
           </div>
-          <div class="kicker" style="margin-top:10px;color:var(--ink-3)">
+          <div id="form-message" class="kicker" style="margin-top:10px;color:var(--ink-3)">
             No spam · One letter at launch
           </div>
         </form>
+        <iframe
+          name="hidden_iframe"
+          id="hidden_iframe"
+          style="display:none;"
+        ></iframe>
       </section>
 
       <section class="hero-right">
@@ -84,7 +103,7 @@ const baseUrl = import.meta.env.BASE_URL;
             <li>When will it stop?</li>
           </ul>
           <p>
-            I decided to build my own. Vista Weather is designed to help you understand the weather in just a couple of seconds, while still offering advanced tools when you want to go deeper. The main idea is simple: weather should be easy to read at a glance.
+            Therefore, I have decided to build my own weather app. Vista Weather is designed to help you understand the weather in just a couple of seconds, while still offering advanced tools when you want to go deeper.
           </p>
         </div>
       </div>
@@ -133,4 +152,47 @@ const baseUrl = import.meta.env.BASE_URL;
       </div>
     </footer>
   </div>
+
+  <style is:global>
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script is:inline>
+    const form = document.getElementById("cta");
+    const iframe = document.getElementById("hidden_iframe");
+    const submitButton = form.querySelector("button[type='submit']");
+    const originalBtnHtml = submitButton.innerHTML;
+    const formMessage = document.getElementById("form-message");
+
+    let submitted = false;
+
+    form.addEventListener("submit", (e) => {
+      const action = form.getAttribute("action");
+      const emailInputName = form.querySelector("input[type='email']").getAttribute("name");
+
+      if (!action || !emailInputName) {
+        e.preventDefault();
+        formMessage.style.color = "#ff4444";
+        formMessage.textContent = "Error: Google Form settings are not configured in your .env file.";
+        return;
+      }
+
+      submitted = true;
+      submitButton.disabled = true;
+      submitButton.innerHTML = `Adding... <svg class="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-left: 4px;"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2" stroke-dasharray="10 30" fill="none"></circle></svg>`;
+    });
+
+    iframe.addEventListener("load", () => {
+      if (submitted) {
+        formMessage.style.color = "var(--ink)";
+        formMessage.textContent = "Success! You have been added to the waitlist.";
+        form.reset();
+        submitButton.innerHTML = "Success";
+        submitted = false;
+      }
+    });
+  </script>
 </Layout>
