@@ -1,17 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Phone from "../components/Phone.astro";
 import StoreBadge from "../components/StoreBadge.astro";
+import { Image } from "astro:assets";
+import mockupsImage from "../images/Vista Weather Beautiful City & Nature Photos.png";
 import "../styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
-
-// Phone trio arrangement
-const trio = [
-  { city: "yosemite", x: -170, y:  30, rotate: -10, scale: 0.78, z: 1, featured: false },
-  { city: "paris",    x:  -10, y: -14, rotate:  -2, scale: 0.86, z: 2, featured: false },
-  { city: "sf",       x:  165, y:  12, rotate:   7, scale: 0.94, z: 3, featured: true  },
-];
 ---
 <Layout>
   <div class="page">
@@ -42,12 +36,11 @@ const trio = [
 
         <div class="cta-row">
           <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
-          <StoreBadge kind="android" />
         </div>
 
         <form id="cta" class="waitlist" action="#" method="post">
           <label for="email-input" class="kicker" style="display:block;margin-bottom:8px">
-            Be the first to know &mdash; we&rsquo;ll write the moment it&rsquo;s on the stores.
+            Join the Google Play Store waitlist
           </label>
           <div class="waitlist-row">
             <input id="email-input" type="email" name="email" placeholder="your@address.com" required />
@@ -65,19 +58,12 @@ const trio = [
       </section>
 
       <section class="hero-right">
-        <div class="phone-stage">
-          {trio.map((p) => (
-            <Phone
-              cityKey={p.city}
-              x={p.x}
-              y={p.y}
-              rotate={p.rotate}
-              scale={p.scale}
-              z={p.z}
-              featured={p.featured}
-            />
-          ))}
-        </div>
+        <Image
+          src={mockupsImage}
+          alt="Vista Weather App screenshots showcasing beautiful city and nature photos"
+          class="hero-mockups"
+          loading="eager"
+        />
       </section>
     </main>
 
@@ -85,7 +71,7 @@ const trio = [
 
     <footer class="foot">
       <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
-      <div class="kicker" style="text-align:center">Coming&nbsp;soon &middot; iOS &middot; Android</div>
+      <div class="kicker" style="text-align:center">Now Available on iOS<br />Coming soon to Android</div>
       <div class="kicker" style="text-align:right">
         <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a> &middot; <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
       </div>
