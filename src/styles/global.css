@@ -600,6 +600,7 @@ input {
   padding: 30px 0 20px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   column-gap: 56px;
   row-gap: 8px;
 }
@@ -620,6 +621,7 @@ input {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: 100%;
   padding: 40px 0 48px;
   border-top: 1px solid var(--line);
 }
@@ -649,6 +651,7 @@ input {
 .feature-media {
   display: flex;
   justify-content: center;
+  margin-top: auto;
 }
 
 .phone-case-feature {
