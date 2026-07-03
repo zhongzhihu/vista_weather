@@ -8,6 +8,7 @@ import parisDryToday from "../images/paris dry today.png";
 import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
+import garmischAlternatePredictions from "../images/Garmisch_alternate_predictions.png";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
@@ -139,20 +140,6 @@ const clarityCards = [
             </div>
           </div>
 
-          <div class="local-feature">
-            <span class="local-feature-icon widgets-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <rect x="4" y="4" width="6" height="6" rx="1.2"></rect>
-                <rect x="14" y="4" width="6" height="6" rx="1.2"></rect>
-                <rect x="4" y="14" width="6" height="6" rx="1.2"></rect>
-                <rect x="14" y="14" width="6" height="6" rx="1.2"></rect>
-              </svg>
-            </span>
-            <div>
-              <h3>Beautiful widgets</h3>
-              <p>Glanceable widgets designed for your Home Screen.</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -170,6 +157,11 @@ const clarityCards = [
         <div class="phone-case phone-case-small">
           <div class="phone-screen-placeholder">
             <img class="phone-screen-image" src={forecastComparison.src} alt="Vista Weather forecast comparison" loading="lazy" />
+          </div>
+        </div>
+        <div class="phone-case phone-case-small">
+          <div class="phone-screen-placeholder">
+            <img class="phone-screen-image" src={garmischAlternatePredictions.src} alt="Vista Weather alternate model predictions for Garmisch" loading="lazy" />
           </div>
         </div>
       </div>

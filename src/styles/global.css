@@ -712,10 +712,6 @@ input {
   color: var(--violet);
 }
 
-.widgets-icon {
-  color: var(--aqua);
-}
-
 .local-feature h3 {
   margin: 0 0 8px;
   font-size: 16px;
@@ -731,9 +727,10 @@ input {
 
 .local-phones {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 36px;
+  gap: 24px;
   min-height: 500px;
 }
 
@@ -742,8 +739,9 @@ input {
   --phone-frame-radius: 38px;
   --phone-screen-radius: 31px;
   position: relative;
-  width: 210px;
-  flex: 0 0 auto;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 210px;
   top: auto;
   left: auto;
   right: auto;
@@ -1144,7 +1142,8 @@ input {
   }
 
   .phone-case-small {
-    width: 146px;
+    flex: 1 1 40%;
+    max-width: 170px;
     --phone-frame-padding: 7px;
     --phone-frame-radius: 30px;
     --phone-screen-radius: 24px;
