@@ -7,6 +7,7 @@ import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
 import parisDryToday from "../images/paris dry today.png";
 import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
+import forecastComparison from "../images/forecast_comparison.png";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
@@ -167,7 +168,9 @@ const clarityCards = [
           </div>
         </div>
         <div class="phone-case phone-case-small">
-          <div class="phone-screen-placeholder"></div>
+          <div class="phone-screen-placeholder">
+            <img class="phone-screen-image" src={forecastComparison.src} alt="Vista Weather forecast comparison" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
