@@ -709,32 +709,26 @@ input {
 }
 
 .local-phones {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 36px;
   min-height: 440px;
 }
 
 .phone-case-small {
+  position: relative;
   width: 184px;
-  top: 0;
+  flex: 0 0 auto;
+  top: auto;
+  left: auto;
+  right: auto;
   border-radius: 38px;
   padding: 7px;
 }
 
 .phone-case-small .phone-screen-placeholder {
   border-radius: 31px;
-}
-
-.phone-case-small:nth-child(1) {
-  left: 0;
-}
-
-.phone-case-small:nth-child(2) {
-  left: 220px;
-  top: 0;
-}
-
-.phone-case-small:nth-child(3) {
-  right: 0;
 }
 
 .site-footer {
@@ -1074,6 +1068,7 @@ input {
 
   .local-phones {
     min-height: 320px;
+    gap: 18px;
   }
 
   .phone-case-small {
@@ -1083,19 +1078,6 @@ input {
 
   .phone-case-small .phone-screen-placeholder {
     border-radius: 24px;
-  }
-
-  .phone-case-small:nth-child(1) {
-    left: 0;
-  }
-
-  .phone-case-small:nth-child(2) {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .phone-case-small:nth-child(3) {
-    right: 0;
   }
 
   .policy {

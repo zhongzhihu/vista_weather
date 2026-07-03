@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import StoreBadge from "../components/StoreBadge.astro";
 import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
 import parisAlternatePredictions from "../images/Paris_alternate_predictions.png";
+import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import "../styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -167,7 +168,9 @@ const clarityCards = [
 
       <div class="local-phones" aria-label="Vista Weather additional phone mockups">
         <div class="phone-case phone-case-small">
-          <div class="phone-screen-placeholder"></div>
+          <div class="phone-screen-placeholder">
+            <img class="phone-screen-image" src={edenPrairieNowcast.src} alt="Vista Weather nowcast for Eden Prairie" loading="lazy" />
+          </div>
         </div>
         <div class="phone-case phone-case-small">
           <div class="phone-screen-placeholder"></div>
