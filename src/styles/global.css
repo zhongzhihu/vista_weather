@@ -732,7 +732,7 @@ input {
   justify-content: space-between;
   align-items: flex-start;
   gap: 36px;
-  min-height: 440px;
+  min-height: 500px;
 }
 
 .phone-case-small {
@@ -740,7 +740,7 @@ input {
   --phone-frame-radius: 38px;
   --phone-screen-radius: 31px;
   position: relative;
-  width: 184px;
+  width: 210px;
   flex: 0 0 auto;
   top: auto;
   left: auto;
@@ -1077,12 +1077,12 @@ input {
   }
 
   .local-phones {
-    min-height: 320px;
+    min-height: 360px;
     gap: 18px;
   }
 
   .phone-case-small {
-    width: 130px;
+    width: 146px;
     --phone-frame-padding: 7px;
     --phone-frame-radius: 30px;
     --phone-screen-radius: 24px;
