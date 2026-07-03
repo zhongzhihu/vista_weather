@@ -29,6 +29,9 @@ body {
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Guard against any decorative element (e.g. tilted hero phone mockups)
+     poking past the edge and creating a horizontal scrollbar on mobile. */
+  overflow-x: hidden;
 }
 
 body {
@@ -588,13 +591,17 @@ input {
   transform: rotate(3deg);
 }
 
-.clarity-section {
-  padding: 30px 48px 24px;
-  background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+/* Stacked feature blocks (Acme-style): heading + text first, large phone
+   screenshot below. Blocks alternate the image side on wide screens and stack
+   text-over-image on narrow ones. */
+.features-section {
+  width: min(100% - 96px, 1060px);
+  margin: 0 auto;
+  padding: 30px 0 20px;
 }
 
-.clarity-section h2 {
-  margin: 0 0 22px;
+.features-title {
+  margin: 0 0 12px;
   text-align: center;
   font-family: var(--serif);
   font-size: 42px;
@@ -603,172 +610,82 @@ input {
   color: #252936;
 }
 
-.clarity-grid {
-  width: min(100%, 1130px);
-  margin: 0 auto;
+.feature-block {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 26px;
-}
-
-.clarity-card {
-  min-height: 250px;
-  padding: 31px 28px 28px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 42px rgba(46, 73, 108, 0.04);
-}
-
-.clarity-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  margin-bottom: 26px;
-}
-
-.clarity-icon svg {
-  width: 42px;
-  height: 42px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.clarity-icon-rain {
-  color: var(--blue);
-}
-
-.clarity-icon-rain svg path:first-child {
-  fill: currentColor;
-  stroke: none;
-}
-
-.clarity-icon-clock-purple {
-  color: var(--violet);
-}
-
-.clarity-icon-clock-teal {
-  color: var(--aqua);
-}
-
-.clarity-icon-shield {
-  color: var(--orange);
-}
-
-.clarity-card h3 {
-  margin: 0 0 12px;
-  font-size: 19px;
-  line-height: 1.2;
-  color: var(--ink);
-}
-
-.clarity-card p {
-  margin: 0;
-  color: var(--ink-2);
-  font-size: 15px;
-  line-height: 1.48;
-}
-
-.local-section {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: 48px;
   align-items: center;
-  width: min(100% - 96px, 1060px);
-  margin: 0 auto;
-  padding: 40px 0 50px;
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
 }
 
-.local-copy h2 {
-  margin: 0 0 20px;
+/* Alternate the image to the left on even blocks for visual rhythm. */
+.feature-block:nth-child(even) .feature-copy {
+  order: 2;
+}
+
+.feature-copy {
+  max-width: 460px;
+}
+
+.feature-copy h3 {
+  margin: 0 0 18px;
   font-family: var(--serif);
-  font-size: 32px;
-  line-height: 1.05;
+  font-size: 40px;
+  line-height: 1.02;
   font-weight: 400;
   color: #252936;
 }
 
-.local-copy > p {
-  margin: 0 0 30px;
-  color: var(--ink-2);
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.local-feature-list {
-  display: grid;
-  gap: 24px;
-}
-
-.local-feature {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 14px;
-  align-items: start;
-}
-
-.local-feature-icon {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-}
-
-.local-feature-icon svg {
-  width: 27px;
-  height: 27px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.pin-icon {
-  color: #2f6fe8;
-}
-
-.compare-icon {
-  color: var(--violet);
-}
-
-.local-feature h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
-  line-height: 1.2;
-}
-
-.local-feature p {
+.feature-copy p {
   margin: 0;
   color: var(--ink-2);
-  font-size: 13px;
-  line-height: 1.42;
+  font-size: 19px;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
-.local-phones {
+.feature-media {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-  min-height: 500px;
+  justify-content: center;
 }
 
-.phone-case-small {
-  --phone-frame-padding: 7px;
-  --phone-frame-radius: 38px;
-  --phone-screen-radius: 31px;
+.phone-case-feature {
+  --phone-frame-padding: 8px;
+  --phone-frame-radius: 44px;
+  --phone-screen-radius: 36px;
   position: relative;
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 255px;
+  width: 100%;
+  max-width: 288px;
   top: auto;
   left: auto;
   right: auto;
+}
+
+.about-section {
+  width: min(100% - 96px, 780px);
+  margin: 0 auto;
+  padding: 48px 0 64px;
+  text-align: center;
+}
+
+.about-section h2 {
+  margin: 0 0 20px;
+  font-family: var(--serif);
+  font-size: 34px;
+  line-height: 1.08;
+  font-weight: 400;
+  color: #252936;
+  text-wrap: balance;
+}
+
+.about-section p {
+  margin: 0 auto;
+  max-width: 560px;
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .site-footer {
@@ -989,17 +906,21 @@ input {
     right: -104px;
   }
 
-  .clarity-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .features-section {
+    width: min(100% - 48px, 920px);
   }
 
-  .local-section {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .feature-block {
+    gap: 36px;
+    padding: 48px 0;
   }
 
-  .local-copy {
-    max-width: 640px;
+  .feature-copy h3 {
+    font-size: 34px;
+  }
+
+  .feature-copy p {
+    font-size: 18px;
   }
 }
 
@@ -1138,39 +1059,50 @@ input {
     --phone-screen-radius: 23px;
   }
 
-  .clarity-section {
-    padding: 28px 16px 10px;
-  }
-
-  .clarity-section h2 {
-    font-size: 36px;
-  }
-
-  .clarity-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .clarity-card {
-    min-height: auto;
-  }
-
-  .local-section {
+  /* Stack every feature block: heading + text first, image below (Acme-style). */
+  .features-section {
     width: min(100% - 32px, 560px);
-    padding-top: 34px;
+    padding-top: 20px;
   }
 
-  .local-phones {
-    min-height: 360px;
-    gap: 18px;
+  .features-title {
+    font-size: 34px;
   }
 
-  .phone-case-small {
-    flex: 1 1 40%;
-    max-width: 170px;
-    --phone-frame-padding: 7px;
-    --phone-frame-radius: 30px;
-    --phone-screen-radius: 24px;
+  .feature-block {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 36px 0;
+  }
+
+  /* On mobile every block reads text-first, image-below — no alternating. */
+  .feature-block:nth-child(even) .feature-copy {
+    order: 0;
+  }
+
+  .feature-copy {
+    max-width: none;
+  }
+
+  .feature-copy h3 {
+    font-size: 30px;
+  }
+
+  .feature-copy p {
+    font-size: 17px;
+  }
+
+  .phone-case-feature {
+    max-width: 260px;
+  }
+
+  .about-section {
+    width: min(100% - 32px, 560px);
+    padding: 32px 0 48px;
+  }
+
+  .about-section h2 {
+    font-size: 28px;
   }
 
   .policy {
