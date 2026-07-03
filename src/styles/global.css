@@ -591,16 +591,21 @@ input {
   transform: rotate(3deg);
 }
 
-/* Stacked feature blocks (Acme-style): heading + text first, large phone
-   screenshot below. Blocks alternate the image side on wide screens and stack
-   text-over-image on narrow ones. */
+/* Feature blocks (Acme-style): heading + text first, large phone screenshot
+   below. On wide screens they sit in a 2-column grid (2×2); on mobile they
+   collapse to a single stacked column. */
 .features-section {
   width: min(100% - 96px, 1060px);
   margin: 0 auto;
   padding: 30px 0 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 56px;
+  row-gap: 8px;
 }
 
 .features-title {
+  grid-column: 1 / -1;
   margin: 0 0 12px;
   text-align: center;
   font-family: var(--serif);
@@ -611,27 +616,23 @@ input {
 }
 
 .feature-block {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
-  gap: 48px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 56px 0;
+  text-align: center;
+  padding: 40px 0 48px;
   border-top: 1px solid var(--line);
 }
 
-/* Alternate the image to the left on even blocks for visual rhythm. */
-.feature-block:nth-child(even) .feature-copy {
-  order: 2;
-}
-
 .feature-copy {
-  max-width: 460px;
+  max-width: 440px;
+  margin-bottom: 32px;
 }
 
 .feature-copy h3 {
-  margin: 0 0 18px;
+  margin: 0 0 16px;
   font-family: var(--serif);
-  font-size: 40px;
+  font-size: 38px;
   line-height: 1.02;
   font-weight: 400;
   color: #252936;
@@ -640,7 +641,7 @@ input {
 .feature-copy p {
   margin: 0;
   color: var(--ink-2);
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.55;
   text-wrap: pretty;
 }
@@ -908,19 +909,15 @@ input {
 
   .features-section {
     width: min(100% - 48px, 920px);
-  }
-
-  .feature-block {
-    gap: 36px;
-    padding: 48px 0;
+    column-gap: 40px;
   }
 
   .feature-copy h3 {
-    font-size: 34px;
+    font-size: 32px;
   }
 
   .feature-copy p {
-    font-size: 18px;
+    font-size: 17px;
   }
 }
 
@@ -1059,8 +1056,9 @@ input {
     --phone-screen-radius: 23px;
   }
 
-  /* Stack every feature block: heading + text first, image below (Acme-style). */
+  /* Single column: each block reads text-first, image-below (Acme-style). */
   .features-section {
+    grid-template-columns: 1fr;
     width: min(100% - 32px, 560px);
     padding-top: 20px;
   }
@@ -1070,18 +1068,18 @@ input {
   }
 
   .feature-block {
-    grid-template-columns: 1fr;
-    gap: 26px;
+    align-items: stretch;
+    text-align: left;
     padding: 36px 0;
-  }
-
-  /* On mobile every block reads text-first, image-below — no alternating. */
-  .feature-block:nth-child(even) .feature-copy {
-    order: 0;
   }
 
   .feature-copy {
     max-width: none;
+    margin-bottom: 26px;
+  }
+
+  .feature-media {
+    justify-content: flex-start;
   }
 
   .feature-copy h3 {
