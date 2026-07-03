@@ -491,26 +491,50 @@ input {
     inset 0 0 0 5px rgba(0, 0, 0, 0.58);
 }
 
+/* Physical side buttons, laid out to match the iPhone 17 Pro.
+   Left edge  (top -> bottom): Action Button (short), Volume Up, Volume Down.
+   Right edge (top -> bottom): Side / Power button (long), Camera Control.
+   Positions/sizes are percentages of the frame height so they stay correct
+   across the differently sized phone mockups. */
 .phone-case::before,
 .phone-case::after {
   content: "";
   position: absolute;
-  background: #111216;
-  border-radius: 2px;
+  width: 2.5px;
+  /* Machined-metal button shading: dark titanium with a top highlight and a
+     bottom shade baked into each pill via a vertical gradient. */
+  background-repeat: no-repeat;
 }
 
+/* Each pill uses this vertical-shade fill; the horizontal profile comes from
+   the edge (frame is to the right for the left rail, left for the right rail). */
 .phone-case::before {
-  left: -3px;
-  top: 112px;
-  width: 3px;
-  height: 64px;
+  left: -2px;
+  top: 17%;
+  height: 30%;
+  background-image:
+    /* Action Button (top, short) */
+    linear-gradient(180deg, #2a2b30, #131418 55%, #0a0b0e),
+    /* Volume Up (long) */
+    linear-gradient(180deg, #2a2b30, #131418 55%, #0a0b0e),
+    /* Volume Down (long) */
+    linear-gradient(180deg, #2a2b30, #131418 55%, #0a0b0e);
+  background-size: 100% 20%, 100% 26%, 100% 26%;
+  background-position: left top, left 42%, left 78%;
 }
 
+/* RIGHT rail: Side button (long) then Camera Control (shorter, lower). */
 .phone-case::after {
-  right: -3px;
-  top: 152px;
-  width: 3px;
-  height: 84px;
+  right: -2px;
+  top: 22%;
+  height: 34%;
+  background-image:
+    /* Side / Power button (top, long) */
+    linear-gradient(180deg, #2a2b30, #131418 55%, #0a0b0e),
+    /* Camera Control (lower, medium) */
+    linear-gradient(180deg, #2a2b30, #131418 55%, #0a0b0e);
+  background-size: 100% 55%, 100% 18%;
+  background-position: left top, left 82%;
 }
 
 .phone-screen-placeholder {
@@ -651,8 +675,8 @@ input {
 
 .local-section {
   display: grid;
-  grid-template-columns: 270px minmax(0, 1fr);
-  gap: 56px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
   align-items: center;
   width: min(100% - 96px, 1060px);
   margin: 0 auto;
