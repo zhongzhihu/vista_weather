@@ -1,198 +1,265 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import StoreBadge from "../components/StoreBadge.astro";
-import { Image } from "astro:assets";
-import mockupsImage from "../images/Vista Weather Beautiful City & Nature Photos.png";
 import "../styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
-const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL || "";
-const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY || "";
+const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
+const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
+const sfPhoto =
+  "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+const clarityCards = [
+  {
+    icon: "rain",
+    title: "Will it rain?",
+    copy: "See the chance of rain hour by hour with precise probability and intensity.",
+  },
+  {
+    icon: "clock-purple",
+    title: "When will it start?",
+    copy: "Minute-by-minute timing so you can plan ahead with confidence.",
+  },
+  {
+    icon: "clock-teal",
+    title: "When will it stop?",
+    copy: "Know when the rain clears so you can get on with your day.",
+  },
+  {
+    icon: "shield",
+    title: "How sure is the forecast?",
+    copy: "Understand confidence levels behind every forecast we show.",
+  },
+];
 ---
+
 <Layout>
-  <div class="page">
-    <div class="page-frame" aria-hidden="true"></div>
+  <main class="site-shell">
+    <section class="vista-hero" style={`--hero-photo: url("${sfPhoto}")`}>
+      <div class="vista-hero-shade"></div>
 
-    <!-- Masthead -->
-    <header class="masthead">
-      <div class="wordmark">
-        <span class="wordmark-name">Vista&nbsp;Weather</span>
-      </div>
-      <nav></nav>
-    </header>
+      <header class="hero-nav">
+        <a class="brand" href={baseUrl}>
+          <span class="brand-mark" aria-hidden="true">
+            <img src={`${baseUrl.replace(/\/$/, "")}/favicon.webp`} alt="" width="52" height="52" loading="eager" />
+          </span>
+          <span>Vista Weather</span>
+        </a>
 
-    <div class="rule" style="margin-top:14px"></div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a>
+        </nav>
 
-    <!-- Hero -->
-    <main class="hero-grid">
-      <section class="hero-left">
-        <h1 class="headline">
-          See the weather<br />
-          <em>through the beauty</em><br />
-          of each place.
-        </h1>
+      </header>
 
-        <p class="dek">
-          A weather app that sets every forecast against a photograph of where you are.
-        </p>
-
-        <div class="cta-row">
-          <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
-        </div>
-
-        <form
-          id="cta"
-          class="waitlist"
-          action={googleFormUrl}
-          method="POST"
-          target="hidden_iframe"
-        >
-          <label for="email-input" class="kicker" style="display:block;margin-bottom:8px">
-            Join the Google Play Store waitlist
-          </label>
-          <div class="waitlist-row">
-            <input
-              id="email-input"
-              type="email"
-              name={googleFormEmailEntry}
-              placeholder="your@address.com"
-              required
-            />
-            <button type="submit">
-              Notify&nbsp;me
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M2 8 H13 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-          <div id="form-message" class="kicker" style="margin-top:10px;color:var(--ink-3)">
-            No spam · One letter at launch
-          </div>
-        </form>
-        <iframe
-          name="hidden_iframe"
-          id="hidden_iframe"
-          style="display:none;"
-        ></iframe>
-      </section>
-
-      <section class="hero-right">
-        <Image
-          src={mockupsImage}
-          alt="Vista Weather App screenshots showcasing beautiful city and nature photos"
-          class="hero-mockups"
-          loading="eager"
-        />
-      </section>
-    </main>
-
-    <div class="rule" style="margin:48px 0 32px"></div>
-
-    <!-- App Details Section -->
-    <section class="app-details" aria-label="App story and features">
-      <div class="details-story">
-        <p class="kicker">Why Vista Weather</p>
-        <h2 class="serif-title">Designed by a data scientist to deliver clear, powerful, and beautiful forecasts.</h2>
-        <div class="story-content">
-          <p>
-            I have often felt underwhelmed by the design, accuracy, and clutter of typical weather apps. Most of them force you to dig around just to answer the most basic questions:
+      <div class="hero-content" id="app">
+        <div class="hero-copy">
+          <p class="hero-kicker">See the weather through the beauty of each place</p>
+          <h1>Accurate and Elegant Weather Forecasts</h1>
+          <p class="hero-dek">
+            Finally a powerful weather app that is both accurate and beautiful. 
           </p>
-          <ul class="story-questions">
-            <li>Will it rain?</li>
-            <li>When will it start?</li>
-            <li>When will it stop?</li>
-          </ul>
-          <p>
-            Therefore, I have decided to build my own weather app. Vista Weather is designed to help you understand the weather in just a couple of seconds, while still offering advanced tools when you want to go deeper.
-          </p>
+          <div class="hero-actions">
+            <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
+            <button class="waitlist-button" type="button" data-waitlist-open>Join Android waitlist</button>
+          </div>
         </div>
-      </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <span class="feature-num">01 / FORECAST CLARITY</span>
-          <h3>Hyper-local rain forecasts</h3>
-          <p>Get minute-by-minute rain forecasts for the next 4 hours, displaying exactly when precipitation starts and stops.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-num">02 / MODEL CONSENSUS</span>
-          <h3>Compare Forecasts</h3>
-          <p>View forecasts side-by-side across multiple data sources to understand uncertainty and different outcomes.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-num">03 / GLOBAL DATA</span>
-          <h3>Most Advanced Data Sources</h3>
-          <p>Provides forecasts from leading global models like Foreca alongside premier national bureaus—including the NWS (US), Deutscher Wetterdienst (DE), KNMI (Netherlands), and MET Norway.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-num">04 / EXTENDED OUTLOOK</span>
-          <h3>30-Day Window</h3>
-          <p>Plan ahead with a complete 30-day forecast view that lets you anticipate trends far in advance.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-num">05 / SYSTEM INTEGRATION</span>
-          <h3>Home Screen Widgets</h3>
-          <p>Access weather updates instantly with beautifully designed widgets that bring clarity directly to your home screen.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-num">06 / BEAUTIFUL PHOTOS</span>
-          <h3>Contextual Backdrops</h3>
-          <p>Curated photography from Pexels and Unsplash dynamically shows images matching your location, nearby cities, or current nature scenes.</p>
+        <div class="hero-phones" aria-label="Vista Weather phone mockups">
+          <div class="phone-case phone-case-primary">
+            <div class="phone-screen-placeholder">
+              <span class="phone-island"></span>
+            </div>
+          </div>
+          <div class="phone-case phone-case-secondary">
+            <div class="phone-screen-placeholder">
+              <span class="phone-island"></span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="rule" style="margin:48px 0 32px"></div>
-
-    <footer class="foot">
-      <div class="kicker">Vista&nbsp;Weather&nbsp;&copy;&nbsp;2026</div>
-      <div class="kicker" style="text-align:center">Now Available on iOS<br />Coming soon to Android</div>
-      <div class="kicker" style="text-align:right">
-        <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a> &middot; <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
+    <section class="clarity-section" id="features">
+      <h2>Designed for accuracy</h2>
+      <div class="clarity-grid">
+        {clarityCards.map((card) => (
+          <article class="clarity-card">
+            <span class={`clarity-icon clarity-icon-${card.icon}`} aria-hidden="true">
+              {card.icon === "rain" && (
+                <svg viewBox="0 0 32 32">
+                  <path d="M8 20c-3.1 0-5.2-2-5.2-4.7 0-2.6 2-4.6 4.7-4.7C8.5 6.9 11.6 4.5 15.6 4.5c4.5 0 7.9 3 8.3 7.2 2.9.5 5 2.7 5 5.5 0 3.1-2.4 5.3-5.8 5.3H8Z"></path>
+                  <path d="m9 28 1.6-3.5M16 28l1.6-3.5M23 28l1.6-3.5"></path>
+                </svg>
+              )}
+              {(card.icon === "clock-purple" || card.icon === "clock-teal") && (
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="11.5"></circle>
+                  <path d="M16 8.5V16l5.2 3.2"></path>
+                </svg>
+              )}
+              {card.icon === "shield" && (
+                <svg viewBox="0 0 32 32">
+                  <path d="M16 4.5 26 8v7.3c0 6-4.1 10.2-10 12.2C10.1 25.5 6 21.3 6 15.3V8l10-3.5Z"></path>
+                  <path d="m11.7 16 3.1 3.1 6-6.5"></path>
+                </svg>
+              )}
+            </span>
+            <h3>{card.title}</h3>
+            <p>{card.copy}</p>
+          </article>
+        ))}
       </div>
+    </section>
+
+    <section class="local-section" id="photos">
+      <div class="local-copy" id="about">
+        <h2>Designed by a data scientist to deliver clear, powerful, and beautiful forecasts.</h2>
+        <p>
+          Stunning photography, hyper-local insights, and intuitive tools that help you plan every day with confidence.
+        </p>
+
+        <div class="local-feature-list">
+          <div class="local-feature">
+            <span class="local-feature-icon pin-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21s7-6.2 7-12A7 7 0 1 0 5 9c0 5.8 7 12 7 12Z"></path>
+                <circle cx="12" cy="9" r="2.5"></circle>
+              </svg>
+            </span>
+            <div>
+              <h3>Hyper-local rain</h3>
+              <p>Minute-by-minute rain timing right where you are.</p>
+            </div>
+          </div>
+
+          <div class="local-feature">
+            <span class="local-feature-icon compare-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 18a5 5 0 1 1 3.9-8.1A5.5 5.5 0 1 1 18 17.8"></path>
+                <path d="M5 19h6M13 19h6"></path>
+              </svg>
+            </span>
+            <div>
+              <h3>Forecast comparison</h3>
+              <p>Compare multiple locations side by side.</p>
+            </div>
+          </div>
+
+          <div class="local-feature">
+            <span class="local-feature-icon widgets-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="4" width="6" height="6" rx="1.2"></rect>
+                <rect x="14" y="4" width="6" height="6" rx="1.2"></rect>
+                <rect x="4" y="14" width="6" height="6" rx="1.2"></rect>
+                <rect x="14" y="14" width="6" height="6" rx="1.2"></rect>
+              </svg>
+            </span>
+            <div>
+              <h3>Beautiful widgets</h3>
+              <p>Glanceable widgets designed for your Home Screen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="local-phones" aria-label="Vista Weather additional phone mockups">
+        <div class="phone-case phone-case-small">
+          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+        </div>
+        <div class="phone-case phone-case-small">
+          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+        </div>
+        <div class="phone-case phone-case-small">
+          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>Vista Weather &copy; 2026</span>
+      <span>Now available on iOS. Coming soon to Android.</span>
+      <span>
+        <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a>
+        <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
+      </span>
     </footer>
+  </main>
+
+  <div class="waitlist-modal" data-waitlist-modal hidden>
+    <button class="waitlist-backdrop" type="button" aria-label="Close Android waitlist form" data-waitlist-close></button>
+    <div
+      class="waitlist-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="android-waitlist-title"
+    >
+      <button class="waitlist-close" type="button" aria-label="Close Android waitlist form" data-waitlist-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h2 id="android-waitlist-title">Join Android waitlist</h2>
+      <p>Enter your email and we will let you know when Vista Weather is ready for Android.</p>
+      <form
+        class="waitlist-form"
+        action={googleFormUrl}
+        method="POST"
+        target="android-waitlist-frame"
+        data-waitlist-form
+      >
+        <label class="sr-only" for="android-waitlist-email">Email address</label>
+        <input
+          id="android-waitlist-email"
+          class="waitlist-input"
+          type="email"
+          name={googleFormEmailEntry}
+          placeholder="Email address"
+          autocomplete="email"
+          inputmode="email"
+          required
+          data-waitlist-email
+        />
+        <button class="waitlist-submit" type="submit">Join</button>
+        <p class="waitlist-status" data-waitlist-status aria-live="polite"></p>
+      </form>
+      <iframe class="waitlist-frame" name="android-waitlist-frame" title="Android waitlist submission"></iframe>
+    </div>
   </div>
-
-  <style is:global>
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-  </style>
-
-  <script is:inline>
-    const form = document.getElementById("cta");
-    const iframe = document.getElementById("hidden_iframe");
-    const submitButton = form.querySelector("button[type='submit']");
-    const originalBtnHtml = submitButton.innerHTML;
-    const formMessage = document.getElementById("form-message");
-
-    let submitted = false;
-
-    form.addEventListener("submit", (e) => {
-      const action = form.getAttribute("action");
-      const emailInputName = form.querySelector("input[type='email']").getAttribute("name");
-
-      if (!action || !emailInputName) {
-        e.preventDefault();
-        formMessage.style.color = "#ff4444";
-        formMessage.textContent = "Error: Google Form settings are not configured in your .env file.";
-        return;
-      }
-
-      submitted = true;
-      submitButton.disabled = true;
-      submitButton.innerHTML = `Adding... <svg class="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; margin-left: 4px;"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2" stroke-dasharray="10 30" fill="none"></circle></svg>`;
-    });
-
-    iframe.addEventListener("load", () => {
-      if (submitted) {
-        formMessage.style.color = "var(--ink)";
-        formMessage.textContent = "Success! You have been added to the waitlist.";
-        form.reset();
-        submitButton.innerHTML = "Success";
-        submitted = false;
-      }
-    });
-  </script>
 </Layout>
+
+<script>
+  const openButton = document.querySelector("[data-waitlist-open]");
+  const modal = document.querySelector("[data-waitlist-modal]");
+  const closeButtons = document.querySelectorAll("[data-waitlist-close]");
+  const form = modal?.querySelector("[data-waitlist-form]");
+  const emailInput = modal?.querySelector("[data-waitlist-email]");
+  const status = modal?.querySelector("[data-waitlist-status]");
+
+  const closeModal = () => {
+    modal?.setAttribute("hidden", "");
+    document.body.classList.remove("waitlist-modal-open");
+  };
+
+  openButton?.addEventListener("click", () => {
+    modal?.removeAttribute("hidden");
+    document.body.classList.add("waitlist-modal-open");
+    if (emailInput instanceof HTMLInputElement) {
+      emailInput.focus();
+    }
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", closeModal);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  form?.addEventListener("submit", () => {
+    if (status) {
+      status.textContent = "Thanks, you are on the Android list.";
+    }
+  });
+</script>

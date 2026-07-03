@@ -4,5 +4,7 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://vistaweather.com",
   compressHTML: true,
+  devToolbar: {
+    enabled: false,
+  },
 });
-
