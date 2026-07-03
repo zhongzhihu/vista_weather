@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import StoreBadge from "../components/StoreBadge.astro";
 import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
 import parisDryToday from "../images/paris dry today.png";
@@ -7,7 +9,6 @@ import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import "../styles/global.css";
 
-const baseUrl = import.meta.env.BASE_URL;
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
 const sfPhoto =
@@ -39,23 +40,7 @@ const clarityCards = [
 
 <Layout>
   <main class="site-shell">
-    <section class="vista-hero" style={`--hero-photo: url("${sfPhoto}")`}>
-      <div class="vista-hero-shade"></div>
-
-      <header class="hero-nav">
-        <a class="brand" href={baseUrl}>
-          <span class="brand-mark" aria-hidden="true">
-            <img src={`${baseUrl.replace(/\/$/, "")}/favicon.webp`} alt="" width="52" height="52" loading="eager" />
-          </span>
-          <span>Vista Weather</span>
-        </a>
-
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a>
-        </nav>
-
-      </header>
-
+    <Header heroPhoto={sfPhoto}>
       <div class="hero-content" id="app">
         <div class="hero-copy">
           <p class="hero-kicker">See the weather through the beauty of each place</p>
@@ -85,7 +70,7 @@ const clarityCards = [
           </div>
         </div>
       </div>
-    </section>
+    </Header>
 
     <section class="clarity-section" id="features">
       <h2>Designed for accuracy</h2>
@@ -187,14 +172,7 @@ const clarityCards = [
       </div>
     </section>
 
-    <footer class="site-footer">
-      <span>Vista Weather &copy; 2026</span>
-      <span>Now available on iOS. Coming soon to Android.</span>
-      <span>
-        <a href={`${baseUrl.replace(/\/$/, "")}/support/`}>Support</a>
-        <a href={`${baseUrl.replace(/\/$/, "")}/privacy/`}>Privacy</a>
-      </span>
-    </footer>
+    <Footer />
   </main>
 
   <div class="waitlist-modal" data-waitlist-modal hidden>

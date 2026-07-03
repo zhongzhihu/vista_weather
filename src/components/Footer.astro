@@ -1,0 +1,15 @@
+---
+// Shared site footer used across all pages.
+const baseUrl = import.meta.env.BASE_URL;
+const supportHref = `${baseUrl.replace(/\/$/, "")}/support/`;
+const privacyHref = `${baseUrl.replace(/\/$/, "")}/privacy/`;
+---
+
+<footer class="site-footer">
+  <span>Vista Weather &copy; 2026</span>
+  <span>Now available on iOS. Coming soon to Android.</span>
+  <span>
+    <a href={supportHref}>Support</a>
+    <a href={privacyHref}>Privacy</a>
+  </span>
+</footer>

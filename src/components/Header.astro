@@ -1,0 +1,46 @@
+---
+// Shared site hero + navigation. Renders the hero background photo, the shade
+// overlay, and the top nav (brand + Support). Page-specific hero content is
+// passed via the default slot.
+//
+// The shade layer and nav are marked `transition:persist` so they stay mounted
+// across client-side navigation (Astro View Transitions) — only the slotted
+// hero content below actually swaps. The <section> shares a `transition:name`
+// so its background photo animates as one continuous element instead of
+// reloading.
+export interface Props {
+  heroPhoto?: string;
+}
+
+const {
+  heroPhoto = "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
+const home = baseUrl;
+const supportHref = `${baseUrl.replace(/\/$/, "")}/support/`;
+---
+
+<section
+  class="vista-hero"
+  style={`--hero-photo: url("${heroPhoto}")`}
+  transition:name="site-hero"
+  transition:animate="none"
+>
+  <div class="vista-hero-shade" transition:persist></div>
+
+  <header class="hero-nav" transition:persist="site-nav">
+    <a class="brand" href={home}>
+      <span class="brand-mark" aria-hidden="true">
+        <img src={`${baseUrl.replace(/\/$/, "")}/favicon.webp`} alt="" width="52" height="52" loading="eager" />
+      </span>
+      <span>Vista Weather</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href={supportHref}>Support</a>
+    </nav>
+  </header>
+
+  <slot />
+</section>

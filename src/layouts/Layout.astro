@@ -1,5 +1,7 @@
 ---
 // Global page layout: <head>, fonts, SEO meta, OG tags.
+import { ViewTransitions } from "astro:transitions";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -48,6 +50,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <ViewTransitions />
   </head>
   <body>
     <slot />
