@@ -552,6 +552,7 @@ input {
   width: 330px;
   left: 74px;
   top: -28px;
+  z-index: 2;
   transform: rotate(-4deg);
 }
 
@@ -559,6 +560,7 @@ input {
   width: 330px;
   right: -135px;
   top: -28px;
+  z-index: 1;
   transform: rotate(3deg);
 }
 
