@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import StoreBadge from "../components/StoreBadge.astro";
+import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
+import parisAlternatePredictions from "../images/Paris_alternate_predictions.png";
 import "../styles/global.css";
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -68,12 +70,12 @@ const clarityCards = [
         <div class="hero-phones" aria-label="Vista Weather phone mockups">
           <div class="phone-case phone-case-primary">
             <div class="phone-screen-placeholder">
-              <span class="phone-island"></span>
+              <img class="phone-screen-image" src={sfNowcastRain.src} alt="Vista Weather rain nowcast for San Francisco" loading="eager" />
             </div>
           </div>
           <div class="phone-case phone-case-secondary">
             <div class="phone-screen-placeholder">
-              <span class="phone-island"></span>
+              <img class="phone-screen-image" src={parisAlternatePredictions.src} alt="Vista Weather alternate predictions for Paris" loading="eager" />
             </div>
           </div>
         </div>
@@ -165,13 +167,13 @@ const clarityCards = [
 
       <div class="local-phones" aria-label="Vista Weather additional phone mockups">
         <div class="phone-case phone-case-small">
-          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+          <div class="phone-screen-placeholder"></div>
         </div>
         <div class="phone-case phone-case-small">
-          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+          <div class="phone-screen-placeholder"></div>
         </div>
         <div class="phone-case phone-case-small">
-          <div class="phone-screen-placeholder"><span class="phone-island"></span></div>
+          <div class="phone-screen-placeholder"></div>
         </div>
       </div>
     </section>
