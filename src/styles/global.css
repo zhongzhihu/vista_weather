@@ -1037,26 +1037,29 @@ input {
     width: 100%;
   }
 
+  /* On mobile the fanned two-phone composition has no room to breathe and
+     the second phone clips off-screen, so show a single upright, centered
+     SF phone at a comfortable size and drop the Paris one. */
   .hero-phones {
-    min-height: 175px;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 8px;
   }
 
   .phone-case-primary {
-    width: 126px;
-    left: 82px;
-    top: 0;
-    --phone-frame-padding: 5px;
-    --phone-frame-radius: 28px;
-    --phone-screen-radius: 23px;
+    position: relative;
+    width: min(62%, 220px);
+    left: auto;
+    top: auto;
+    transform: none;
+    --phone-frame-padding: 7px;
+    --phone-frame-radius: 40px;
+    --phone-screen-radius: 33px;
   }
 
   .phone-case-secondary {
-    width: 126px;
-    right: -10px;
-    top: 0;
-    --phone-frame-padding: 5px;
-    --phone-frame-radius: 28px;
-    --phone-screen-radius: 23px;
+    display: none;
   }
 
   /* Single column: each block reads text-first, image-below (Acme-style). */
