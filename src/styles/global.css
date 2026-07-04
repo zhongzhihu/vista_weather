@@ -971,9 +971,38 @@ input {
 
   .hero-content {
     width: min(100% - 32px, 560px);
+    display: flex;
+    flex-direction: column;
     gap: 18px;
     min-height: 0;
     padding: 44px 0 16px;
+  }
+
+  /* Flatten .hero-copy so its children (kicker/h1/dek/actions) become direct
+     flex children of .hero-content and can be reordered around .hero-phones.
+     Target order on mobile: copy text -> phone -> CTA buttons. */
+  .hero-copy {
+    display: contents;
+  }
+
+  .hero-kicker {
+    order: 1;
+  }
+
+  .hero-copy h1 {
+    order: 2;
+  }
+
+  .hero-dek {
+    order: 3;
+  }
+
+  .hero-phones {
+    order: 4;
+  }
+
+  .hero-actions {
+    order: 5;
   }
 
   .hero-page {
@@ -990,7 +1019,13 @@ input {
     font-size: 17px;
   }
 
+  /* Hide the Support nav link and the hero kicker on mobile. */
+  .main-nav {
+    display: none;
+  }
+
   .hero-kicker {
+    display: none;
     margin-bottom: 18px;
     font-size: 12px;
   }
@@ -1003,17 +1038,54 @@ input {
     font-size: 16px;
   }
 
+  /* Two CTAs on one line, sharing the row equally at a matching height. */
   .hero-actions {
-    gap: 14px;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  /* Both CTAs share the row 50/50 at a matching height. Use an explicit equal
+     basis (half the row minus half the gap) so neither the badge's intrinsic
+     image ratio nor the waitlist text can make the two items unequal. */
+  .hero-actions .store-badge-official,
+  .hero-actions .waitlist-button {
+    flex: 0 0 calc((100% - 12px) / 2);
+    width: calc((100% - 12px) / 2);
+    min-width: 0;
+    height: 54px;
+    min-height: 54px;
   }
 
   .hero-actions .store-badge-official {
-    --store-badge-height: 50px;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* Vector badge stretches to fill its half of the row on both axes (SVG
+     scales without blur, so no cropping). aspect-ratio:auto keeps the img's
+     intrinsic 196x58 ratio from capping the flex item's width so both CTAs
+     end up exactly equal. */
+  .hero-actions .store-badge-official img {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: auto;
+    object-fit: fill;
   }
 
   .waitlist-button {
-    min-height: 50px;
-    min-width: 170px;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .waitlist-button-note {
+    display: none;
   }
 
   .waitlist-dialog {
@@ -1065,7 +1137,7 @@ input {
   /* Single column: each block reads text-first, image-below (Acme-style). */
   .features-section {
     grid-template-columns: 1fr;
-    width: min(100% - 32px, 560px);
+    width: min(100% - 44px, 560px);
     padding-top: 20px;
   }
 
@@ -1085,11 +1157,12 @@ input {
   }
 
   .feature-media {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .feature-copy h3 {
     font-size: 30px;
+    text-align: center;
   }
 
   .feature-copy p {
