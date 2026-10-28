@@ -12,7 +12,6 @@ import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
-const satellitePhoto = "/satellite-hero-20261009.jpg";
 
 // Feature blocks, presented Acme-style: heading + descriptive text first,
 // then a large phone screenshot below. Each block alternates the image side on
@@ -47,7 +46,7 @@ const features = [
 
 <Layout>
   <main class="site-shell">
-    <Header heroPhoto={satellitePhoto}>
+    <Header>
       <div class="hero-content" id="app">
         <div class="hero-copy">
           <p class="hero-kicker">Forecasts. Maps. Storm Tracking.</p>
