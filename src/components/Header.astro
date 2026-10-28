@@ -18,7 +18,6 @@ const {
 
 const baseUrl = import.meta.env.BASE_URL;
 const home = baseUrl;
-const supportHref = `${baseUrl.replace(/\/$/, "")}/support/`;
 ---
 
 <section
@@ -36,10 +35,6 @@ const supportHref = `${baseUrl.replace(/\/$/, "")}/support/`;
       </span>
       <span>Vista Weather</span>
     </a>
-
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href={supportHref}>Support</a>
-    </nav>
   </header>
 
   <slot />

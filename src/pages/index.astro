@@ -59,7 +59,7 @@ const features = [
             <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
             <button class="waitlist-button" type="button" data-waitlist-open>
               <span>Join Android waitlist</span>
-              <span class="waitlist-button-note">Expected Sep '26</span>
+              <span class="waitlist-button-note">Expected Dec '26</span>
             </button>
           </div>
         </div>
@@ -73,19 +73,25 @@ const features = [
 
         </div>
       </div>
-      <div class="storm-map" data-storm-map aria-hidden="true">
-        <svg class="storm-map-lines" data-storm-lines></svg>
+      <div class="storm-map" data-storm-map role="group" aria-label="Interactive storm tracks">
+        <svg class="storm-map-lines" data-storm-lines aria-hidden="true"></svg>
       </div>
+      <!-- Simon's values reflect the latest NHC update available by 1900 UTC (3 PM EDT in New York) on Oct 9, 2026. -->
       <aside class="storm-callouts" aria-label="Storm trajectory details">
-        <article class="storm-callout storm-callout-rachel" data-storm-callout="rachel">
+        <article class="storm-callout storm-callout-rachel" id="storm-callout-rachel" data-storm-callout="rachel" aria-label="Tropical Storm Rachel details">
           <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
           <p class="storm-callout-name">Tropical Storm Rachel</p>
           <p class="storm-callout-detail">Max winds 50 mph · Moving NE at 5 mph</p>
         </article>
-        <article class="storm-callout storm-callout-isaias" data-storm-callout="isaias">
+        <article class="storm-callout storm-callout-isaias" id="storm-callout-isaias" data-storm-callout="isaias" aria-label="Hurricane Isaias details">
           <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
           <p class="storm-callout-name">Hurricane Isaias</p>
           <p class="storm-callout-detail">Max winds 120 mph · Moving N at 17 mph</p>
+        </article>
+        <article class="storm-callout storm-callout-simon" id="storm-callout-simon" data-storm-callout="simon" aria-label="Hurricane Simon details" hidden>
+          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-name">Hurricane Simon</p>
+          <p class="storm-callout-detail">Max winds 100 mph · Moving NW at 2 mph</p>
         </article>
       </aside>
     </Header>
@@ -177,6 +183,12 @@ const features = [
   // rather than baked into it. Coordinates are pixels in the hero JPG, mapped
   // with the same cover + centre + scale(1.02) transform as .vista-hero::before.
   const SVG_NS = "http://www.w3.org/2000/svg";
+  const stormNames: Record<string, string> = {
+    rachel: "Tropical Storm Rachel",
+    isaias: "Hurricane Isaias",
+    simon: "Hurricane Simon",
+  };
+  const activeCallouts = new Set(["rachel", "isaias"]);
 
   const svgElement = (name: string, attributes: Record<string, string | number>) => {
     const element = document.createElementNS(SVG_NS, name);
@@ -198,33 +210,53 @@ const features = [
 
     lines.setAttribute("viewBox", `0 0 ${width} ${height}`);
     lines.replaceChildren();
-    map.querySelectorAll(".storm-marker").forEach((marker) => marker.remove());
 
     const anchors: Record<string, number[]> = {};
     const endpoints: Record<string, number[]> = {};
     for (const storm of stormHero.storms) {
+      const stormKey = storm.callout ?? storm.id.toLowerCase();
+      const stormName = stormNames[stormKey] ?? "Tropical cyclone";
       lines.append(svgElement("path", { class: "storm-track-past", d: toPath(storm.past) }));
       lines.append(svgElement("path", { class: "storm-track-forecast", d: toPath(storm.forecast) }));
       const [endX, endY] = project(storm.forecast[storm.forecast.length - 1]);
       lines.append(svgElement("circle", { class: "storm-track-end", cx: endX, cy: endY, r: 5 }));
 
       const [x, y] = project(storm.current);
-      const marker = document.createElement("span");
-      marker.className = "storm-marker";
+      let marker = map.querySelector<HTMLButtonElement>(`[data-storm-marker="${stormKey}"]`);
+      if (!marker) {
+        marker = document.createElement("button");
+        marker.type = "button";
+        marker.className = "storm-marker";
+        marker.dataset.stormMarker = stormKey;
+        marker.setAttribute("aria-label", `Toggle details for ${stormName}`);
+        marker.setAttribute("aria-controls", `storm-callout-${stormKey}`);
+        marker.addEventListener("click", () => {
+          if (activeCallouts.has(stormKey)) {
+            activeCallouts.delete(stormKey);
+          } else {
+            activeCallouts.add(stormKey);
+          }
+          layoutStormMap(hero, map, lines);
+        });
+        map.append(marker);
+      }
       marker.style.left = `${x}px`;
       marker.style.top = `${y}px`;
-      map.append(marker);
+      marker.setAttribute("aria-expanded", String(activeCallouts.has(stormKey)));
       if (storm.callout) {
         anchors[storm.callout] = [x, y];
         endpoints[storm.callout] = [endX, endY];
       }
     }
 
-    // Cards follow the app's onboarding: Isaias beside its storm, Rachel
-    // above hers, each tied back by a thin leader line and kept clear of the
-    // hero copy, the storms and their tracks.
+    // The two original cards appear on load. Each marker toggles only its own
+    // callout, leaving the other storm details in their current state.
     const callouts = hero.querySelectorAll<HTMLElement>("[data-storm-callout]");
-    if (!callouts.length || !callouts[0].getClientRects().length) return;
+    callouts.forEach((card) => {
+      card.hidden = !activeCallouts.has(card.dataset.stormCallout ?? "");
+    });
+    const visibleCallouts = Array.from(callouts).filter((card) => !card.hidden);
+    if (!visibleCallouts.length || !visibleCallouts[0].getClientRects().length) return;
     const copyEl = hero.querySelector<HTMLElement>(".hero-copy");
     const copyHeading = copyEl?.querySelector<HTMLElement>("h1");
     const heroBox = hero.getBoundingClientRect();
@@ -234,8 +266,9 @@ const features = [
     const gutter = 24;
     const markerGap = 22;
 
-    for (const card of callouts) {
-      const anchor = anchors[card.dataset.stormCallout ?? ""];
+    for (const card of visibleCallouts) {
+      const calloutKey = card.dataset.stormCallout ?? "";
+      const anchor = anchors[calloutKey];
       if (!anchor) continue;
       const [x, y] = anchor;
       const cardWidth = card.offsetWidth;
@@ -244,17 +277,23 @@ const features = [
       let top: number;
       let leader: number[];
 
-      if (card.dataset.stormCallout === "isaias" && x + 110 + cardWidth <= width - gutter) {
+      if (calloutKey === "simon") {
+        // Simon's card sits southwest of the southern marker, clear of the
+        // cyclone icons and the hero copy.
+        left = Math.max(gutter, Math.min(x - cardWidth - 28, width - cardWidth - gutter));
+        top = Math.max(gutter, Math.min(y + markerGap + 8, height - cardHeight - gutter));
+        leader = [x - markerGap + 2, y + 8, left + cardWidth, top + 18];
+      } else if (calloutKey === "isaias" && x + 110 + cardWidth <= width - gutter) {
         left = x + 110;
         top = y - cardHeight / 2 + 18;
         leader = [x + markerGap, y + 4, left, top + cardHeight / 2];
-      } else if (card.dataset.stormCallout === "isaias") {
+      } else if (calloutKey === "isaias") {
         left = Math.min(Math.max(x - cardWidth * 0.48, copyRight + gutter), width - cardWidth - gutter);
         top = y - cardHeight - 64;
         leader = [x, y - markerGap, x, top + cardHeight];
       } else {
-        // Rachel: place above her storm so the southern storm (EP202026) and all tracks stay visible
-        const endAnchor = endpoints[card.dataset.stormCallout ?? ""];
+        // Rachel: place above her storm so the southern storm and all tracks stay visible.
+        const endAnchor = endpoints[calloutKey];
         const maxTopFromTrack = endAnchor ? endAnchor[1] - cardHeight - 20 : y - cardHeight - 60;
         top = Math.max(gutter + 64, Math.min(y - cardHeight - 60, maxTopFromTrack));
         left = Math.min(Math.max(x - cardWidth * 0.4, copyRight + gutter), width - cardWidth - gutter);
