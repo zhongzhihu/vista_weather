@@ -591,6 +591,161 @@ input {
   transform: rotate(3deg);
 }
 
+/* The homepage satellite image is brighter than the shared photo hero. */
+.site-shell:not(.site-shell-text) .vista-hero::before {
+  filter: brightness(0.9) contrast(1.04);
+  background-position: center 30%;
+}
+
+.site-shell:not(.site-shell-text) .vista-hero-shade {
+  background: linear-gradient(90deg, rgba(2, 8, 20, 0.7), rgba(2, 8, 20, 0.22) 35%, transparent 65%),
+    linear-gradient(0deg, rgba(2, 8, 20, 0.2), transparent 35%);
+}
+
+@media (min-width: 1081px) {
+  .site-shell:not(.site-shell-text) .vista-hero {
+    min-height: 500px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-content {
+    width: calc(100% - 12%);
+    grid-template-columns: 220px minmax(0, 390px);
+    gap: 24px;
+    min-height: 385px;
+    padding: 0;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-phones {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-copy {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    padding-top: 14px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-copy h1 {
+    font-size: 48px;
+    max-width: 340px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-kicker {
+    margin-bottom: 12px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-dek {
+    margin-top: 12px;
+    max-width: 330px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-actions {
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .site-shell:not(.site-shell-text) .hero-phones {
+    min-height: 385px;
+  }
+
+  .site-shell:not(.site-shell-text) .phone-case-primary {
+    width: 220px;
+    left: 0;
+    top: -16px;
+    transform: rotate(-4deg);
+  }
+}
+
+.storm-callouts {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  color: #101828;
+  font-family: var(--sans, Arial, sans-serif);
+}
+
+.storm-callout {
+  position: absolute;
+  max-width: min(310px, 30vw);
+  padding: 12px 16px;
+  border: 1px solid rgba(12, 25, 43, 0.08);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14), 0 12px 30px rgba(3, 13, 27, 0.2);
+  line-height: 1.35;
+}
+
+.storm-callout p { margin: 0; }
+.storm-callout-time { font-size: 14px; font-weight: 750; }
+.storm-callout-name { margin-top: 2px !important; font-size: 14px; font-weight: 700; }
+.storm-callout-detail { margin-top: 3px !important; color: #475467; font-size: 13px; }
+/* Fallback spots until the storm map script places each card by its storm. */
+.storm-callout-rachel { left: 48%; top: 110px; }
+.storm-callout-isaias { right: 5.5%; top: 135px; }
+
+/* Storm icons and tracks drawn over the satellite photo, matching the
+   VistaWeather app's onboarding and forecast map styling. */
+.storm-map {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.storm-map-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.storm-track-past {
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 2.5;
+}
+
+.storm-track-forecast {
+  stroke: #ff7d05;
+  stroke-width: 3.5;
+  stroke-dasharray: 9 7;
+}
+
+.storm-track-end {
+  fill: white;
+  stroke: #ff7d05;
+  stroke-width: 2.5;
+}
+
+.storm-leader {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 1.4;
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45));
+}
+
+.storm-marker {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  background: url("/cyclone-icon.svg") center / contain no-repeat;
+  animation: cyclone-spin 10s linear infinite;
+}
+
+@keyframes cyclone-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .storm-marker { animation: none; }
+}
+
 /* Feature blocks (Acme-style): heading + text first, large phone screenshot
    below. On wide screens they sit in a 2-column grid (2×2); on mobile they
    collapse to a single stacked column. */
@@ -881,6 +1036,7 @@ input {
 }
 
 @media (max-width: 1080px) {
+  .storm-callouts { display: none; }
   .hero-content {
     width: min(100% - 48px, 920px);
   }

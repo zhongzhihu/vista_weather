@@ -4,7 +4,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import StoreBadge from "../components/StoreBadge.astro";
 import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
-import parisDryToday from "../images/paris dry today.png";
 import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
@@ -13,8 +12,7 @@ import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
-const sfPhoto =
-  "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+const satellitePhoto = "/satellite-hero-20261009.jpg";
 
 // Feature blocks, presented Acme-style: heading + descriptive text first,
 // then a large phone screenshot below. Each block alternates the image side on
@@ -49,13 +47,13 @@ const features = [
 
 <Layout>
   <main class="site-shell">
-    <Header heroPhoto={sfPhoto}>
+    <Header heroPhoto={satellitePhoto}>
       <div class="hero-content" id="app">
         <div class="hero-copy">
-          <p class="hero-kicker">See the weather through the beauty of each place</p>
-          <h1>Accurate Forecasts Elegant Design</h1>
+          <p class="hero-kicker">Forecasts. Maps. Storm Tracking.</p>
+          <h1>All-in-One Weather App</h1>
           <p class="hero-dek">
-            Finally a powerful weather app that is both accurate and beautiful.
+            Accurate forecasts, powerful maps, and real-time storm tracking.
           </p>
           <div class="hero-actions">
             <StoreBadge kind="ios" soon={false} href="https://apps.apple.com/us/app/id6768575893" />
@@ -72,13 +70,24 @@ const features = [
               <img class="phone-screen-image" src={sfNowcastRain.src} alt="Vista Weather rain nowcast for San Francisco" loading="eager" />
             </div>
           </div>
-          <div class="phone-case phone-case-secondary">
-            <div class="phone-screen-placeholder">
-              <img class="phone-screen-image" src={parisDryToday.src} alt="Vista Weather dry today forecast for Paris" loading="eager" />
-            </div>
-          </div>
+
         </div>
       </div>
+      <div class="storm-map" data-storm-map aria-hidden="true">
+        <svg class="storm-map-lines" data-storm-lines></svg>
+      </div>
+      <aside class="storm-callouts" aria-label="Storm trajectory details">
+        <article class="storm-callout storm-callout-rachel" data-storm-callout="rachel">
+          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-name">Tropical Storm Rachel</p>
+          <p class="storm-callout-detail">Max winds 50 mph · Moving NE at 5 mph</p>
+        </article>
+        <article class="storm-callout storm-callout-isaias" data-storm-callout="isaias">
+          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-name">Hurricane Isaias</p>
+          <p class="storm-callout-detail">Max winds 120 mph · Moving N at 17 mph</p>
+        </article>
+      </aside>
     </Header>
 
     <section class="features-section" id="features">
@@ -162,6 +171,117 @@ const features = [
 </Layout>
 
 <script>
+  import stormHero from "../data/storm-hero-20261009.json";
+
+  // Storm icons, tracks and callout leaders are drawn over the hero photo
+  // rather than baked into it. Coordinates are pixels in the hero JPG, mapped
+  // with the same cover + centre + scale(1.02) transform as .vista-hero::before.
+  const SVG_NS = "http://www.w3.org/2000/svg";
+
+  const svgElement = (name: string, attributes: Record<string, string | number>) => {
+    const element = document.createElementNS(SVG_NS, name);
+    for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, String(value));
+    return element;
+  };
+
+  const layoutStormMap = (hero: HTMLElement, map: HTMLElement, lines: SVGSVGElement) => {
+    const width = hero.clientWidth;
+    const height = hero.clientHeight;
+    // Mirrors the hero's cover sizing, `center 30%` position and 1.02 scale.
+    const cover = Math.max(width / stormHero.width, height / stormHero.height);
+    const scale = cover * 1.02;
+    const offsetX = (width - stormHero.width * scale) / 2;
+    const offsetY = height / 2 + ((height - stormHero.height * cover) * 0.3 - height / 2) * 1.02;
+    const project = ([x, y]: number[]) => [offsetX + x * scale, offsetY + y * scale];
+    const toPath = (points: number[][]) =>
+      points.map((point, index) => `${index ? "L" : "M"}${project(point).map((v) => v.toFixed(1)).join(" ")}`).join("");
+
+    lines.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    lines.replaceChildren();
+    map.querySelectorAll(".storm-marker").forEach((marker) => marker.remove());
+
+    const anchors: Record<string, number[]> = {};
+    const endpoints: Record<string, number[]> = {};
+    for (const storm of stormHero.storms) {
+      lines.append(svgElement("path", { class: "storm-track-past", d: toPath(storm.past) }));
+      lines.append(svgElement("path", { class: "storm-track-forecast", d: toPath(storm.forecast) }));
+      const [endX, endY] = project(storm.forecast[storm.forecast.length - 1]);
+      lines.append(svgElement("circle", { class: "storm-track-end", cx: endX, cy: endY, r: 5 }));
+
+      const [x, y] = project(storm.current);
+      const marker = document.createElement("span");
+      marker.className = "storm-marker";
+      marker.style.left = `${x}px`;
+      marker.style.top = `${y}px`;
+      map.append(marker);
+      if (storm.callout) {
+        anchors[storm.callout] = [x, y];
+        endpoints[storm.callout] = [endX, endY];
+      }
+    }
+
+    // Cards follow the app's onboarding: Isaias beside its storm, Rachel
+    // above hers, each tied back by a thin leader line and kept clear of the
+    // hero copy, the storms and their tracks.
+    const callouts = hero.querySelectorAll<HTMLElement>("[data-storm-callout]");
+    if (!callouts.length || !callouts[0].getClientRects().length) return;
+    const copyEl = hero.querySelector<HTMLElement>(".hero-copy");
+    const copyHeading = copyEl?.querySelector<HTMLElement>("h1");
+    const heroBox = hero.getBoundingClientRect();
+    const copyRight = copyHeading
+      ? copyHeading.getBoundingClientRect().right - heroBox.left
+      : (copyEl ? copyEl.getBoundingClientRect().right - heroBox.left : 0);
+    const gutter = 24;
+    const markerGap = 22;
+
+    for (const card of callouts) {
+      const anchor = anchors[card.dataset.stormCallout ?? ""];
+      if (!anchor) continue;
+      const [x, y] = anchor;
+      const cardWidth = card.offsetWidth;
+      const cardHeight = card.offsetHeight;
+      let left: number;
+      let top: number;
+      let leader: number[];
+
+      if (card.dataset.stormCallout === "isaias" && x + 110 + cardWidth <= width - gutter) {
+        left = x + 110;
+        top = y - cardHeight / 2 + 18;
+        leader = [x + markerGap, y + 4, left, top + cardHeight / 2];
+      } else if (card.dataset.stormCallout === "isaias") {
+        left = Math.min(Math.max(x - cardWidth * 0.48, copyRight + gutter), width - cardWidth - gutter);
+        top = y - cardHeight - 64;
+        leader = [x, y - markerGap, x, top + cardHeight];
+      } else {
+        // Rachel: place above her storm so the southern storm (EP202026) and all tracks stay visible
+        const endAnchor = endpoints[card.dataset.stormCallout ?? ""];
+        const maxTopFromTrack = endAnchor ? endAnchor[1] - cardHeight - 20 : y - cardHeight - 60;
+        top = Math.max(gutter + 64, Math.min(y - cardHeight - 60, maxTopFromTrack));
+        left = Math.min(Math.max(x - cardWidth * 0.4, copyRight + gutter), width - cardWidth - gutter);
+        const leaderX = Math.max(left + 24, Math.min(x, left + cardWidth - 24));
+        leader = [x, y - markerGap, leaderX, top + cardHeight];
+      }
+
+      card.style.inset = `${top}px auto auto ${left}px`;
+      const [x1, y1, x2, y2] = leader;
+      lines.append(svgElement("line", { class: "storm-leader", x1, y1, x2, y2 }));
+    }
+  };
+
+  const initStormMap = () => {
+    const map = document.querySelector<HTMLElement>("[data-storm-map]");
+    const lines = map?.querySelector<SVGSVGElement>("[data-storm-lines]");
+    const hero = map?.closest<HTMLElement>(".vista-hero");
+    if (!map || !lines || !hero) return;
+    const layout = () => layoutStormMap(hero, map, lines);
+    layout();
+    new ResizeObserver(layout).observe(hero);
+    document.fonts?.ready.then(layout);
+  };
+
+  document.addEventListener("astro:page-load", initStormMap);
+  if (document.readyState !== "loading") initStormMap();
+
   const openButton = document.querySelector("[data-waitlist-open]");
   const modal = document.querySelector("[data-waitlist-modal]");
   const closeButtons = document.querySelectorAll("[data-waitlist-close]");
