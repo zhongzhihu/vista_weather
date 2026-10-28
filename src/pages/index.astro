@@ -181,7 +181,7 @@ const features = [
 
   // Storm icons, tracks and callout leaders are drawn over the hero photo
   // rather than baked into it. Coordinates are pixels in the hero JPG, mapped
-  // with the same cover + centre + scale(1.02) transform as .vista-hero::before.
+  // with the same cover + centre + scale(1.02) transform as .vista-hero-photo.
   const SVG_NS = "http://www.w3.org/2000/svg";
   const stormNames: Record<string, string> = {
     rachel: "Tropical Storm Rachel",
@@ -312,10 +312,16 @@ const features = [
     const lines = map?.querySelector<SVGSVGElement>("[data-storm-lines]");
     const hero = map?.closest<HTMLElement>(".vista-hero");
     if (!map || !lines || !hero) return;
+    const callouts = hero.querySelector<HTMLElement>(".storm-callouts");
     const layout = () => layoutStormMap(hero, map, lines);
     layout();
     new ResizeObserver(layout).observe(hero);
-    document.fonts?.ready.then(layout);
+    const revealCallouts = () => {
+      layout();
+      callouts?.setAttribute("data-storm-ready", "");
+    };
+    if (document.fonts) document.fonts.ready.then(revealCallouts);
+    else revealCallouts();
   };
 
   document.addEventListener("astro:page-load", initStormMap);

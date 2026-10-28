@@ -22,10 +22,10 @@ const home = baseUrl;
 
 <section
   class="vista-hero"
-  style={`--hero-photo: url("${heroPhoto}")`}
   transition:name="site-hero"
   transition:animate="none"
 >
+  <img class="vista-hero-photo" src={heroPhoto} alt="" />
   <div class="vista-hero-shade" transition:persist></div>
 
   <header class="hero-nav" transition:persist="site-nav">
