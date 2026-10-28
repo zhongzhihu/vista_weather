@@ -3,7 +3,7 @@ import test from "node:test";
 import region, { config } from "../netlify/edge-functions/region.js";
 import { formatStormWindDetail, unitForCountryCode } from "../src/utils/wind-units.js";
 
-test("uses mph in the United States and km/h in other countries or when unknown", () => {
+test("uses mph in the United States and kmh in other countries or when unknown", () => {
   assert.equal(unitForCountryCode("US"), "mph");
   assert.equal(unitForCountryCode("us"), "mph");
   assert.equal(unitForCountryCode("GB"), "kmh");
@@ -11,7 +11,7 @@ test("uses mph in the United States and km/h in other countries or when unknown"
   assert.equal(unitForCountryCode(null), "kmh");
 });
 
-test("formats storm wind speeds in mph or rounded km/h", () => {
+test("formats storm wind speeds in mph or rounded kmh", () => {
   const storm = { maxWindMph: 120, direction: "N", movingSpeedMph: 17 };
 
   assert.equal(
@@ -20,7 +20,15 @@ test("formats storm wind speeds in mph or rounded km/h", () => {
   );
   assert.equal(
     formatStormWindDetail(storm, "kmh"),
-    "Max winds 193 km/h · Moving N at 27 km/h",
+    "Max winds 200 kmh · Moving N at 30 kmh",
+  );
+  assert.equal(
+    formatStormWindDetail({ maxWindMph: 100, direction: "NW", movingSpeedMph: 2 }, "kmh"),
+    "Max winds 160 kmh · Moving NW at 5 kmh",
+  );
+  assert.equal(
+    formatStormWindDetail({ maxWindMph: 50, direction: "NE", movingSpeedMph: 5 }, "kmh"),
+    "Max winds 80 kmh · Moving NE at 10 kmh",
   );
 });
 

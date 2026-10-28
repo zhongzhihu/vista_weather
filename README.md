@@ -28,8 +28,9 @@ The `dist/` folder is what you deploy.
 
 The wind unit default uses a Netlify Edge Function at `/api/region` to read the
 visitor's country. The public `vistaweather.com` domain is served by Netlify; the
-GitHub Pages copy calls that same endpoint. The page falls back to km/h if
-country lookup is unavailable, and visitors can choose mph or km/h manually.
+GitHub Pages copy calls that same endpoint. The page falls back to kmh if
+country lookup is unavailable. Wind units are selected automatically from the
+visitor's country.
 
 ---
 

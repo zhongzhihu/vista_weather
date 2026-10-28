@@ -77,28 +77,20 @@ const features = [
       </div>
       <!-- Simon's values reflect the latest NHC update available by 1900 UTC (3 PM EDT in New York) on Oct 9, 2026. -->
       <aside class="storm-callouts" aria-label="Storm trajectory details">
-        <label class="storm-unit-control" for="storm-wind-unit">
-          <span>Wind units</span>
-          <select id="storm-wind-unit" data-wind-unit title="Automatic uses your country when available; otherwise km/h">
-            <option value="auto">Auto</option>
-            <option value="mph">mph</option>
-            <option value="kmh">km/h</option>
-          </select>
-        </label>
         <article class="storm-callout storm-callout-rachel" id="storm-callout-rachel" data-storm-callout="rachel" aria-label="Tropical Storm Rachel details">
-          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-time">Fri, Oct 9 · <time datetime="2026-10-09T19:00:00Z" data-clock-hour="15" data-clock-minute="0">3:00 PM</time></p>
           <p class="storm-callout-name">Tropical Storm Rachel</p>
-          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="50" data-direction="NE" data-moving-speed-mph="5">Max winds 80 km/h · Moving NE at 8 km/h</p>
+          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="50" data-direction="NE" data-moving-speed-mph="5">Max winds 80 kmh · Moving NE at 10 kmh</p>
         </article>
         <article class="storm-callout storm-callout-isaias" id="storm-callout-isaias" data-storm-callout="isaias" aria-label="Hurricane Isaias details">
-          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-time">Fri, Oct 9 · <time datetime="2026-10-09T19:00:00Z" data-clock-hour="15" data-clock-minute="0">3:00 PM</time></p>
           <p class="storm-callout-name">Hurricane Isaias</p>
-          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="120" data-direction="N" data-moving-speed-mph="17">Max winds 193 km/h · Moving N at 27 km/h</p>
+          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="120" data-direction="N" data-moving-speed-mph="17">Max winds 200 kmh · Moving N at 30 kmh</p>
         </article>
         <article class="storm-callout storm-callout-simon" id="storm-callout-simon" data-storm-callout="simon" aria-label="Hurricane Simon details" hidden>
-          <p class="storm-callout-time">Fri, Oct 9 · 3:00 PM</p>
+          <p class="storm-callout-time">Fri, Oct 9 · <time datetime="2026-10-09T19:00:00Z" data-clock-hour="15" data-clock-minute="0">3:00 PM</time></p>
           <p class="storm-callout-name">Hurricane Simon</p>
-          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="100" data-direction="NW" data-moving-speed-mph="2">Max winds 161 km/h · Moving NW at 3 km/h</p>
+          <p class="storm-callout-detail" data-wind-speed data-max-wind-mph="100" data-direction="NW" data-moving-speed-mph="2">Max winds 160 kmh · Moving NW at 5 kmh</p>
         </article>
       </aside>
     </Header>
@@ -197,27 +189,7 @@ const features = [
     simon: "Hurricane Simon",
   };
   const activeCallouts = new Set(["rachel", "isaias"]);
-  const WIND_UNIT_STORAGE_KEY = "vistaweather:wind-speed-unit";
-  const boundWindControls = new WeakSet<HTMLSelectElement>();
   let automaticWindUnitPromise: Promise<"mph" | "kmh"> | undefined;
-
-  const readSavedWindUnit = (): "mph" | "kmh" | null => {
-    try {
-      const savedUnit = localStorage.getItem(WIND_UNIT_STORAGE_KEY);
-      return savedUnit === "mph" || savedUnit === "kmh" ? savedUnit : null;
-    } catch {
-      return null;
-    }
-  };
-
-  const saveWindUnit = (unit: "mph" | "kmh" | null) => {
-    try {
-      if (unit) localStorage.setItem(WIND_UNIT_STORAGE_KEY, unit);
-      else localStorage.removeItem(WIND_UNIT_STORAGE_KEY);
-    } catch {
-      // Unit selection still works for this page when storage is unavailable.
-    }
-  };
 
   const detectAutomaticWindUnit = (): Promise<"mph" | "kmh"> => {
     if (!automaticWindUnitPromise) {
@@ -260,28 +232,24 @@ const features = [
     });
   };
 
+  const renderCalloutTimes = (hero: HTMLElement) => {
+    // Format the fixed source time, rather than converting it to the visitor's
+    // time zone. Intl supplies the browser's default 12- or 24-hour cycle.
+    const formatter = new Intl.DateTimeFormat(undefined, {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "UTC",
+    });
+    hero.querySelectorAll<HTMLElement>("[data-clock-hour][data-clock-minute]").forEach((time) => {
+      const hour = Number(time.dataset.clockHour);
+      const minute = Number(time.dataset.clockMinute);
+      if (!Number.isInteger(hour) || !Number.isInteger(minute)) return;
+      time.textContent = formatter.format(new Date(Date.UTC(2000, 0, 1, hour, minute)));
+    });
+  };
+
   const initWindUnits = async (hero: HTMLElement) => {
-    const control = hero.querySelector<HTMLSelectElement>("[data-wind-unit]");
-    const savedUnit = readSavedWindUnit();
-    if (control) control.value = savedUnit ?? "auto";
-
-    const applyUnit = (unit: "mph" | "kmh") => renderWindSpeeds(hero, unit);
-    if (savedUnit) applyUnit(savedUnit);
-    else applyUnit(await detectAutomaticWindUnit());
-
-    if (control && !boundWindControls.has(control)) {
-      boundWindControls.add(control);
-      control.addEventListener("change", async () => {
-        const selectedUnit = control.value;
-        if (selectedUnit === "mph" || selectedUnit === "kmh") {
-          saveWindUnit(selectedUnit);
-          applyUnit(selectedUnit);
-          return;
-        }
-        saveWindUnit(null);
-        applyUnit(await detectAutomaticWindUnit());
-      });
-    }
+    renderWindSpeeds(hero, await detectAutomaticWindUnit());
   };
 
   const svgElement = (name: string, attributes: Record<string, string | number>) => {
@@ -408,6 +376,7 @@ const features = [
     if (!map || !lines || !hero) return;
     const callouts = hero.querySelector<HTMLElement>(".storm-callouts");
     const layout = () => layoutStormMap(hero, map, lines);
+    renderCalloutTimes(hero);
     layout();
     const windUnitsReady = initWindUnits(hero);
     new ResizeObserver(layout).observe(hero);

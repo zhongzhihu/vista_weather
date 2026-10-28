@@ -1,7 +1,7 @@
 const KILOMETERS_PER_MILE = 1.609344;
 
 /**
- * Vista Weather defaults to mph in the United States and km/h elsewhere.
+ * Vista Weather defaults to mph in the United States and kmh elsewhere.
  * Visitors can override this choice in the wind units menu.
  *
  * @param {string | null | undefined} countryCode
@@ -16,8 +16,10 @@ export function unitForCountryCode(countryCode) {
  * @param {"mph" | "kmh"} unit
  */
 function formatSpeed(speedMph, unit) {
-  const speed = unit === "mph" ? Math.round(speedMph) : Math.round(speedMph * KILOMETERS_PER_MILE);
-  return `${speed} ${unit === "mph" ? "mph" : "km/h"}`;
+  const exactSpeed = unit === "mph" ? speedMph : speedMph * KILOMETERS_PER_MILE;
+  const increment = unit === "mph" ? 1 : exactSpeed < 20 ? 5 : exactSpeed < 100 ? 10 : 20;
+  const speed = Math.round(exactSpeed / increment) * increment;
+  return `${speed} ${unit}`;
 }
 
 /**
