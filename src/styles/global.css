@@ -666,6 +666,35 @@ input {
   font-family: var(--sans, Arial, sans-serif);
 }
 
+.storm-unit-control {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+
+.storm-unit-control select {
+  min-width: 90px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.97);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-shadow: none;
+  cursor: pointer;
+}
+
 /* Keep fallback positions available without JavaScript, but avoid showing them
    while the interactive map measures and positions its callouts. */
 .storm-map-js .storm-callouts:not([data-storm-ready]) { visibility: hidden; }

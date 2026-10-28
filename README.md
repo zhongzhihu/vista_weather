@@ -1,7 +1,7 @@
 # Vista Weather — Landing Page (Astro)
 
 Static landing page for **Vista Weather**, built with [Astro](https://astro.build).
-Ships as pure HTML/CSS with effectively zero client-side JavaScript — perfect for SEO and fast loads.
+It ships server-rendered pages with small client-side scripts for the interactive storm map, waitlist, and wind unit preference.
 
 ---
 
@@ -25,6 +25,11 @@ npm run preview    # serves ./dist locally to test
 ```
 
 The `dist/` folder is what you deploy.
+
+The wind unit default uses a Netlify Edge Function at `/api/region` to read the
+visitor's country. The public `vistaweather.com` domain is served by Netlify; the
+GitHub Pages copy calls that same endpoint. The page falls back to km/h if
+country lookup is unavailable, and visitors can choose mph or km/h manually.
 
 ---
 
