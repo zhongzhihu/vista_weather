@@ -571,7 +571,15 @@ input {
   left: 74px;
   top: -28px;
   z-index: 2;
-  transform: rotate(-4deg);
+  background: linear-gradient(110deg, #51545a 0%, #25272b 3%, #090a0c 7%, #050608 94%, #303238 100%);
+  box-shadow:
+    -5px 3px 0 #222428,
+    -7px 4px 0 #0c0d0f,
+    0 44px 70px rgba(3, 18, 31, 0.34),
+    0 14px 24px rgba(3, 18, 31, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    inset 0 0 0 5px rgba(0, 0, 0, 0.58);
+  transform: rotate(-4deg) skewY(4deg);
 }
 
 .phone-case-secondary {
@@ -645,7 +653,7 @@ input {
     width: 220px;
     left: 0;
     top: -16px;
-    transform: rotate(-4deg);
+    transform: rotate(-4deg) skewY(4deg);
   }
 }
 
@@ -1290,7 +1298,7 @@ input {
     width: min(62%, 220px);
     left: auto;
     top: auto;
-    transform: none;
+    transform: rotate(-4deg) skewY(4deg);
     --phone-frame-padding: 7px;
     --phone-frame-radius: 40px;
     --phone-screen-radius: 33px;
