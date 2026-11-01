@@ -289,7 +289,6 @@ const features = [
         marker.type = "button";
         marker.className = "storm-marker";
         marker.dataset.stormMarker = stormKey;
-        marker.setAttribute("aria-label", `Toggle details for ${stormName}`);
         marker.setAttribute("aria-controls", `storm-callout-${stormKey}`);
         marker.addEventListener("click", () => {
           if (activeCallouts.has(stormKey)) {
@@ -304,6 +303,7 @@ const features = [
       marker.style.left = `${x}px`;
       marker.style.top = `${y}px`;
       marker.setAttribute("aria-expanded", String(activeCallouts.has(stormKey)));
+      marker.setAttribute("aria-label", `${activeCallouts.has(stormKey) ? "Hide" : "Show"} details for ${stormName}`);
       if (storm.callout) {
         anchors[storm.callout] = [x, y];
         endpoints[storm.callout] = [endX, endY];
@@ -377,6 +377,26 @@ const features = [
     const layout = () => layoutStormMap(hero, map, lines);
     renderCalloutTimes(hero);
     layout();
+    hero.querySelectorAll<HTMLElement>("[data-storm-callout]").forEach((card) => {
+      if (card.dataset.stormInteractive === "true") return;
+      const calloutKey = card.dataset.stormCallout ?? "";
+      const stormName = stormNames[calloutKey] ?? "Tropical cyclone";
+      card.dataset.stormInteractive = "true";
+      card.setAttribute("role", "button");
+      card.tabIndex = 0;
+      card.setAttribute("aria-label", `Hide details for ${stormName}`);
+      const hideCallout = () => {
+        activeCallouts.delete(calloutKey);
+        layout();
+        map.querySelector<HTMLButtonElement>(`[data-storm-marker="${calloutKey}"]`)?.focus();
+      };
+      card.addEventListener("click", hideCallout);
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        hideCallout();
+      });
+    });
     const windUnitsReady = initWindUnits(hero);
     new ResizeObserver(layout).observe(hero);
     const revealCallouts = async () => {

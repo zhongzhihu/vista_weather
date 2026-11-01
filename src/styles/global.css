@@ -681,6 +681,20 @@ input {
   line-height: 1.35;
 }
 
+.storm-map-js .storm-callout {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.storm-map-js .storm-callout:hover {
+  background: #fff;
+}
+
+.storm-map-js .storm-callout:focus-visible {
+  outline: 3px solid #78c7ff;
+  outline-offset: 3px;
+}
+
 .storm-callout p { margin: 0; }
 .storm-callout-time { font-size: 14px; font-weight: 750; }
 .storm-callout-name { margin-top: 2px !important; font-size: 14px; font-weight: 700; }
