@@ -36,10 +36,11 @@ const features = [
     alt: "Vista Weather forecast comparison",
   },
   {
-    title: "Alternate Predictions",
-    copy: "When the forecast is less certain, see the range of other possible outcomes instead of a single number.",
+    title: "Possible Outcomes",
+    intro: "Weather forecasts are based on multiple predictions.",
+    copy: "See how certain the forecast is. View the range of possible outcomes instead of a single number.",
     image: garmischAlternatePredictions,
-    alt: "Vista Weather alternate model predictions for Garmisch",
+    alt: "Vista Weather possible temperature outcomes for Garmisch",
   },
 ];
 ---
@@ -101,6 +102,7 @@ const features = [
         <article class="feature-block">
           <div class="feature-copy">
             <h3>{feature.title}</h3>
+            {feature.intro && <p class="feature-intro">{feature.intro}</p>}
             <p>{feature.copy}</p>
           </div>
           <div class="feature-media" aria-hidden="true">

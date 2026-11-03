@@ -838,6 +838,10 @@ input {
   text-wrap: pretty;
 }
 
+.feature-copy .feature-intro {
+  margin-bottom: 10px;
+}
+
 .feature-media {
   display: flex;
   justify-content: center;
