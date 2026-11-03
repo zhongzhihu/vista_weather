@@ -1899,10 +1899,20 @@ input {
 .map-comparison { left: 52.239%; top: 42.703%; width: 47.264%; }
 
 .map-phone-frame { position: absolute; left: 1.8%; top: 8.9%; width: 61%; height: 84%; border-radius: 9% / 4.5%; background: #171717; border: 1px solid #555; }
-.map-our-label { position: absolute; left: 21.8%; top: 2.6%; width: 21%; padding: 1.5% 0; border: 1px solid #e0e0e0; border-radius: 8px; background: white; box-shadow: 0 1px 3px #0002; font-size: clamp(10px, 1.4vw, 15px); font-weight: 700; color: #161616; }
 
 .phone-case-feature.map-phone-mockup { position: absolute; left: 1.8%; top: 8.9%; width: 61%; max-width: none; padding: 2%; --phone-frame-radius: 12% / 6%; --phone-screen-radius: 10% / 5%; }
-.map-island { position: absolute; top: 1.6%; left: 34.5%; width: 31%; height: 4.2%; border-radius: 999px; background: #000; pointer-events: none; }
+/* Eden Prairie screenshot: island bounds approximately x=415–790, y=42–151
+   in a 1206 × 2622 screen. Scale with the screen at every viewport size. */
+.map-island {
+  position: absolute;
+  left: calc(415 / 1206 * 100%);
+  top: calc(42 / 2622 * 100%);
+  width: calc(376 / 1206 * 100%);
+  height: calc(110 / 2622 * 100%);
+  border-radius: 999px;
+  background: #000;
+  pointer-events: none;
+}
 
 .feature-map-parts {
   width: min(100%, 472px);

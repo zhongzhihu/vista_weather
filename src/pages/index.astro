@@ -34,7 +34,7 @@ const features = [
   },
   {
     title: "Ultra-HD Weather Maps",
-    copy: "See the bigger picture with ultra-high-resolution weather maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
+    copy: "See the bigger picture with ultra-HD maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
     image: accurateMapsCelsius,
     usImage: accurateMapsFahrenheit,
     alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
@@ -125,7 +125,6 @@ const features = [
           <div class:list={["feature-media", { "feature-media-map": feature.standalone }]} aria-hidden="true">
             {feature.standalone ? (
               <div class="feature-map-parts">
-                <span class="map-our-label">Our App</span>
                 <div class="phone-case phone-case-feature map-phone-mockup">
                   <div class="phone-screen-placeholder map-screen">
                     <img class="phone-screen-image" src={mapsScreen.src} alt="Weather map" loading="lazy" />
