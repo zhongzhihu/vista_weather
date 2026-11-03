@@ -969,6 +969,37 @@ input {
   transform: rotate(180deg);
 }
 
+.map-detail-action {
+  justify-content: center;
+  margin: 14px 0 0;
+}
+
+.map-detail-panel {
+  max-width: 560px;
+  margin: 16px auto 0;
+  text-align: left;
+}
+
+.map-detail-panel[hidden] {
+  display: none;
+}
+
+.feature-copy .map-detail-panel p {
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.feature-copy .map-detail-panel p + p {
+  margin-top: 12px;
+}
+
+.map-detail-panel strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .data-sources-panel {
   width: 100%;
   margin: 0 0 18px;

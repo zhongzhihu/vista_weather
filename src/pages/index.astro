@@ -120,6 +120,43 @@ const features = [
             <h3>{feature.title}</h3>
             {feature.intro && <p class="feature-intro">{feature.intro}</p>}
             <p>{feature.copy}</p>
+            {feature.standalone && (
+              <div class="map-detail-accordion">
+                <div class="data-sources-action map-detail-action">
+                  <button
+                    class="data-sources-trigger"
+                    type="button"
+                    id="maps-detail-toggle"
+                    data-maps-detail-toggle
+                    aria-expanded="false"
+                    aria-controls="maps-detail-panel"
+                  >
+                    <span>What makes our weather maps more detailed?</span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="m5 7.5 5 5 5-5" />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="map-detail-panel"
+                  id="maps-detail-panel"
+                  data-maps-detail-panel
+                  role="region"
+                  aria-labelledby="maps-detail-toggle"
+                  hidden
+                >
+                  <p>
+                    Weather services provide forecasts using grids made up of squares, sometimes as small as 1 × 1 km each. The smaller these squares, the more local detail a forecast can capture, including differences in temperature, wind, and precipitation across mountains, valleys, and cities.
+                  </p>
+                  <p>
+                    However, transmitting weather data at its original resolution requires enormous amounts of data. To reduce costs, many weather apps use coarser grids with much larger squares (e.g., 100 × 100 km). They then estimate weather conditions between grid points using a technique called <em>interpolation</em>, making the maps appear more detailed than the underlying data actually is. While this saves data, it results in far less accurate forecasts, especially in cities and areas with complex terrain.
+                  </p>
+                  <p>
+                    Vista Weather takes a different approach. We preserve the original high resolution of forecast data provided by weather services, rather than reducing it to coarser grids. This allows our maps to show finer weather patterns and local differences that lower-resolution maps might miss.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
           <div class:list={["feature-media", { "feature-media-map": feature.standalone }]} aria-hidden="true">
             {feature.standalone ? (
@@ -575,5 +612,15 @@ const features = [
     dataSourcesPanel.hidden = isExpanded;
     const label = dataSourcesToggle.querySelector("span");
     if (label) label.textContent = isExpanded ? "View Data Sources" : "Hide Data Sources";
+  });
+
+  const mapsDetailPanel = document.querySelector<HTMLElement>("[data-maps-detail-panel]");
+  const mapsDetailToggle = document.querySelector<HTMLButtonElement>("[data-maps-detail-toggle]");
+
+  mapsDetailToggle?.addEventListener("click", () => {
+    if (!mapsDetailPanel) return;
+    const isExpanded = mapsDetailToggle.getAttribute("aria-expanded") === "true";
+    mapsDetailToggle.setAttribute("aria-expanded", String(!isExpanded));
+    mapsDetailPanel.hidden = isExpanded;
   });
 </script>
