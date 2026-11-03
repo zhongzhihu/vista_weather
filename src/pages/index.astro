@@ -11,6 +11,12 @@ import garmischAlternatePredictions from "../images/Garmisch_alternate_predictio
 import possibleOutcomesUS from "../images/possible-outcomes_en-US.png";
 import accurateMapsCelsius from "../images/accurate-maps-en-celsius.png";
 import accurateMapsFahrenheit from "../images/accurate-maps-en-fahrenheit.png";
+import mapsScreen from "../images/accurate-maps-screen.png";
+import mapsPhoneFahrenheit from "../images/accurate-maps-phone-en-fahrenheit.png";
+import mapsDetailCelsius from "../images/accurate-maps-detail-en-celsius.png";
+import mapsDetailFahrenheit from "../images/accurate-maps-detail-en-fahrenheit.png";
+import mapsComparisonCelsius from "../images/accurate-maps-comparison-en-celsius.png";
+import mapsComparisonFahrenheit from "../images/accurate-maps-comparison-en-fahrenheit.png";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
@@ -28,7 +34,7 @@ const features = [
   },
   {
     title: "Ultra-HD Weather Maps",
-    copy: "See how temperatures change across mountains, valleys, and cities with detailed weather maps that bring local conditions into focus.",
+    copy: "See the bigger picture with ultra-high-resolution weather maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
     image: accurateMapsCelsius,
     usImage: accurateMapsFahrenheit,
     alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
@@ -116,9 +122,19 @@ const features = [
             {feature.intro && <p class="feature-intro">{feature.intro}</p>}
             <p>{feature.copy}</p>
           </div>
-          <div class="feature-media" aria-hidden="true">
+          <div class:list={["feature-media", { "feature-media-map": feature.standalone }]} aria-hidden="true">
             {feature.standalone ? (
-              <img class="feature-composite-image" src={feature.image.src} alt={feature.alt} data-us-image-src={feature.usImage?.src} loading="lazy" />
+              <div class="feature-map-parts">
+                <span class="map-our-label">Our App</span>
+                <div class="phone-case phone-case-feature map-phone-mockup">
+                  <div class="phone-screen-placeholder map-screen">
+                    <img class="phone-screen-image" src={mapsScreen.src} alt="Weather map" loading="lazy" />
+                    <span class="map-island" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <img class="map-part map-detail" src={mapsDetailCelsius.src} data-us-image-src={mapsDetailFahrenheit.src} alt="Detailed weather map close-up" loading="lazy" />
+                <img class="map-part map-comparison" src={mapsComparisonCelsius.src} data-us-image-src={mapsComparisonFahrenheit.src} alt="Lower-detail weather map comparison" loading="lazy" />
+              </div>
             ) : (
             <div class="phone-case phone-case-feature">
               <div class="phone-screen-placeholder">
