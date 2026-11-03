@@ -26,11 +26,12 @@ npm run preview    # serves ./dist locally to test
 
 The `dist/` folder is what you deploy.
 
-The wind unit default uses a Netlify Edge Function at `/api/region` to read the
-visitor's country. The public `vistaweather.com` domain is served by Netlify; the
-GitHub Pages copy calls that same endpoint. The page falls back to kmh if
-country lookup is unavailable. Wind units are selected automatically from the
-visitor's country.
+The page uses a Netlify Edge Function at `/api/region` to read the visitor's
+country. The public `vistaweather.com` domain is served by Netlify; the GitHub
+Pages copy calls that same endpoint. Wind units and the Possible Outcomes image
+are selected automatically from the visitor's country. Visitors in the US see
+mph and the Fahrenheit image; if country lookup is unavailable, the page falls
+back to kmh and the Celsius image.
 
 ---
 

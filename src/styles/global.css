@@ -887,12 +887,20 @@ input {
   text-wrap: balance;
 }
 
+.forecast-sources-heading {
+  text-align: center;
+}
+
 .about-col p {
   margin: 0;
   color: var(--ink-2);
   font-size: 17px;
   line-height: 1.55;
   text-wrap: pretty;
+}
+
+.about-col p + p {
+  margin-top: 10px;
 }
 
 .site-footer {

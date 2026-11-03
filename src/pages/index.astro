@@ -8,6 +8,7 @@ import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
 import garmischAlternatePredictions from "../images/Garmisch_alternate_predictions.png";
+import possibleOutcomesUS from "../images/possible-outcomes_en-US.png";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
@@ -40,7 +41,7 @@ const features = [
     intro: "Weather forecasts are based on multiple predictions.",
     copy: "See how certain the forecast is. View the range of possible outcomes instead of a single number.",
     image: garmischAlternatePredictions,
-    alt: "Vista Weather possible temperature outcomes for Garmisch",
+    alt: "Vista Weather possible temperature outcomes for Paris",
   },
 ];
 ---
@@ -108,7 +109,13 @@ const features = [
           <div class="feature-media" aria-hidden="true">
             <div class="phone-case phone-case-feature">
               <div class="phone-screen-placeholder">
-                <img class="phone-screen-image" src={feature.image.src} alt={feature.alt} loading="lazy" />
+                <img
+                  class="phone-screen-image"
+                  src={feature.image.src}
+                  alt={feature.alt}
+                  data-us-image-src={feature.title === "Possible Outcomes" ? possibleOutcomesUS.src : undefined}
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -119,15 +126,21 @@ const features = [
     <section class="about-section" id="about">
       <div class="about-grid">
         <div class="about-col">
-          <h2>Designed by a data scientist to deliver clear, powerful, and beautiful forecasts.</h2>
+          <h2 class="forecast-sources-heading">Accurate Weather Forecasts</h2>
           <p>
-            Stunning photography, hyper-local insights, and intuitive tools that help you plan every day with confidence.
+            Most weather apps rely on just 2-3 local weather models and one generic global model. But fewer sources mean less accurate forecasts, especially for local weather.
+          </p>
+          <p>
+            Vista Weather takes a different approach. We offer full transparency about our sources and give you access to the best in the world. This includes Foreca, consistently ranked among the top weather forecasters by ForecastWatch for its exceptional accuracy in predicting rain, alongside 20 renowned official national weather services.
+          </p>
+          <p>
+            Because proven forecasters and local weather models outperform generic global models.
           </p>
         </div>
         <div class="about-col">
-          <h2>Wide variety of Forecast Sources</h2>
+          <h2>Designed by a data scientist to deliver clear, powerful, and beautiful forecasts.</h2>
           <p>
-            Vista Weather offers a wide variety of forecast sources. Choose between Foreca, Apple Weather, or official national weather bureaus: the National Weather Service (US), Deutscher Wetterdienst (DE), Météo-France, Japan Meteorological Agency, Bureau of Meteorology (AU), KNMI (NL), GeoSphere Austria, MeteoSwiss, SMHI (SE), MET Norway, and FMI (FI).
+            Stunning photography, hyper-local insights, and intuitive tools that help you plan every day with confidence.
           </p>
         </div>
       </div>
@@ -190,11 +203,11 @@ const features = [
     simon: "Hurricane Simon",
   };
   const activeCallouts = new Set(["rachel", "isaias"]);
-  let automaticWindUnitPromise: Promise<"mph" | "kmh"> | undefined;
+  let automaticCountryCodePromise: Promise<string | null> | undefined;
 
-  const detectAutomaticWindUnit = (): Promise<"mph" | "kmh"> => {
-    if (!automaticWindUnitPromise) {
-      automaticWindUnitPromise = (async () => {
+  const detectAutomaticCountryCode = (): Promise<string | null> => {
+    if (!automaticCountryCodePromise) {
+      automaticCountryCodePromise = (async () => {
         const isGitHubPages = location.hostname.endsWith(".github.io");
         const endpoint = isGitHubPages ? "https://vistaweather.com/api/region" : "/api/region";
         const controller = new AbortController();
@@ -206,18 +219,19 @@ const features = [
             credentials: "omit",
             signal: controller.signal,
           });
-          if (!response.ok) return "kmh";
+          if (!response.ok) return null;
           const data: unknown = await response.json();
-          if (!data || typeof data !== "object" || !("countryCode" in data)) return "kmh";
-          return unitForCountryCode((data as { countryCode?: string | null }).countryCode);
+          if (!data || typeof data !== "object" || !("countryCode" in data)) return null;
+          const countryCode = (data as { countryCode?: unknown }).countryCode;
+          return typeof countryCode === "string" ? countryCode : null;
         } catch {
-          return "kmh";
+          return null;
         } finally {
           window.clearTimeout(timeout);
         }
       })();
     }
-    return automaticWindUnitPromise;
+    return automaticCountryCodePromise;
   };
 
   const renderWindSpeeds = (hero: HTMLElement, unit: "mph" | "kmh") => {
@@ -249,8 +263,16 @@ const features = [
     });
   };
 
-  const initWindUnits = async (hero: HTMLElement) => {
-    renderWindSpeeds(hero, await detectAutomaticWindUnit());
+  const initCountryPresentation = async (hero: HTMLElement) => {
+    const countryCode = await detectAutomaticCountryCode();
+    const unit = unitForCountryCode(countryCode);
+    renderWindSpeeds(hero, unit);
+    if (unit === "mph") {
+      document.querySelectorAll<HTMLImageElement>("[data-us-image-src]").forEach((image) => {
+        const usImageSrc = image.dataset.usImageSrc;
+        if (usImageSrc) image.src = usImageSrc;
+      });
+    }
   };
 
   const svgElement = (name: string, attributes: Record<string, string | number>) => {
@@ -399,10 +421,10 @@ const features = [
         hideCallout();
       });
     });
-    const windUnitsReady = initWindUnits(hero);
+    const countryPresentationReady = initCountryPresentation(hero);
     new ResizeObserver(layout).observe(hero);
     const revealCallouts = async () => {
-      await windUnitsReady;
+      await countryPresentationReady;
       layout();
       callouts?.setAttribute("data-storm-ready", "");
     };
