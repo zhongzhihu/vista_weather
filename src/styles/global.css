@@ -912,11 +912,22 @@ input {
   margin-right: 4px;
   vertical-align: -3px;
   overflow: visible;
-  fill: #ffd60a;
-  stroke: #090a0c;
+}
+
+.radar-alert-bolt-shadow {
+  fill: #000;
+  filter: drop-shadow(0 0 1.4px rgba(0, 0, 0, 0.45));
+}
+
+.radar-alert-bolt-outline {
+  fill: none;
+  stroke: #000;
   stroke-width: 2.2;
   stroke-linejoin: miter;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
+}
+
+.radar-alert-bolt-fill {
+  fill: #ffd60a;
 }
 
 .radar-alert-copy {
