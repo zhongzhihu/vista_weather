@@ -1748,28 +1748,8 @@ input {
     width: 100%;
   }
 
-  /* On mobile the fanned two-phone composition has no room to breathe and
-     the second phone clips off-screen, so show a single upright, centered
-     SF phone at a comfortable size and drop the Paris one. */
+  /* Keep the mobile hero focused on its copy and calls to action. */
   .hero-phones {
-    min-height: 0;
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
-  }
-
-  .phone-case-primary {
-    position: relative;
-    width: min(62%, 220px);
-    left: auto;
-    top: auto;
-    transform: rotate(-4deg) skewY(4deg);
-    --phone-frame-padding: 7px;
-    --phone-frame-radius: 40px;
-    --phone-screen-radius: 33px;
-  }
-
-  .phone-case-secondary {
     display: none;
   }
 
