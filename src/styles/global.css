@@ -957,12 +957,12 @@ input {
 .data-sources-panel {
   width: 100%;
   margin: 0 0 18px;
-  overflow: hidden;
-  border: 1px solid rgba(31, 49, 76, 0.1);
-  border-radius: 18px;
-  background: #f7f9fc;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--ink);
-  box-shadow: 0 14px 36px rgba(31, 49, 76, 0.06);
+  box-shadow: none;
 }
 
 .data-sources-panel[hidden] {
@@ -1037,7 +1037,7 @@ input {
 }
 
 .data-sources-body {
-  padding: 22px 30px 28px;
+  padding: 0;
 }
 
 .data-source-section + .data-source-section {
@@ -1244,6 +1244,11 @@ input {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.data-source-region-europe ul {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(8, auto);
 }
 
 .data-source-region li {
@@ -1789,7 +1794,7 @@ input {
   }
 
   .data-sources-body {
-    padding: 18px 16px 20px;
+    padding: 0;
   }
 
   .data-sources-action {
