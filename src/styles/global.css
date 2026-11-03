@@ -905,91 +905,76 @@ input {
 
 .data-sources-action {
   display: flex;
-  justify-content: center;
-  margin-top: 24px;
+  justify-content: flex-start;
+  margin-top: 12px;
+  margin-bottom: 14px;
 }
 
 .data-sources-trigger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 18px;
-  border: 1px solid rgba(23, 95, 150, 0.2);
-  border-radius: 8px;
-  background: #ffffff;
+  gap: 6px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--blue-deep);
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 650;
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(31, 70, 105, 0.07);
-  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition: color 160ms ease;
 }
 
 .data-sources-trigger:hover {
-  transform: translateY(-1px);
-  border-color: rgba(23, 95, 150, 0.38);
-  background: #f7fbff;
-  box-shadow: 0 12px 26px rgba(31, 70, 105, 0.11);
+  color: #0c4774;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .data-sources-trigger:focus-visible,
-.data-sources-close:focus-visible,
 .data-source-apple:focus-visible {
   outline: 3px solid rgba(74, 168, 255, 0.45);
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
 
 .data-sources-trigger svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: transform 160ms ease;
 }
 
-.data-sources-modal-open {
-  overflow: hidden;
+.data-sources-trigger[aria-expanded="true"] svg {
+  transform: rotate(180deg);
 }
 
-.data-sources-dialog {
-  position: fixed;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  width: min(860px, calc(100% - 40px));
-  max-width: none;
-  max-height: min(88vh, 900px);
-  max-height: min(88dvh, 900px);
-  margin: auto;
-  padding: 0;
+.data-sources-panel {
+  width: 100%;
+  margin: 0 0 18px;
   overflow: hidden;
   border: 1px solid rgba(31, 49, 76, 0.1);
-  border-radius: 22px;
+  border-radius: 18px;
   background: #f7f9fc;
   color: var(--ink);
-  box-shadow: 0 30px 100px rgba(6, 18, 35, 0.3);
+  box-shadow: 0 14px 36px rgba(31, 49, 76, 0.06);
 }
 
-.data-sources-dialog[open] {
-  display: flex;
-}
-
-.data-sources-dialog::backdrop {
-  background: rgba(8, 18, 32, 0.58);
-  backdrop-filter: blur(7px);
+.data-sources-panel[hidden] {
+  display: none;
 }
 
 .data-sources-header {
-  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  padding: 30px 34px 24px;
+  padding: 26px 30px 20px;
   border-bottom: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.78);
 }
@@ -1052,11 +1037,7 @@ input {
 }
 
 .data-sources-body {
-  min-height: 0;
-  padding: 24px 34px 32px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  padding: 22px 30px 28px;
 }
 
 .data-source-section + .data-source-section {
@@ -1233,7 +1214,7 @@ input {
 
 .data-source-regions {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
 }
 
@@ -1246,7 +1227,7 @@ input {
 }
 
 .data-source-region-europe {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 
 .data-source-region h4 {
@@ -1803,40 +1784,17 @@ input {
     max-width: 560px;
   }
 
-  .data-sources-dialog {
-    inset: auto 0 0;
-    width: 100%;
-    max-height: min(91vh, 900px);
-    max-height: min(91dvh, 900px);
-    margin: 0 auto;
-    border-right: 0;
-    border-bottom: 0;
-    border-left: 0;
-    border-radius: 22px 22px 0 0;
-  }
-
-  .data-sources-header {
-    gap: 14px;
-    padding: 24px 20px 18px;
-  }
-
-  .data-sources-header h2 {
-    font-size: 31px;
-  }
-
-  .data-sources-description {
-    margin-top: 9px;
-    font-size: 14px;
-  }
-
-  .data-sources-close {
-    width: 36px;
-    height: 36px;
+  .data-sources-panel {
+    margin-bottom: 18px;
   }
 
   .data-sources-body {
-    padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
-    scrollbar-gutter: auto;
+    padding: 18px 16px 20px;
+  }
+
+  .data-sources-action {
+    justify-content: center;
+    margin-top: 12px;
   }
 
   .data-source-section + .data-source-section {
@@ -1884,8 +1842,8 @@ input {
   }
 
   .data-source-region ul {
-    grid-template-columns: 1fr;
-    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 16px;
   }
 
   .data-source-region {
