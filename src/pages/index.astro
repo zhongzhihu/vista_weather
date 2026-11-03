@@ -177,7 +177,13 @@ const features = [
                 <img class="map-part map-comparison" src={mapsComparisonCelsius.src} data-us-image-src={mapsComparisonFahrenheit.src} alt="Lower-detail weather map comparison" loading="lazy" />
               </div>
             ) : (
-            <div class="phone-case phone-case-feature">
+            <div
+              class:list={[
+                "phone-case",
+                "phone-case-feature",
+                { "phone-case-feature-radar": feature.title === "Rain Radar & Live Lightning" },
+              ]}
+            >
               <div class="phone-screen-placeholder">
                 <img
                   class="phone-screen-image"
@@ -187,6 +193,16 @@ const features = [
                   loading="lazy"
                 />
               </div>
+              {feature.title === "Rain Radar & Live Lightning" && (
+                <div class="radar-alert-annotation" aria-hidden="true">
+                  <aside class="radar-alert-card">
+                    <div class="radar-alert-copy">
+                      <p class="radar-alert-title"><svg class="radar-alert-bolt" viewBox="0 0 28 28" aria-hidden="true"><path d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" /></svg>Frequent lightning</p>
+                      <p class="radar-alert-detail">Frequent lightning detected<br />in the last 30 minutes.</p>
+                    </div>
+                  </aside>
+                </div>
+              )}
             </div>
             )}
           </div>

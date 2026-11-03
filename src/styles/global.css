@@ -875,6 +875,87 @@ input {
   right: auto;
 }
 
+.phone-case-feature-radar {
+  z-index: 1;
+}
+
+.radar-alert-annotation {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.radar-alert-card {
+  position: absolute;
+  top: 62%;
+  left: 86%;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: min(205px, calc(100vw - 56px));
+  padding: 13px 17px 14px 15px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(31, 49, 76, 0.16);
+  border-radius: 25px;
+  background: rgba(250, 252, 253, 0.94);
+  box-shadow: 0 16px 32px rgba(22, 30, 42, 0.2), 0 3px 8px rgba(22, 30, 42, 0.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.radar-alert-bolt {
+  display: inline-block;
+  width: 16px;
+  height: 18px;
+  margin-right: 4px;
+  vertical-align: -3px;
+  overflow: visible;
+  fill: #ffd60a;
+  stroke: #090a0c;
+  stroke-width: 2.2;
+  stroke-linejoin: miter;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
+}
+
+.radar-alert-copy {
+  min-width: 0;
+}
+
+.radar-alert-title {
+  margin: 0 0 4px;
+  color: #11151b;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.radar-alert-detail {
+  margin: 0;
+  color: #7c858d;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+}
+
+@media (max-width: 420px) {
+  .radar-alert-card {
+    width: min(205px, calc(100vw - 56px));
+    padding: 12px 14px 13px 13px;
+    border-radius: 22px;
+  }
+
+  .radar-alert-title {
+    font-size: 14px;
+  }
+
+  .radar-alert-detail {
+    font-size: 12px;
+  }
+}
+
 .about-section {
   width: min(100% - 96px, 1060px);
   margin: 0 auto;
@@ -1078,7 +1159,7 @@ input {
   height: 18px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2.2;
   stroke-linecap: round;
 }
 
@@ -1166,7 +1247,7 @@ input {
   margin-left: 1px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.8;
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
