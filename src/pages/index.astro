@@ -9,6 +9,8 @@ import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
 import garmischAlternatePredictions from "../images/Garmisch_alternate_predictions.png";
 import possibleOutcomesUS from "../images/possible-outcomes_en-US.png";
+import accurateMapsCelsius from "../images/accurate-maps-en-celsius.png";
+import accurateMapsFahrenheit from "../images/accurate-maps-en-fahrenheit.png";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
@@ -23,6 +25,14 @@ const features = [
     copy: "See exactly when rain will start, stop, and how intense it will be — down to the minute, for the next 4 hours. Highly accurate with hyper-local precision.",
     image: edenPrairieNowcast,
     alt: "Vista Weather rain nowcast for Eden Prairie",
+  },
+  {
+    title: "Ultra-HD Weather Maps",
+    copy: "See how temperatures change across mountains, valleys, and cities with detailed weather maps that bring local conditions into focus.",
+    image: accurateMapsCelsius,
+    usImage: accurateMapsFahrenheit,
+    alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
+    standalone: true,
   },
   {
     title: "30-Day Forecast",
@@ -107,6 +117,9 @@ const features = [
             <p>{feature.copy}</p>
           </div>
           <div class="feature-media" aria-hidden="true">
+            {feature.standalone ? (
+              <img class="feature-composite-image" src={feature.image.src} alt={feature.alt} data-us-image-src={feature.usImage?.src} loading="lazy" />
+            ) : (
             <div class="phone-case phone-case-feature">
               <div class="phone-screen-placeholder">
                 <img
@@ -118,6 +131,7 @@ const features = [
                 />
               </div>
             </div>
+            )}
           </div>
         </article>
       ))}

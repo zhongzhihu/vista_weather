@@ -848,6 +848,14 @@ input {
   margin-top: auto;
 }
 
+.feature-composite-image {
+  display: block;
+  width: min(100%, 420px);
+  height: auto;
+  align-self: center;
+  filter: drop-shadow(0 12px 18px rgba(22, 30, 42, 0.18));
+}
+
 .phone-case-feature {
   --phone-frame-padding: 8px;
   --phone-frame-radius: 44px;
