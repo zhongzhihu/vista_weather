@@ -448,7 +448,10 @@ const features = [
     if (normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode)) {
       document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]").forEach((image) => {
         const nonAmericasImageSrc = image.dataset.nonAmericasImageSrc;
-        if (nonAmericasImageSrc) image.src = nonAmericasImageSrc;
+        if (nonAmericasImageSrc) {
+          image.src = nonAmericasImageSrc;
+          image.closest(".phone-case-feature-radar")?.classList.add("phone-case-feature-radar-non-americas");
+        }
         const nonAmericasImageAlt = image.dataset.nonAmericasImageAlt;
         if (nonAmericasImageAlt) image.alt = nonAmericasImageAlt;
       });

@@ -905,6 +905,10 @@ input {
   backdrop-filter: blur(18px) saturate(1.25);
 }
 
+.phone-case-feature-radar-non-americas .radar-alert-card {
+  left: 98%;
+}
+
 .radar-alert-bolt {
   display: inline-block;
   width: 16px;
