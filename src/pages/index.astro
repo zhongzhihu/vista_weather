@@ -560,10 +560,11 @@ const features = [
         top = y - cardHeight - 64;
         leader = [x, y - markerGap, x, top + cardHeight];
       } else {
-        // Rachel: place above her storm so the southern storm and all tracks stay visible.
+        // Keep Rachel's taller callout higher above the storm and forecast track.
         const endAnchor = endpoints[calloutKey];
+        const northOffset = 24;
         const maxTopFromTrack = endAnchor ? endAnchor[1] - cardHeight - 20 : y - cardHeight - 60;
-        top = Math.max(gutter + 64, Math.min(y - cardHeight - 60, maxTopFromTrack));
+        top = Math.max(gutter + 64 - northOffset, Math.min(y - cardHeight - 60, maxTopFromTrack) - northOffset);
         left = Math.min(Math.max(x - cardWidth * 0.4, copyRight + gutter), width - cardWidth - gutter);
         const leaderX = Math.max(left + 24, Math.min(x, left + cardWidth - 24));
         leader = [x, y - markerGap, leaderX, top + cardHeight];
