@@ -12,6 +12,7 @@ import possibleOutcomesUS from "../images/possible-outcomes_en-US.png";
 import accurateMapsCelsius from "../images/accurate-maps-en-celsius.png";
 import accurateMapsFahrenheit from "../images/accurate-maps-en-fahrenheit.png";
 import rainRadar from "../images/rain-radar-live-thunder.png";
+import europeRainRadar from "../images/rain-radar-europe-lightning.png";
 import mapsScreen from "../images/accurate-maps-screen-island.svg";
 import mapsDetailCelsius from "../images/accurate-maps-detail-en-celsius.png";
 import mapsDetailFahrenheit from "../images/accurate-maps-detail-en-fahrenheit.png";
@@ -189,6 +190,8 @@ const features = [
                   class="phone-screen-image"
                   src={feature.image.src}
                   alt={feature.alt}
+                  data-non-americas-image-src={feature.title === "Rain Radar & Live Lightning" ? europeRainRadar.src : undefined}
+                  data-non-americas-image-alt={feature.title === "Rain Radar & Live Lightning" ? "Live rain radar map showing precipitation and lightning over central and northern Europe" : undefined}
                   data-us-image-src={feature.title === "Possible Outcomes" ? possibleOutcomesUS.src : undefined}
                   loading="lazy"
                 />
@@ -360,6 +363,15 @@ const features = [
     isaias: "Hurricane Isaias",
     simon: "Hurricane Simon",
   };
+  // The radar promo image is North American. Keep it for the Americas, and
+  // use the Europe radar screenshot everywhere else when country lookup works.
+  const AMERICAS_COUNTRY_CODES = new Set([
+    "AG", "AI", "AR", "AW", "BB", "BL", "BM", "BO", "BQ", "BR", "BS", "BZ",
+    "CA", "CL", "CO", "CR", "CU", "CW", "DM", "DO", "EC", "FK", "GD", "GF",
+    "GL", "GP", "GS", "GT", "GY", "HN", "HT", "JM", "KN", "KY", "LC",
+    "MF", "MQ", "MS", "MX", "NI", "PA", "PE", "PM", "PR", "PY", "SR", "SV",
+    "SX", "TC", "TT", "US", "UY", "VC", "VE", "VG", "VI",
+  ]);
   const activeCallouts = new Set(["rachel", "isaias"]);
   let automaticCountryCodePromise: Promise<string | null> | undefined;
 
@@ -429,6 +441,16 @@ const features = [
       document.querySelectorAll<HTMLImageElement>("[data-us-image-src]").forEach((image) => {
         const usImageSrc = image.dataset.usImageSrc;
         if (usImageSrc) image.src = usImageSrc;
+      });
+    }
+
+    const normalizedCountryCode = countryCode?.trim().toUpperCase();
+    if (normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode)) {
+      document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]").forEach((image) => {
+        const nonAmericasImageSrc = image.dataset.nonAmericasImageSrc;
+        if (nonAmericasImageSrc) image.src = nonAmericasImageSrc;
+        const nonAmericasImageAlt = image.dataset.nonAmericasImageAlt;
+        if (nonAmericasImageAlt) image.alt = nonAmericasImageAlt;
       });
     }
   };
