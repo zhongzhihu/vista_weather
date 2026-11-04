@@ -27,5 +27,5 @@ function formatSpeed(speedMph, unit) {
  * @param {"mph" | "kmh"} unit
  */
 export function formatStormWindDetail(storm, unit) {
-  return `Max winds ${formatSpeed(storm.maxWindMph, unit)} · Moving ${storm.direction} at ${formatSpeed(storm.movingSpeedMph, unit)}`;
+  return `Max winds ${formatSpeed(storm.maxWindMph, unit)}\nMoving ${storm.direction} at ${formatSpeed(storm.movingSpeedMph, unit)}`;
 }

@@ -16,19 +16,19 @@ test("formats storm wind speeds in mph or rounded kmh", () => {
 
   assert.equal(
     formatStormWindDetail(storm, "mph"),
-    "Max winds 120 mph · Moving N at 17 mph",
+    "Max winds 120 mph\nMoving N at 17 mph",
   );
   assert.equal(
     formatStormWindDetail(storm, "kmh"),
-    "Max winds 200 kmh · Moving N at 30 kmh",
+    "Max winds 200 kmh\nMoving N at 30 kmh",
   );
   assert.equal(
     formatStormWindDetail({ maxWindMph: 100, direction: "NW", movingSpeedMph: 2 }, "kmh"),
-    "Max winds 160 kmh · Moving NW at 5 kmh",
+    "Max winds 160 kmh\nMoving NW at 5 kmh",
   );
   assert.equal(
     formatStormWindDetail({ maxWindMph: 50, direction: "NE", movingSpeedMph: 5 }, "kmh"),
-    "Max winds 80 kmh · Moving NE at 10 kmh",
+    "Max winds 80 kmh\nMoving NE at 10 kmh",
   );
 });
 

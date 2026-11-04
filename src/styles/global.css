@@ -672,6 +672,7 @@ input {
 
 .storm-callout {
   position: absolute;
+  width: max-content;
   max-width: min(310px, 30vw);
   padding: 12px 16px;
   border: 1px solid rgba(12, 25, 43, 0.08);
@@ -698,7 +699,7 @@ input {
 .storm-callout p { margin: 0; }
 .storm-callout-time { font-size: 14px; font-weight: 750; }
 .storm-callout-name { margin-top: 2px !important; font-size: 14px; font-weight: 700; }
-.storm-callout-detail { margin-top: 3px !important; color: #475467; font-size: 13px; }
+.storm-callout-detail { margin-top: 3px !important; color: #475467; font-size: 13px; white-space: pre-line; }
 /* Fallback spots until the storm map script places each card by its storm. */
 .storm-callout-rachel { left: 48%; top: 110px; }
 .storm-callout-isaias { right: 5.5%; top: 135px; }
