@@ -1725,9 +1725,10 @@ input {
     width: min(100% - 32px, 560px);
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    min-height: 0;
-    padding: 24px 0 16px;
+    justify-content: flex-end;
+    gap: 16px;
+    min-height: 320px;
+    padding: 24px 0 20px;
   }
 
   /* Flatten .hero-copy so its children (kicker/h1/dek/actions) become direct
@@ -1779,51 +1780,53 @@ input {
   }
 
   .hero-copy h1 {
-    /* Leave the upper map visible and bring the compact title down to the
-       former tagline area. */
-    margin-top: clamp(5.5rem, 15vh, 7.5rem);
-    font-size: clamp(18px, 4.8vw, 20px);
+    /* Let the map fill the space above the headline. */
+    margin-top: 0;
+    font-family: var(--serif);
+    color: #fff;
+    font-size: 36px;
     font-weight: 400;
-    line-height: 1.35;
-    letter-spacing: -0.015em;
+    line-height: 0.91;
+    letter-spacing: normal;
+    text-wrap: pretty;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  }
+
+  .hero-copy h1 > span {
+    display: block;
   }
 
   .hero-dek {
     display: none;
   }
 
-  /* Keep the App Store badge primary and the Android waitlist available as a
-     quieter text action so the satellite image stays in view. */
+  /* Keep both actions aligned beneath the mobile headline. */
   .hero-actions {
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: stretch;
-    justify-content: flex-start;
     gap: 12px;
-    margin-top: 4px;
+    margin-top: 0;
   }
 
   .hero-actions .store-badge-official {
-    flex: 0 1 196px;
-    width: min(196px, 56%);
+    width: 100%;
     min-width: 0;
     height: 54px;
     min-height: 54px;
   }
 
   .hero-actions .waitlist-button {
-    flex: 1 1 auto;
-    width: auto;
+    width: 100%;
     min-width: 0;
     height: 54px;
     min-height: 54px;
     padding: 6px 8px;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.96);
-    box-shadow: none;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--ink);
     font-size: 14px;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.72);
-    text-underline-offset: 3px;
+    line-height: 1.1;
+    text-align: center;
   }
 
   .hero-actions .store-badge-official {
@@ -1832,12 +1835,11 @@ input {
     overflow: hidden;
   }
 
-  /* Let the vector badge fill its primary action width without cropping. */
+  /* Preserve the official badge's proportions at narrow widths. */
   .hero-actions .store-badge-official img {
     height: 100%;
     width: 100%;
-    aspect-ratio: auto;
-    object-fit: fill;
+    object-fit: contain;
   }
 
   .waitlist-button-note {
