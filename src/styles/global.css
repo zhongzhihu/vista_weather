@@ -880,6 +880,15 @@ input {
   z-index: 1;
 }
 
+.phone-case-feature-radar .phone-screen-image {
+  transition: opacity 140ms ease-out;
+}
+
+.phone-case-feature-radar-pending .phone-screen-image,
+.phone-case-feature-radar-pending .radar-alert-annotation {
+  opacity: 0;
+}
+
 .radar-alert-annotation {
   position: absolute;
   inset: 0;

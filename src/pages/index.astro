@@ -187,7 +187,10 @@ const features = [
               class:list={[
                 "phone-case",
                 "phone-case-feature",
-                { "phone-case-feature-radar": feature.title === "Rain Radar & Live Lightning" },
+                {
+                  "phone-case-feature-radar": feature.title === "Rain Radar & Live Lightning",
+                  "phone-case-feature-radar-pending": feature.title === "Rain Radar & Live Lightning",
+                },
               ]}
             >
               <div class="phone-screen-placeholder">
@@ -453,8 +456,10 @@ const features = [
     }
 
     const normalizedCountryCode = countryCode?.trim().toUpperCase();
-    if (normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode)) {
-      document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]").forEach((image) => {
+    const isNonAmericas = Boolean(normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode));
+    const radarImages = [...document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]")];
+    if (isNonAmericas) {
+      radarImages.forEach((image) => {
         const nonAmericasImageSrc = image.dataset.nonAmericasImageSrc;
         if (nonAmericasImageSrc) {
           image.src = nonAmericasImageSrc;
@@ -464,6 +469,32 @@ const features = [
         if (nonAmericasImageAlt) image.alt = nonAmericasImageAlt;
       });
     }
+
+    // Keep the radar hidden until the country lookup has selected its variant
+    // and the chosen image is decoded, so the North American default never flashes.
+    radarImages.forEach((image) => {
+      const radar = image.closest(".phone-case-feature-radar");
+      if (!radar) return;
+      const reveal = () => radar.classList.remove("phone-case-feature-radar-pending");
+      const decodeAndReveal = () => {
+        if (typeof image.decode !== "function") {
+          reveal();
+          return;
+        }
+        image.decode().then(reveal, () => {
+          if (image.complete) reveal();
+        });
+      };
+
+      if (image.complete) {
+        decodeAndReveal();
+        return;
+      }
+      image.addEventListener("load", decodeAndReveal, { once: true });
+      image.addEventListener("error", reveal, { once: true });
+      // The lazy image can finish between the complete check and listener setup.
+      if (image.complete) decodeAndReveal();
+    });
   };
 
   const svgElement = (name: string, attributes: Record<string, string | number>) => {
