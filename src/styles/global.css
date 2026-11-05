@@ -2003,7 +2003,7 @@ input {
 .feature-map-parts { position: relative; width: min(100%, 360px); aspect-ratio: 1206 / 1850; align-self: center; }
 .map-part { position: absolute; height: auto; display: block; }
 .map-callout { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.map-callout path { fill: rgb(105 124 140 / 24%); stroke: rgb(105 124 140 / 18%); stroke-width: .2; vector-effect: non-scaling-stroke; }
+.map-callout path { fill: rgb(105 124 140 / 19%); stroke: rgb(105 124 140 / 12%); stroke-width: .2; vector-effect: non-scaling-stroke; }
 .map-phone { left: 0; top: 1.081%; width: 63.847%; }
 .map-detail { left: 55.556%; top: 3.784%; width: 42.289%; }
 .map-comparison { left: 52.239%; top: 42.703%; width: 47.264%; }

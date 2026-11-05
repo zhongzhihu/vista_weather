@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import StoreBadge from "../components/StoreBadge.astro";
-import sfNowcastRain from "../images/SF_nowcast_rain_C.png";
+import sanFranciscoWeatherScreenshot from "../images/san-francisco-weather-screenshot-celsius.png";
+import sanFranciscoWeatherScreenshotFahrenheit from "../images/san-francisco-weather-screenshot-fahrenheit.png";
 import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
@@ -90,7 +91,7 @@ const features = [
         <div class="hero-phones" aria-label="Vista Weather phone mockups">
           <div class="phone-case phone-case-primary">
             <div class="phone-screen-placeholder">
-              <img class="phone-screen-image" src={sfNowcastRain.src} alt="Vista Weather rain nowcast for San Francisco" loading="eager" />
+              <img class="phone-screen-image" src={sanFranciscoWeatherScreenshot.src} data-us-image-src={sanFranciscoWeatherScreenshotFahrenheit.src} alt="Vista Weather forecast for San Francisco" loading="eager" />
             </div>
           </div>
 
