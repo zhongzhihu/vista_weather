@@ -858,6 +858,9 @@ input {
 }
 
 @media (min-width: 761px) {
+  .feature-block-forecast-comparison { grid-column: 1; }
+  .feature-block-possible-outcomes { grid-column: 2; }
+
   .feature-composite-image {
     /* Offset the transparent space below the built-in phone frame. */
     margin-bottom: -51px;
@@ -878,15 +881,6 @@ input {
 
 .phone-case-feature-radar {
   z-index: 1;
-}
-
-.phone-case-feature-radar .phone-screen-image {
-  transition: opacity 140ms ease-out;
-}
-
-.phone-case-feature-radar-pending .phone-screen-image,
-.phone-case-feature-radar-pending .radar-alert-annotation {
-  opacity: 0;
 }
 
 .radar-alert-annotation {
@@ -1724,7 +1718,7 @@ input {
     flex-direction: column;
     gap: 18px;
     min-height: 0;
-    padding: 44px 0 16px;
+    padding: 24px 0 16px;
   }
 
   /* Flatten .hero-copy so its children (kicker/h1/dek/actions) become direct
@@ -1776,31 +1770,52 @@ input {
   }
 
   .hero-copy h1 {
-    font-size: 48px;
+    /* Leave the upper map visible and bring the compact title down to the
+       former tagline area. */
+    margin-top: clamp(5.5rem, 15vh, 7.5rem);
+    font-family: var(--sans);
+    font-size: clamp(18px, 4.8vw, 20px);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
   }
 
   .hero-dek {
-    font-size: 16px;
+    display: none;
   }
 
-  /* Two CTAs on one line, sharing the row equally at a matching height. */
+  /* Keep the App Store badge primary and the Android waitlist available as a
+     quieter text action so the satellite image stays in view. */
   .hero-actions {
     flex-wrap: nowrap;
     align-items: stretch;
+    justify-content: flex-start;
     gap: 12px;
     margin-top: 4px;
   }
 
-  /* Both CTAs share the row 50/50 at a matching height. Use an explicit equal
-     basis (half the row minus half the gap) so neither the badge's intrinsic
-     image ratio nor the waitlist text can make the two items unequal. */
-  .hero-actions .store-badge-official,
-  .hero-actions .waitlist-button {
-    flex: 0 0 calc((100% - 12px) / 2);
-    width: calc((100% - 12px) / 2);
+  .hero-actions .store-badge-official {
+    flex: 0 1 196px;
+    width: min(196px, 56%);
     min-width: 0;
     height: 54px;
     min-height: 54px;
+  }
+
+  .hero-actions .waitlist-button {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    height: 54px;
+    min-height: 54px;
+    padding: 6px 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.96);
+    box-shadow: none;
+    font-size: 14px;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.72);
+    text-underline-offset: 3px;
   }
 
   .hero-actions .store-badge-official {
@@ -1809,24 +1824,12 @@ input {
     overflow: hidden;
   }
 
-  /* Vector badge stretches to fill its half of the row on both axes (SVG
-     scales without blur, so no cropping). aspect-ratio:auto keeps the img's
-     intrinsic 196x58 ratio from capping the flex item's width so both CTAs
-     end up exactly equal. */
+  /* Let the vector badge fill its primary action width without cropping. */
   .hero-actions .store-badge-official img {
     height: 100%;
     width: 100%;
     aspect-ratio: auto;
     object-fit: fill;
-  }
-
-  .waitlist-button {
-    min-width: 0;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 15px;
-    line-height: 1.15;
-    text-align: center;
   }
 
   .waitlist-button-note {
