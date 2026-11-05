@@ -6,6 +6,7 @@ import StoreBadge from "../components/StoreBadge.astro";
 import sanFranciscoWeatherScreenshot from "../images/san-francisco-weather-screenshot-celsius.png";
 import sanFranciscoWeatherScreenshotFahrenheit from "../images/san-francisco-weather-screenshot-fahrenheit.png";
 import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
+import thirtyDayWeatherForecastsFahrenheit from "../images/30-day-weather-forecasts-fahrenheit.png";
 import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
 import forecastComparison from "../images/forecast_comparison.png";
 import possibleOutcomesGB from "../images/possible-outcomes_en-GB.png";
@@ -196,7 +197,8 @@ const features = [
                   alt={feature.alt}
                   data-non-americas-image-src={feature.title === "Rain Radar & Live Lightning" ? europeRainRadar.src : undefined}
                   data-non-americas-image-alt={feature.title === "Rain Radar & Live Lightning" ? "Live rain radar map showing precipitation and lightning over central and northern Europe" : undefined}
-                  data-us-image-src={feature.title === "Possible Outcomes" ? possibleOutcomesUS.src : undefined}
+                  data-us-image-src={feature.title === "30-Day Forecast" ? thirtyDayWeatherForecastsFahrenheit.src : feature.title === "Possible Outcomes" ? possibleOutcomesUS.src : undefined}
+                  data-us-image-alt={feature.title === "30-Day Forecast" ? "Vista Weather 30 day weather forecasts in Fahrenheit" : undefined}
                   loading="lazy"
                 />
               </div>
@@ -445,6 +447,8 @@ const features = [
       document.querySelectorAll<HTMLImageElement>("[data-us-image-src]").forEach((image) => {
         const usImageSrc = image.dataset.usImageSrc;
         if (usImageSrc) image.src = usImageSrc;
+        const usImageAlt = image.dataset.usImageAlt;
+        if (usImageAlt) image.alt = usImageAlt;
       });
     }
 
