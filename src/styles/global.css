@@ -774,6 +774,15 @@ input {
   outline-offset: 4px;
 }
 
+@media (max-width: 760px) {
+  .storm-marker {
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    background-size: 22px 22px;
+  }
+}
+
 @keyframes cyclone-spin {
   to { transform: rotate(360deg); }
 }
@@ -1773,9 +1782,8 @@ input {
     /* Leave the upper map visible and bring the compact title down to the
        former tagline area. */
     margin-top: clamp(5.5rem, 15vh, 7.5rem);
-    font-family: var(--sans);
     font-size: clamp(18px, 4.8vw, 20px);
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.35;
     letter-spacing: -0.015em;
   }
