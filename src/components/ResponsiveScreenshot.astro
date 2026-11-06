@@ -1,6 +1,5 @@
 ---
 interface Props {
-  screenshotKey: string;
   webp: string;
   png: string;
   alt: string;
@@ -16,7 +15,6 @@ interface Props {
 }
 
 const {
-  screenshotKey,
   webp,
   png,
   alt,
@@ -40,7 +38,6 @@ const {
     class={imageClass}
     loading={loading}
     decoding="async"
-    data-screenshot-key={screenshotKey}
     data-us-image-src={usWebp}
     data-us-original-src={usPng}
     data-us-image-alt={usAlt}

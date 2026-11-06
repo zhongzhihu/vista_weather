@@ -326,13 +326,6 @@ input {
   min-width: 0;
 }
 
-.hero-screenshot-download {
-  display: flex;
-  width: fit-content;
-  margin-top: 14px;
-  color: rgba(255, 255, 255, 0.84);
-}
-
 .waitlist-button-note {
   font-size: 12px;
   font-weight: 600;
@@ -870,45 +863,8 @@ input {
 
 .feature-media {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
   margin-top: auto;
-}
-
-.screenshot-download-link {
-  display: inline-flex;
-  align-items: center;
-  color: var(--ink-3);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.4;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
-.screenshot-download-link:hover {
-  color: var(--blue-deep);
-}
-
-.hero-copy .hero-screenshot-download {
-  color: rgba(255, 255, 255, 0.86);
-}
-
-.hero-copy .hero-screenshot-download:hover {
-  color: #ffffff;
-}
-
-.feature-media > .screenshot-download-link {
-  margin-top: 10px;
-}
-
-.feature-download-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 16px;
-  margin: 8px auto 0;
 }
 
 .feature-composite-image {

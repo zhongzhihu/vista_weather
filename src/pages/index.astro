@@ -14,7 +14,6 @@ const screenshot = (slug: string) => {
   return {
     webp: `${assetBase}/images/${filename}.webp`,
     png: `${assetBase}/press/${filename}.png`,
-    filename: `${filename}.png`,
   };
 };
 
@@ -44,7 +43,6 @@ const features = [
     title: "Minute-by-Minute Rain",
     copy: "See exactly when rain will start, stop, and how intense it will be — down to the minute, for the next 4 hours. Highly accurate with hyper-local precision.",
     image: screenshots.edenPrairie,
-    screenshotKey: "feature-minute-by-minute-rain",
     alt: "Vista Weather minute-by-minute rain forecast for Eden Prairie",
   },
   {
@@ -57,7 +55,6 @@ const features = [
     title: "Rain Radar & Live Lightning",
     copy: "Track rain and storms in real time. See where rain is heading and spot lightning strikes as they happen.",
     image: screenshots.radarUS,
-    screenshotKey: "feature-live-rain-radar",
     nonAmericasImage: screenshots.radarEurope,
     alt: "Live rain radar map showing precipitation bands and lightning strikes across the eastern United States",
     nonAmericasAlt: "Live rain radar map showing precipitation and lightning over central and northern Europe",
@@ -66,7 +63,6 @@ const features = [
     title: "30-Day Forecast",
     copy: "Plan further ahead with daily trends all the way out to a month.",
     image: screenshots.thirtyDayCelsius,
-    screenshotKey: "feature-30-day-forecast",
     usImage: screenshots.thirtyDayFahrenheit,
     alt: "Vista Weather 30 day weather forecasts in Celsius",
     usAlt: "Vista Weather 30-day weather forecast in Fahrenheit",
@@ -75,7 +71,6 @@ const features = [
     title: "Forecast Comparison",
     copy: "Compare NWS, Apple Weather, Foreca, and other trusted sources side by side, so you can see where they agree and where they don't.",
     image: screenshots.forecastComparison,
-    screenshotKey: "feature-forecast-comparison",
     alt: "Vista Weather forecast source comparison",
   },
   {
@@ -83,7 +78,6 @@ const features = [
     intro: "Weather forecasts are based on multiple predictions.",
     copy: "See how certain the forecast is. View the range of possible outcomes instead of a single number.",
     image: screenshots.possibleOutcomesGB,
-    screenshotKey: "feature-possible-outcomes",
     usImage: screenshots.possibleOutcomesUS,
     alt: "Vista Weather possible temperature outcomes for Paris in English (UK)",
     usAlt: "Vista Weather possible temperature outcomes for Paris in English (US)",
@@ -107,19 +101,12 @@ const features = [
               <span class="waitlist-button-note">Expected Dec '26</span>
             </button>
           </div>
-          <a
-            class="screenshot-download-link hero-screenshot-download"
-            href={screenshots.sanFranciscoCelsius.png}
-            download={screenshots.sanFranciscoCelsius.filename}
-            data-image-download-for="hero-san-francisco"
-          >Download original forecast screenshot PNG</a>
         </div>
 
         <div class="hero-phones" aria-label="Vista Weather phone mockups">
           <div class="phone-case phone-case-primary">
             <div class="phone-screen-placeholder">
               <ResponsiveScreenshot
-                screenshotKey="hero-san-francisco"
                 webp={screenshots.sanFranciscoCelsius.webp}
                 png={screenshots.sanFranciscoCelsius.png}
                 usWebp={screenshots.sanFranciscoFahrenheit.webp}
@@ -220,7 +207,6 @@ const features = [
                   <div class="phone-case phone-case-feature map-phone-mockup">
                     <div class="phone-screen-placeholder map-screen">
                       <ResponsiveScreenshot
-                        screenshotKey="feature-map-screen"
                         webp={screenshots.mapScreen.webp}
                         png={screenshots.mapScreen.png}
                         alt="Vista Weather high-resolution weather map of western North America"
@@ -234,7 +220,6 @@ const features = [
                     <path d="M 32 59 L 56.8 25.8 L 76.3 40.5 Z" />
                   </svg>
                   <ResponsiveScreenshot
-                    screenshotKey="feature-map-detail"
                     webp={screenshots.mapDetailCelsius.webp}
                     png={screenshots.mapDetailCelsius.png}
                     usWebp={screenshots.mapDetailFahrenheit.webp}
@@ -246,7 +231,6 @@ const features = [
                     loading="lazy"
                   />
                   <ResponsiveScreenshot
-                    screenshotKey="feature-map-resolution-comparison"
                     webp={screenshots.mapResolutionCelsius.webp}
                     png={screenshots.mapResolutionCelsius.png}
                     usWebp={screenshots.mapResolutionFahrenheit.webp}
@@ -257,11 +241,6 @@ const features = [
                     imageClass="map-part-image"
                     loading="lazy"
                   />
-                </div>
-                <div class="feature-download-links" aria-label="Original weather map screenshots">
-                  <a class="screenshot-download-link" href={screenshots.mapScreen.png} download={screenshots.mapScreen.filename} data-image-download-for="feature-map-screen">Download map screen PNG</a>
-                  <a class="screenshot-download-link" href={screenshots.mapDetailCelsius.png} download={screenshots.mapDetailCelsius.filename} data-image-download-for="feature-map-detail">Download map detail PNG</a>
-                  <a class="screenshot-download-link" href={screenshots.mapResolutionCelsius.png} download={screenshots.mapResolutionCelsius.filename} data-image-download-for="feature-map-resolution-comparison">Download map comparison PNG</a>
                 </div>
               </>
             ) : (
@@ -275,7 +254,6 @@ const features = [
                 >
                   <div class="phone-screen-placeholder">
                     <ResponsiveScreenshot
-                      screenshotKey={feature.screenshotKey}
                       webp={feature.image.webp}
                       png={feature.image.png}
                       usWebp={feature.usImage?.webp}
@@ -305,12 +283,6 @@ const features = [
                     </div>
                   )}
                 </div>
-                <a
-                  class="screenshot-download-link"
-                  href={feature.image.png}
-                  download={feature.image.filename}
-                  data-image-download-for={feature.screenshotKey}
-                >Download original PNG</a>
               </>
             )}
           </div>
@@ -545,15 +517,6 @@ const features = [
     if (webpSource) webpSource.srcset = webpSrc;
     image.src = pngSrc;
     if (alt) image.alt = alt;
-
-    const screenshotKey = image.dataset.screenshotKey;
-    const downloadLink = screenshotKey
-      ? document.querySelector<HTMLAnchorElement>(`[data-image-download-for="${screenshotKey}"]`)
-      : null;
-    if (downloadLink) {
-      downloadLink.href = pngSrc;
-      downloadLink.download = pngSrc.split("/").pop() ?? "vista-weather-screenshot.png";
-    }
   };
 
   const initCountryPresentation = async (hero: HTMLElement) => {
