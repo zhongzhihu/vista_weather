@@ -1,0 +1,51 @@
+---
+interface Props {
+  screenshotKey: string;
+  webp: string;
+  png: string;
+  alt: string;
+  pictureClass?: string;
+  imageClass?: string;
+  loading?: "eager" | "lazy";
+  usWebp?: string;
+  usPng?: string;
+  usAlt?: string;
+  nonAmericasWebp?: string;
+  nonAmericasPng?: string;
+  nonAmericasAlt?: string;
+}
+
+const {
+  screenshotKey,
+  webp,
+  png,
+  alt,
+  pictureClass,
+  imageClass,
+  loading = "lazy",
+  usWebp,
+  usPng,
+  usAlt,
+  nonAmericasWebp,
+  nonAmericasPng,
+  nonAmericasAlt,
+} = Astro.props;
+---
+
+<picture class:list={["responsive-screenshot", pictureClass]}>
+  <source type="image/webp" srcset={webp} data-webp-source />
+  <img
+    src={png}
+    alt={alt}
+    class={imageClass}
+    loading={loading}
+    decoding="async"
+    data-screenshot-key={screenshotKey}
+    data-us-image-src={usWebp}
+    data-us-original-src={usPng}
+    data-us-image-alt={usAlt}
+    data-non-americas-image-src={nonAmericasWebp}
+    data-non-americas-original-src={nonAmericasPng}
+    data-non-americas-image-alt={nonAmericasAlt}
+  />
+</picture>

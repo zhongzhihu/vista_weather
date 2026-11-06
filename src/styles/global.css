@@ -326,6 +326,13 @@ input {
   min-width: 0;
 }
 
+.hero-screenshot-download {
+  display: flex;
+  width: fit-content;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.84);
+}
+
 .waitlist-button-note {
   font-size: 12px;
   font-weight: 600;
@@ -564,6 +571,15 @@ input {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.responsive-screenshot {
+  display: block;
+}
+
+.phone-screen-placeholder > .phone-screen-picture {
+  width: 100%;
+  height: 100%;
 }
 
 .phone-case-primary {
@@ -854,8 +870,45 @@ input {
 
 .feature-media {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-top: auto;
+}
+
+.screenshot-download-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.screenshot-download-link:hover {
+  color: var(--blue-deep);
+}
+
+.hero-copy .hero-screenshot-download {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero-copy .hero-screenshot-download:hover {
+  color: #ffffff;
+}
+
+.feature-media > .screenshot-download-link {
+  margin-top: 10px;
+}
+
+.feature-download-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  margin: 8px auto 0;
 }
 
 .feature-composite-image {
@@ -2026,6 +2079,7 @@ input {
 .feature-media-map { width: 100%; }
 .feature-map-parts { position: relative; width: min(100%, 360px); aspect-ratio: 1206 / 1850; align-self: center; }
 .map-part { position: absolute; height: auto; display: block; }
+.map-part-image { display: block; width: 100%; height: auto; }
 .map-callout { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .map-callout path { fill: rgb(105 124 140 / 19%); stroke: rgb(105 124 140 / 12%); stroke-width: .2; vector-effect: non-scaling-stroke; }
 .map-phone { left: 0; top: 1.081%; width: 63.847%; }

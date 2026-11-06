@@ -3,27 +3,38 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import StoreBadge from "../components/StoreBadge.astro";
-import sanFranciscoWeatherScreenshot from "../images/san-francisco-weather-screenshot-celsius.png";
-import sanFranciscoWeatherScreenshotFahrenheit from "../images/san-francisco-weather-screenshot-fahrenheit.png";
-import thirtyDayWeatherForecastsCelsius from "../images/30-day-weather-forecasts-celsius.png";
-import thirtyDayWeatherForecastsFahrenheit from "../images/30-day-weather-forecasts-fahrenheit.png";
-import edenPrairieNowcast from "../images/Edenprairie_C_nowc.png";
-import forecastComparison from "../images/forecast_comparison.png";
-import possibleOutcomesGB from "../images/possible-outcomes_en-GB.png";
-import possibleOutcomesUS from "../images/possible-outcomes_en-US.png";
-import accurateMapsCelsius from "../images/accurate-maps-en-celsius.png";
-import accurateMapsFahrenheit from "../images/accurate-maps-en-fahrenheit.png";
-import rainRadar from "../images/rain-radar-live-thunder.png";
-import europeRainRadar from "../images/rain-radar-europe-lightning.png";
-import mapsScreen from "../images/accurate-maps-screen-island.svg";
-import mapsDetailCelsius from "../images/accurate-maps-detail-en-celsius.png";
-import mapsDetailFahrenheit from "../images/accurate-maps-detail-en-fahrenheit.png";
-import mapsComparisonCelsius from "../images/accurate-maps-comparison-en-celsius.png";
-import mapsComparisonFahrenheit from "../images/accurate-maps-comparison-en-fahrenheit.png";
+import ResponsiveScreenshot from "../components/ResponsiveScreenshot.astro";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
+const assetBase = import.meta.env.BASE_URL.replace(/\/$/, "");
+const screenshot = (slug: string) => {
+  const filename = `vista-weather-${slug}`;
+  return {
+    webp: `${assetBase}/images/${filename}.webp`,
+    png: `${assetBase}/press/${filename}.png`,
+    filename: `${filename}.png`,
+  };
+};
+
+const screenshots = {
+  sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
+  sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
+  mapScreen: screenshot("western-north-america-weather-map-screen"),
+  edenPrairie: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
+  radarUS: screenshot("united-states-live-rain-radar-lightning"),
+  radarEurope: screenshot("europe-live-rain-radar-lightning"),
+  thirtyDayCelsius: screenshot("30-day-weather-forecast-celsius"),
+  thirtyDayFahrenheit: screenshot("30-day-weather-forecast-fahrenheit"),
+  forecastComparison: screenshot("weather-forecast-source-comparison"),
+  possibleOutcomesGB: screenshot("paris-possible-temperature-outcomes-en-gb"),
+  possibleOutcomesUS: screenshot("paris-possible-temperature-outcomes-en-us"),
+  mapDetailCelsius: screenshot("high-resolution-weather-map-detail-celsius"),
+  mapDetailFahrenheit: screenshot("high-resolution-weather-map-detail-fahrenheit"),
+  mapResolutionCelsius: screenshot("weather-map-resolution-comparison-celsius"),
+  mapResolutionFahrenheit: screenshot("weather-map-resolution-comparison-fahrenheit"),
+};
 
 // Feature blocks, presented Acme-style: heading + descriptive text first,
 // then a large phone screenshot below. Each block alternates the image side on
@@ -32,41 +43,50 @@ const features = [
   {
     title: "Minute-by-Minute Rain",
     copy: "See exactly when rain will start, stop, and how intense it will be — down to the minute, for the next 4 hours. Highly accurate with hyper-local precision.",
-    image: edenPrairieNowcast,
-    alt: "Vista Weather rain nowcast for Eden Prairie",
+    image: screenshots.edenPrairie,
+    screenshotKey: "feature-minute-by-minute-rain",
+    alt: "Vista Weather minute-by-minute rain forecast for Eden Prairie",
   },
   {
     title: "Ultra-HD Weather Maps",
     copy: "See the bigger picture with ultra-HD maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
-    image: accurateMapsCelsius,
-    usImage: accurateMapsFahrenheit,
     alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
     standalone: true,
   },
   {
     title: "Rain Radar & Live Lightning",
     copy: "Track rain and storms in real time. See where rain is heading and spot lightning strikes as they happen.",
-    image: rainRadar,
+    image: screenshots.radarUS,
+    screenshotKey: "feature-live-rain-radar",
+    nonAmericasImage: screenshots.radarEurope,
     alt: "Live rain radar map showing precipitation bands and lightning strikes across the eastern United States",
+    nonAmericasAlt: "Live rain radar map showing precipitation and lightning over central and northern Europe",
   },
   {
     title: "30-Day Forecast",
     copy: "Plan further ahead with daily trends all the way out to a month.",
-    image: thirtyDayWeatherForecastsCelsius,
+    image: screenshots.thirtyDayCelsius,
+    screenshotKey: "feature-30-day-forecast",
+    usImage: screenshots.thirtyDayFahrenheit,
     alt: "Vista Weather 30 day weather forecasts in Celsius",
+    usAlt: "Vista Weather 30-day weather forecast in Fahrenheit",
   },
   {
     title: "Forecast Comparison",
     copy: "Compare NWS, Apple Weather, Foreca, and other trusted sources side by side, so you can see where they agree and where they don't.",
-    image: forecastComparison,
-    alt: "Vista Weather forecast comparison",
+    image: screenshots.forecastComparison,
+    screenshotKey: "feature-forecast-comparison",
+    alt: "Vista Weather forecast source comparison",
   },
   {
     title: "Possible Outcomes",
     intro: "Weather forecasts are based on multiple predictions.",
     copy: "See how certain the forecast is. View the range of possible outcomes instead of a single number.",
-    image: possibleOutcomesGB,
-    alt: "Vista Weather possible temperature outcomes for Paris",
+    image: screenshots.possibleOutcomesGB,
+    screenshotKey: "feature-possible-outcomes",
+    usImage: screenshots.possibleOutcomesUS,
+    alt: "Vista Weather possible temperature outcomes for Paris in English (UK)",
+    usAlt: "Vista Weather possible temperature outcomes for Paris in English (US)",
   },
 ];
 ---
@@ -87,12 +107,29 @@ const features = [
               <span class="waitlist-button-note">Expected Dec '26</span>
             </button>
           </div>
+          <a
+            class="screenshot-download-link hero-screenshot-download"
+            href={screenshots.sanFranciscoCelsius.png}
+            download={screenshots.sanFranciscoCelsius.filename}
+            data-image-download-for="hero-san-francisco"
+          >Download original forecast screenshot PNG</a>
         </div>
 
         <div class="hero-phones" aria-label="Vista Weather phone mockups">
           <div class="phone-case phone-case-primary">
             <div class="phone-screen-placeholder">
-              <img class="phone-screen-image" src={sanFranciscoWeatherScreenshot.src} data-us-image-src={sanFranciscoWeatherScreenshotFahrenheit.src} alt="Vista Weather forecast for San Francisco" loading="eager" />
+              <ResponsiveScreenshot
+                screenshotKey="hero-san-francisco"
+                webp={screenshots.sanFranciscoCelsius.webp}
+                png={screenshots.sanFranciscoCelsius.png}
+                usWebp={screenshots.sanFranciscoFahrenheit.webp}
+                usPng={screenshots.sanFranciscoFahrenheit.png}
+                alt="Vista Weather weather forecast for San Francisco in Celsius"
+                usAlt="Vista Weather weather forecast for San Francisco in Fahrenheit"
+                pictureClass="phone-screen-picture"
+                imageClass="phone-screen-image"
+                loading="eager"
+              />
             </div>
           </div>
 
@@ -176,55 +213,105 @@ const features = [
               </div>
             )}
           </div>
-          <div class:list={["feature-media", { "feature-media-map": feature.standalone }]} aria-hidden="true">
+          <div class:list={["feature-media", { "feature-media-map": feature.standalone }]}>
             {feature.standalone ? (
-              <div class="feature-map-parts">
-                <div class="phone-case phone-case-feature map-phone-mockup">
-                  <div class="phone-screen-placeholder map-screen">
-                    <img class="phone-screen-image" src={mapsScreen.src} alt="Weather map" loading="lazy" />
-                  </div>
-                </div>
-                <svg class="map-callout" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                  <path d="M 32 59 L 56.8 25.8 L 76.3 40.5 Z" />
-                </svg>
-                <img class="map-part map-detail" src={mapsDetailCelsius.src} data-us-image-src={mapsDetailFahrenheit.src} alt="Detailed weather map close-up" loading="lazy" />
-                <img class="map-part map-comparison" src={mapsComparisonCelsius.src} data-us-image-src={mapsComparisonFahrenheit.src} alt="Lower-detail weather map comparison" loading="lazy" />
-              </div>
-            ) : (
-            <div
-              class:list={[
-                "phone-case",
-                "phone-case-feature",
-                { "phone-case-feature-radar": feature.title === "Rain Radar & Live Lightning" },
-              ]}
-            >
-              <div class="phone-screen-placeholder">
-                <img
-                  class="phone-screen-image"
-                  src={feature.image.src}
-                  alt={feature.alt}
-                  data-non-americas-image-src={feature.title === "Rain Radar & Live Lightning" ? europeRainRadar.src : undefined}
-                  data-non-americas-image-alt={feature.title === "Rain Radar & Live Lightning" ? "Live rain radar map showing precipitation and lightning over central and northern Europe" : undefined}
-                  data-us-image-src={feature.title === "30-Day Forecast" ? thirtyDayWeatherForecastsFahrenheit.src : feature.title === "Possible Outcomes" ? possibleOutcomesUS.src : undefined}
-                  data-us-image-alt={feature.title === "30-Day Forecast" ? "Vista Weather 30 day weather forecasts in Fahrenheit" : undefined}
-                  loading="lazy"
-                />
-              </div>
-              {feature.title === "Rain Radar & Live Lightning" && (
-                <div class="radar-alert-annotation" aria-hidden="true">
-                  <aside class="radar-alert-card">
-                    <div class="radar-alert-copy">
-                      <p class="radar-alert-title"><svg class="radar-alert-bolt" viewBox="0 0 28 28" aria-hidden="true">
-                        <path class="radar-alert-bolt-shadow" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
-                        <path class="radar-alert-bolt-outline" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
-                        <path class="radar-alert-bolt-fill" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
-                      </svg>Lightning</p>
-                      <p class="radar-alert-detail">Recent strikes in<br />the last 30 minutes</p>
+              <>
+                <div class="feature-map-parts">
+                  <div class="phone-case phone-case-feature map-phone-mockup">
+                    <div class="phone-screen-placeholder map-screen">
+                      <ResponsiveScreenshot
+                        screenshotKey="feature-map-screen"
+                        webp={screenshots.mapScreen.webp}
+                        png={screenshots.mapScreen.png}
+                        alt="Vista Weather high-resolution weather map of western North America"
+                        pictureClass="phone-screen-picture"
+                        imageClass="phone-screen-image"
+                        loading="lazy"
+                      />
                     </div>
-                  </aside>
+                  </div>
+                  <svg class="map-callout" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M 32 59 L 56.8 25.8 L 76.3 40.5 Z" />
+                  </svg>
+                  <ResponsiveScreenshot
+                    screenshotKey="feature-map-detail"
+                    webp={screenshots.mapDetailCelsius.webp}
+                    png={screenshots.mapDetailCelsius.png}
+                    usWebp={screenshots.mapDetailFahrenheit.webp}
+                    usPng={screenshots.mapDetailFahrenheit.png}
+                    alt="Close-up of the Vista Weather high-resolution temperature map in Celsius"
+                    usAlt="Close-up of the Vista Weather high-resolution temperature map in Fahrenheit"
+                    pictureClass="map-part map-detail"
+                    imageClass="map-part-image"
+                    loading="lazy"
+                  />
+                  <ResponsiveScreenshot
+                    screenshotKey="feature-map-resolution-comparison"
+                    webp={screenshots.mapResolutionCelsius.webp}
+                    png={screenshots.mapResolutionCelsius.png}
+                    usWebp={screenshots.mapResolutionFahrenheit.webp}
+                    usPng={screenshots.mapResolutionFahrenheit.png}
+                    alt="Comparison of high- and lower-resolution weather maps in Celsius"
+                    usAlt="Comparison of high- and lower-resolution weather maps in Fahrenheit"
+                    pictureClass="map-part map-comparison"
+                    imageClass="map-part-image"
+                    loading="lazy"
+                  />
                 </div>
-              )}
-            </div>
+                <div class="feature-download-links" aria-label="Original weather map screenshots">
+                  <a class="screenshot-download-link" href={screenshots.mapScreen.png} download={screenshots.mapScreen.filename} data-image-download-for="feature-map-screen">Download map screen PNG</a>
+                  <a class="screenshot-download-link" href={screenshots.mapDetailCelsius.png} download={screenshots.mapDetailCelsius.filename} data-image-download-for="feature-map-detail">Download map detail PNG</a>
+                  <a class="screenshot-download-link" href={screenshots.mapResolutionCelsius.png} download={screenshots.mapResolutionCelsius.filename} data-image-download-for="feature-map-resolution-comparison">Download map comparison PNG</a>
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  class:list={[
+                    "phone-case",
+                    "phone-case-feature",
+                    { "phone-case-feature-radar": feature.title === "Rain Radar & Live Lightning" },
+                  ]}
+                >
+                  <div class="phone-screen-placeholder">
+                    <ResponsiveScreenshot
+                      screenshotKey={feature.screenshotKey}
+                      webp={feature.image.webp}
+                      png={feature.image.png}
+                      usWebp={feature.usImage?.webp}
+                      usPng={feature.usImage?.png}
+                      usAlt={feature.usAlt}
+                      nonAmericasWebp={feature.nonAmericasImage?.webp}
+                      nonAmericasPng={feature.nonAmericasImage?.png}
+                      nonAmericasAlt={feature.nonAmericasAlt}
+                      alt={feature.alt}
+                      pictureClass="phone-screen-picture"
+                      imageClass="phone-screen-image"
+                      loading="lazy"
+                    />
+                  </div>
+                  {feature.title === "Rain Radar & Live Lightning" && (
+                    <div class="radar-alert-annotation" aria-hidden="true">
+                      <aside class="radar-alert-card">
+                        <div class="radar-alert-copy">
+                          <p class="radar-alert-title"><svg class="radar-alert-bolt" viewBox="0 0 28 28" aria-hidden="true">
+                            <path class="radar-alert-bolt-shadow" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
+                            <path class="radar-alert-bolt-outline" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
+                            <path class="radar-alert-bolt-fill" d="M11.914 2.75H18.993L15.094 9.95H19.7L8.722 25.25L12.472 13.55H8.3Z" />
+                          </svg>Lightning</p>
+                          <p class="radar-alert-detail">Recent strikes in<br />the last 30 minutes</p>
+                        </div>
+                      </aside>
+                    </div>
+                  )}
+                </div>
+                <a
+                  class="screenshot-download-link"
+                  href={feature.image.png}
+                  download={feature.image.filename}
+                  data-image-download-for={feature.screenshotKey}
+                >Download original PNG</a>
+              </>
             )}
           </div>
         </article>
@@ -447,29 +534,53 @@ const features = [
     });
   };
 
+  const setScreenshotVariant = (
+    image: HTMLImageElement,
+    webpSrc: string | undefined,
+    pngSrc: string | undefined,
+    alt: string | undefined,
+  ) => {
+    if (!webpSrc || !pngSrc) return;
+    const webpSource = image.closest("picture")?.querySelector<HTMLSourceElement>("[data-webp-source]");
+    if (webpSource) webpSource.srcset = webpSrc;
+    image.src = pngSrc;
+    if (alt) image.alt = alt;
+
+    const screenshotKey = image.dataset.screenshotKey;
+    const downloadLink = screenshotKey
+      ? document.querySelector<HTMLAnchorElement>(`[data-image-download-for="${screenshotKey}"]`)
+      : null;
+    if (downloadLink) {
+      downloadLink.href = pngSrc;
+      downloadLink.download = pngSrc.split("/").pop() ?? "vista-weather-screenshot.png";
+    }
+  };
+
   const initCountryPresentation = async (hero: HTMLElement) => {
     const countryCode = await detectAutomaticCountryCode();
     const unit = unitForCountryCode(countryCode);
     renderWindSpeeds(hero, unit);
     if (unit === "mph") {
       document.querySelectorAll<HTMLImageElement>("[data-us-image-src]").forEach((image) => {
-        const usImageSrc = image.dataset.usImageSrc;
-        if (usImageSrc) image.src = usImageSrc;
-        const usImageAlt = image.dataset.usImageAlt;
-        if (usImageAlt) image.alt = usImageAlt;
+        setScreenshotVariant(
+          image,
+          image.dataset.usImageSrc,
+          image.dataset.usOriginalSrc,
+          image.dataset.usImageAlt,
+        );
       });
     }
 
     const normalizedCountryCode = countryCode?.trim().toUpperCase();
     if (normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode)) {
       document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]").forEach((image) => {
-        const nonAmericasImageSrc = image.dataset.nonAmericasImageSrc;
-        if (nonAmericasImageSrc) {
-          image.src = nonAmericasImageSrc;
-          image.closest(".phone-case-feature-radar")?.classList.add("phone-case-feature-radar-non-americas");
-        }
-        const nonAmericasImageAlt = image.dataset.nonAmericasImageAlt;
-        if (nonAmericasImageAlt) image.alt = nonAmericasImageAlt;
+        setScreenshotVariant(
+          image,
+          image.dataset.nonAmericasImageSrc,
+          image.dataset.nonAmericasOriginalSrc,
+          image.dataset.nonAmericasImageAlt,
+        );
+        image.closest(".phone-case-feature-radar")?.classList.add("phone-case-feature-radar-non-americas");
       });
     }
   };
