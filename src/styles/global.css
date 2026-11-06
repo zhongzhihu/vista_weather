@@ -814,17 +814,6 @@ input {
   row-gap: 8px;
 }
 
-.features-title {
-  grid-column: 1 / -1;
-  margin: 0 0 12px;
-  text-align: center;
-  font-family: var(--serif);
-  font-size: 42px;
-  line-height: 1;
-  font-weight: 400;
-  color: #252936;
-}
-
 .feature-block {
   display: flex;
   flex-direction: column;
@@ -1888,10 +1877,6 @@ input {
     grid-template-columns: 1fr;
     width: min(100% - 44px, 560px);
     padding-top: 20px;
-  }
-
-  .features-title {
-    font-size: 34px;
   }
 
   .feature-block {
