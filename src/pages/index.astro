@@ -21,7 +21,8 @@ const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
   sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
   mapScreen: screenshot("western-north-america-weather-map-screen"),
-  edenPrairie: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
+  edenPrairieCelsius: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
+  edenPrairieFahrenheit: screenshot("eden-prairie-minute-by-minute-rain-forecast-fahrenheit"),
   radarUS: screenshot("united-states-live-rain-radar-lightning"),
   radarEurope: screenshot("europe-live-rain-radar-lightning"),
   thirtyDayCelsius: screenshot("30-day-weather-forecast-celsius"),
@@ -42,8 +43,10 @@ const features = [
   {
     title: "Minute-by-Minute Rain",
     copy: "See exactly when rain will start, stop, and how intense it will be — down to the minute, for the next 4 hours. Highly accurate with hyper-local precision.",
-    image: screenshots.edenPrairie,
-    alt: "Vista Weather minute-by-minute rain forecast for Eden Prairie",
+    image: screenshots.edenPrairieCelsius,
+    usImage: screenshots.edenPrairieFahrenheit,
+    alt: "Vista Weather minute-by-minute rain forecast for Eden Prairie in Celsius",
+    usAlt: "Vista Weather minute-by-minute rain forecast for Eden Prairie in Fahrenheit",
   },
   {
     title: "Ultra-HD Weather Maps",
