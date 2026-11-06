@@ -1782,6 +1782,8 @@ input {
   .hero-copy h1 {
     /* Let the map fill the space above the headline. */
     margin-top: 0;
+    /* Match the centered App Store badge's visible left edge. */
+    padding-left: max(0px, calc(25% - 94.24px));
     font-family: var(--serif);
     color: #fff;
     font-size: 36px;
