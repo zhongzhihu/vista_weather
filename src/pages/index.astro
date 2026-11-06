@@ -20,7 +20,7 @@ const screenshot = (slug: string) => {
 const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
   sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
-  mapScreen: screenshot("western-north-america-weather-map-screen"),
+  mapScreen: screenshot("western-north-america-weather-map-dynamic-island"),
   edenPrairieCelsius: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
   edenPrairieFahrenheit: screenshot("eden-prairie-minute-by-minute-rain-forecast-fahrenheit"),
   radarUS: screenshot("united-states-live-rain-radar-lightning"),
@@ -210,7 +210,7 @@ const features = [
                       <ResponsiveScreenshot
                         webp={screenshots.mapScreen.webp}
                         png={screenshots.mapScreen.png}
-                        alt="Vista Weather high-resolution weather map of western North America"
+                        alt="Vista Weather high-resolution weather map of western North America with Dynamic Island"
                         pictureClass="phone-screen-picture"
                         imageClass="phone-screen-image"
                         loading="lazy"
