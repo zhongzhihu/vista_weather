@@ -865,8 +865,8 @@ input {
 }
 
 @media (min-width: 761px) {
-  .feature-block-forecast-comparison { grid-column: 1; }
-  .feature-block-possible-outcomes { grid-column: 2; }
+  .feature-block-possible-outcomes { grid-column: 1; }
+  .feature-block-forecast-comparison { grid-column: 2; }
 
   .feature-composite-image {
     /* Offset the transparent space below the built-in phone frame. */

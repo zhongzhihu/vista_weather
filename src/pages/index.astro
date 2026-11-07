@@ -71,12 +71,6 @@ const features = [
     usAlt: "Vista Weather 30-day weather forecast in Fahrenheit",
   },
   {
-    title: "Forecast Comparison",
-    copy: "Compare NWS, Apple Weather, Foreca, and other trusted sources side by side, so you can see where they agree and where they don't.",
-    image: screenshots.forecastComparison,
-    alt: "Vista Weather forecast source comparison",
-  },
-  {
     title: "Possible Outcomes",
     intro: "Weather forecasts are based on multiple predictions.",
     copy: "See how certain the forecast is. View the range of possible outcomes instead of a single number.",
@@ -84,6 +78,12 @@ const features = [
     usImage: screenshots.possibleOutcomesUS,
     alt: "Vista Weather possible temperature outcomes for Paris in English (UK)",
     usAlt: "Vista Weather possible temperature outcomes for Paris in English (US)",
+  },
+  {
+    title: "Forecast Comparison",
+    copy: "Compare NWS, Apple Weather, Foreca, and other trusted sources side by side, so you can see where they agree and where they don't.",
+    image: screenshots.forecastComparison,
+    alt: "Vista Weather forecast source comparison",
   },
 ];
 ---
@@ -154,8 +154,8 @@ const features = [
           class:list={[
             "feature-block",
             {
-              "feature-block-forecast-comparison": feature.title === "Forecast Comparison",
               "feature-block-possible-outcomes": feature.title === "Possible Outcomes",
+              "feature-block-forecast-comparison": feature.title === "Forecast Comparison",
             },
           ]}
         >
@@ -296,13 +296,16 @@ const features = [
         <div class="about-col">
           <h2 class="forecast-sources-heading">Accurate Forecasts &amp; Data Transparency</h2>
           <p>
-            Most weather apps rely on just 2-3 local weather models and one generic global model. But fewer sources mean less accurate forecasts, especially for local weather.
+            Most weather apps rely on just 2–3 local weather models and one generic global model. However, fewer sources mean less accurate forecasts, especially for local weather.
           </p>
           <p>
-            Vista Weather takes a different approach. We offer full transparency about our sources and give you access to the best in the world. This includes Foreca, consistently ranked among the top weather forecasters by ForecastWatch for its exceptional accuracy in predicting rain, alongside 20 renowned official national weather services.
+            Vista Weather takes a different approach. We provide access to over 20 renowned weather sources, including Foreca, consistently ranked among the top weather forecasters by ForecastWatch for its exceptional accuracy in predicting rain, alongside 20 official national weather services.
           </p>
           <p>
-            Because proven forecasters and local weather models outperform generic global models.
+            Hence, Vista Weather provides much more accurate forecasts than weather apps that rely on the same generic global model.
+          </p>
+          <p>
+            In addition, we provide full transparency about our data sources.
           </p>
           <div class="data-sources-action">
             <button class="data-sources-trigger" type="button" data-data-sources-toggle aria-expanded="false" aria-controls="data-sources-panel">
