@@ -27,7 +27,8 @@ const screenshots = {
   radarEurope: screenshot("europe-live-rain-radar-lightning"),
   thirtyDayCelsius: screenshot("30-day-weather-forecast-celsius"),
   thirtyDayFahrenheit: screenshot("30-day-weather-forecast-fahrenheit"),
-  forecastComparison: screenshot("weather-forecast-source-comparison"),
+  forecastComparisonCelsius: screenshot("forecast-comparison-celsius"),
+  forecastComparisonFahrenheit: screenshot("forecast-comparison-fahrenheit"),
   possibleOutcomesGB: screenshot("paris-possible-temperature-outcomes-en-gb"),
   possibleOutcomesUS: screenshot("paris-possible-temperature-outcomes-en-us"),
   mapDetailCelsius: screenshot("high-resolution-weather-map-detail-celsius"),
@@ -82,8 +83,10 @@ const features = [
   {
     title: "Forecast Comparison",
     copy: "Compare NWS, Apple Weather, Foreca, and other trusted sources side by side, so you can see where they agree and where they don't.",
-    image: screenshots.forecastComparison,
-    alt: "Vista Weather forecast source comparison",
+    image: screenshots.forecastComparisonCelsius,
+    usImage: screenshots.forecastComparisonFahrenheit,
+    alt: "Vista Weather 15-day forecast comparison in Celsius, comparing precipitation and temperatures from NWS, Apple Weather, Foreca, and Google",
+    usAlt: "Vista Weather 15-day forecast comparison in Fahrenheit, comparing precipitation and temperatures from NWS, Apple Weather, Foreca, and Google",
   },
 ];
 ---
