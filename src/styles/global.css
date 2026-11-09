@@ -2094,3 +2094,51 @@ input {
 .map-layer-coarse-phone { left: 49.885%; top: 0; width: 33.046%; }
 .map-layer-native-detail { left: 0; top: 38.739%; width: 23.276%; }
 .map-layer-coarse-detail { left: 77.011%; top: 38.739%; width: 22.989%; }
+
+/* Give the final storm-tracking feature room for a framed map beside its copy. */
+@media (min-width: 761px) {
+  .feature-block-storms {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 56px;
+    padding: 56px 0 64px;
+    text-align: left;
+  }
+
+  .feature-block-storms .feature-copy {
+    margin: 0;
+  }
+
+  .feature-block-storms .feature-copy h3 {
+    text-align: left;
+  }
+
+  .feature-block-storms .feature-media {
+    width: 100%;
+    margin-top: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 760px) {
+  .feature-block-storms {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    text-align: center;
+  }
+
+  .feature-block-storms .feature-copy {
+    margin-bottom: 0;
+  }
+
+  .feature-block-storms .feature-copy h3 {
+    text-align: center;
+  }
+
+  .feature-block-storms .feature-media {
+    margin-top: 0;
+  }
+}

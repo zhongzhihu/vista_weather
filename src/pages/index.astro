@@ -4,11 +4,13 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import StoreBadge from "../components/StoreBadge.astro";
 import ResponsiveScreenshot from "../components/ResponsiveScreenshot.astro";
+import StormPhoneScreenshot from "../components/StormPhoneScreenshot.astro";
 import "../styles/global.css";
 
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
 const assetBase = import.meta.env.BASE_URL.replace(/\/$/, "");
+const stormMapScreenshot = `${assetBase}/images/vista-weather-storm-tracking-map.webp`;
 const screenshot = (slug: string) => {
   const filename = `vista-weather-${slug}`;
   return {
@@ -85,6 +87,11 @@ const features = [
     alt: "Vista Weather 15-day forecast comparison in Celsius, comparing precipitation and temperatures from NWS, Apple Weather, Foreca, and Google",
     usAlt: "Vista Weather 15-day forecast comparison in Fahrenheit, comparing precipitation and temperatures from NWS, Apple Weather, Foreca, and Google",
   },
+  {
+    title: "Track Storms in Real Time",
+    copy: "Follow hurricanes and tropical storms as they move. See each storm’s position, past track, forecast path, and detailed wind updates.",
+    stormTracking: true,
+  },
 ];
 ---
 
@@ -155,6 +162,7 @@ const features = [
             "feature-block",
             {
               "feature-block-maps": feature.standalone,
+              "feature-block-storms": feature.stormTracking,
             },
           ]}
         >
@@ -200,7 +208,7 @@ const features = [
               </div>
             )}
           </div>
-          <div class:list={["feature-media", { "feature-media-map": feature.standalone }]}>
+          <div class:list={["feature-media", { "feature-media-map": feature.standalone, "feature-media-storms": feature.stormTracking }]}>
             {feature.standalone ? (
               <div class="map-screen-comparison">
               <ResponsiveScreenshot webp={screenshot("map-native-phone").webp} png={screenshot("map-native-phone").png} alt="Native-resolution weather map phone" pictureClass="map-layer map-layer-native-phone" imageClass="map-layer-image" />
@@ -222,6 +230,8 @@ const features = [
                 </div>
               </div>
               </div>
+            ) : feature.stormTracking ? (
+              <StormPhoneScreenshot src={stormMapScreenshot} />
             ) : (
               <>
                 <div
