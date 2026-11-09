@@ -201,7 +201,7 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  width: fit-content;
+  width: max-content;
   color: white;
   font-size: 24px;
   font-weight: 700;
@@ -758,6 +758,7 @@ input {
   stroke-width: 1.4;
   filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45));
 }
+.storm-leader-simon { stroke-width: 2.2; }
 
 .storm-marker {
   position: absolute;
@@ -2025,10 +2026,12 @@ input {
 .map-screen-comparison-image { display: block; width: 100%; height: auto; }
 
 .map-comparison-label {
+  display: block;
   top: 40%;
   left: 11.49%;
   transform: translate(-50%, -100%);
-  width: clamp(135px, 22%, 180px);
+  width: fit-content;
+  max-width: min(180px, 30%);
   padding: 12px 14px 13px;
   border-radius: 18px;
   border-color: rgba(31, 49, 76, 0.13);
@@ -2038,6 +2041,7 @@ input {
 .map-comparison-label-other { left: 88.51%; }
 .map-comparison-eyebrow {
   margin: 0 0 5px;
+  white-space: nowrap;
   color: #657181;
   font-size: 10px;
   font-weight: 700;
@@ -2046,6 +2050,7 @@ input {
 }
 .map-comparison-claim {
   margin: 0 0 3px;
+  white-space: nowrap;
   color: #172233;
   font-size: 13px;
   font-weight: 700;
@@ -2054,12 +2059,13 @@ input {
 }
 .map-comparison-detail {
   margin: 0;
+  white-space: nowrap;
   color: #657181;
   font-size: 12px;
   line-height: 1.3;
 }
 @media (max-width: 500px) {
-  .map-comparison-label { padding: 8px 10px; border-radius: 15px; width: 30%; }
+  .map-comparison-label { padding: 8px 10px; border-radius: 15px; max-width: 30%; }
   .map-comparison-eyebrow { font-size: 8px; margin-bottom: 3px; letter-spacing: 0.07em; }
   .map-comparison-claim { font-size: 11px; margin-bottom: 2px; }
   .map-comparison-detail { font-size: 9px; line-height: 1.2; }
@@ -2076,6 +2082,9 @@ input {
   }
   .feature-block-maps .feature-copy { margin: 0; }
   .feature-block-maps .map-detail-action { justify-content: flex-start; }
+  .feature-block-maps .map-screen-comparison {
+    transform: translateX(clamp(0px, calc(25vw - 270px), 48px));
+  }
 }
 
 .map-screen-comparison { aspect-ratio: 1740 / 1110; }

@@ -211,14 +211,14 @@ const features = [
                 <div class="radar-alert-copy">
                   <p class="map-comparison-eyebrow">OUR APP</p>
                   <p class="map-comparison-claim">High Definition</p>
-                  <p class="map-comparison-detail">Most Accurate</p>
+                  <p class="map-comparison-detail">Local Detail,<br />Most Accurate</p>
                 </div>
               </div>
               <div class="radar-alert-card map-comparison-label map-comparison-label-other">
                 <div class="radar-alert-copy">
                   <p class="map-comparison-eyebrow">OTHER APPS</p>
                   <p class="map-comparison-claim">Low Resolution</p>
-                  <p class="map-comparison-detail">Less Detail, Less Accurate</p>
+                  <p class="map-comparison-detail">Less Local Detail,<br />Less Accurate</p>
                 </div>
               </div>
               </div>
@@ -618,11 +618,28 @@ const features = [
       let leader: number[];
 
       if (calloutKey === "simon") {
-        // Simon's card sits southwest of the southern marker, clear of the
-        // cyclone icons and the hero copy.
-        left = Math.max(gutter, Math.min(x - cardWidth - 28, width - cardWidth - gutter));
+        // Keep Simon's card southwest of the marker, with enough separation
+        // to keep the leader clear and a gutter at the bottom of the hero.
+        left = Math.max(gutter, Math.min(x - cardWidth - 40, width - cardWidth - gutter));
         top = Math.max(gutter, Math.min(y + markerGap + 8, height - cardHeight - gutter));
-        leader = [x - markerGap + 2, y + 8, left + cardWidth, top + 18];
+        const cardCenterX = left + cardWidth / 2;
+        const cardCenterY = top + cardHeight / 2;
+        const dx = cardCenterX - x;
+        const dy = cardCenterY - y;
+        const distance = Math.hypot(dx, dy) || 1;
+        const directionX = dx / distance;
+        const directionY = dy / distance;
+        const markerEdge = 18;
+        const cardEdge = Math.min(
+          cardWidth / 2 / Math.max(Math.abs(directionX), 0.0001),
+          cardHeight / 2 / Math.max(Math.abs(directionY), 0.0001),
+        );
+        leader = [
+          x + directionX * markerEdge,
+          y + directionY * markerEdge,
+          cardCenterX - directionX * cardEdge,
+          cardCenterY - directionY * cardEdge,
+        ];
       } else if (calloutKey === "isaias" && x + 110 + cardWidth <= width - gutter) {
         left = x + 110;
         top = y - cardHeight / 2 + 18;
@@ -644,7 +661,13 @@ const features = [
 
       card.style.inset = `${top}px auto auto ${left}px`;
       const [x1, y1, x2, y2] = leader;
-      lines.append(svgElement("line", { class: "storm-leader", x1, y1, x2, y2 }));
+      lines.append(svgElement("line", {
+        class: `storm-leader${calloutKey === "simon" ? " storm-leader-simon" : ""}`,
+        x1,
+        y1,
+        x2,
+        y2,
+      }));
     }
   };
 
