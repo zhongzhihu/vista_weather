@@ -203,21 +203,23 @@ const features = [
           <div class:list={["feature-media", { "feature-media-map": feature.standalone }]}>
             {feature.standalone ? (
               <div class="map-screen-comparison">
-              <ResponsiveScreenshot
-                webp={screenshots.mapComparisonCelsius.webp}
-                png={screenshots.mapComparisonCelsius.png}
-                usWebp={screenshots.mapComparisonFahrenheit.webp}
-                usPng={screenshots.mapComparisonFahrenheit.png}
-                alt="Native-resolution and 75 km weather maps, with close-ups comparing temperatures in Sierra Nevada, Death Valley and Las Vegas in Celsius"
-                usAlt="Native-resolution and 75 km weather maps, with close-ups comparing temperatures in Sierra Nevada, Death Valley and Las Vegas in Fahrenheit"
-                imageClass="map-screen-comparison-image"
-                loading="lazy"
-              />
+              <ResponsiveScreenshot webp={screenshot("map-native-phone").webp} png={screenshot("map-native-phone").png} alt="Native-resolution weather map phone" pictureClass="map-layer map-layer-native-phone" imageClass="map-layer-image" />
+              <ResponsiveScreenshot webp={screenshot("map-75km-phone").webp} png={screenshot("map-75km-phone").png} alt="75 km weather map phone" pictureClass="map-layer map-layer-coarse-phone" imageClass="map-layer-image" />
+              <ResponsiveScreenshot webp={screenshot("map-native-detail-celsius").webp} png={screenshot("map-native-detail-celsius").png} usWebp={screenshot("map-native-detail-fahrenheit").webp} usPng={screenshot("map-native-detail-fahrenheit").png} alt="Native-resolution temperature map detail in Celsius" usAlt="Native-resolution temperature map detail in Fahrenheit" pictureClass="map-layer map-layer-native-detail" imageClass="map-layer-image" />
+              <ResponsiveScreenshot webp={screenshot("map-75km-detail-celsius").webp} png={screenshot("map-75km-detail-celsius").png} usWebp={screenshot("map-75km-detail-fahrenheit").webp} usPng={screenshot("map-75km-detail-fahrenheit").png} alt="75 km temperature map detail in Celsius" usAlt="75 km temperature map detail in Fahrenheit" pictureClass="map-layer map-layer-coarse-detail" imageClass="map-layer-image" />
               <div class="radar-alert-card map-comparison-label map-comparison-label-native">
-                <div class="radar-alert-copy"><p class="radar-alert-title">Our App</p><p class="radar-alert-detail">Most accurate forecasts</p></div>
+                <div class="radar-alert-copy">
+                  <p class="map-comparison-eyebrow">OUR APP</p>
+                  <p class="map-comparison-claim">High Definition</p>
+                  <p class="map-comparison-detail">Most Accurate</p>
+                </div>
               </div>
               <div class="radar-alert-card map-comparison-label map-comparison-label-other">
-                <div class="radar-alert-copy"><p class="radar-alert-title">Other Apps</p><p class="radar-alert-detail">Less Details &amp; Less Accurate</p></div>
+                <div class="radar-alert-copy">
+                  <p class="map-comparison-eyebrow">OTHER APPS</p>
+                  <p class="map-comparison-claim">Low Resolution</p>
+                  <p class="map-comparison-detail">Less Detail, Less Accurate</p>
+                </div>
               </div>
               </div>
             ) : (

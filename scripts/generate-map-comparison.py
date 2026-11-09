@@ -89,3 +89,18 @@ for fahrenheit in (False, True):
     name = f'vista-weather-map-screen-comparison-{unit}'
     canvas.save(ROOT / 'public/press' / (name + '.png'), optimize=True)
     canvas.save(ROOT / 'public/images' / (name + '.webp'), 'WEBP', quality=90, method=6)
+
+# Export independent transparent layers so each phone and detail can be saved.
+def export_part(name, draw, bounds):
+    layer = Image.new('RGBA', (W, H))
+    draw(layer)
+    part = layer.crop(bounds)
+    part.save(ROOT / 'public/press' / f'vista-weather-{name}.png', optimize=True)
+    part.save(ROOT / 'public/images' / f'vista-weather-{name}.webp', 'WEBP', quality=90, method=6)
+
+export_part('map-native-phone', lambda c: phone(c, native, 339), (300, 0, 875, 1110))
+export_part('map-75km-phone', lambda c: phone(c, coarse, 907), (868, 0, 1443, 1110))
+for fahrenheit in (False, True):
+    unit = 'fahrenheit' if fahrenheit else 'celsius'
+    export_part(f'map-native-detail-{unit}', lambda c: lens(c, zoom, 20, 455, False, fahrenheit), (0, 430, 405, 850))
+    export_part(f'map-75km-detail-{unit}', lambda c: lens(c, coarse_zoom, 1360, 455, True, fahrenheit), (1340, 430, 1740, 850))
