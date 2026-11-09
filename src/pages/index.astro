@@ -162,7 +162,6 @@ const features = [
             "feature-block",
             {
               "feature-block-maps": feature.standalone,
-              "feature-block-storms": feature.stormTracking,
             },
           ]}
         >
@@ -208,7 +207,7 @@ const features = [
               </div>
             )}
           </div>
-          <div class:list={["feature-media", { "feature-media-map": feature.standalone, "feature-media-storms": feature.stormTracking }]}>
+          <div class:list={["feature-media", { "feature-media-map": feature.standalone }]}>
             {feature.standalone ? (
               <div class="map-screen-comparison">
               <ResponsiveScreenshot webp={screenshot("map-native-phone").webp} png={screenshot("map-native-phone").png} alt="Native-resolution weather map phone" pictureClass="map-layer map-layer-native-phone" imageClass="map-layer-image" />
