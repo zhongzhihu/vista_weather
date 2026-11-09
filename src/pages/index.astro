@@ -20,7 +20,8 @@ const screenshot = (slug: string) => {
 const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
   sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
-  mapScreen: screenshot("western-north-america-weather-map-dynamic-island"),
+  mapComparisonCelsius: screenshot("map-screen-comparison-celsius"),
+  mapComparisonFahrenheit: screenshot("map-screen-comparison-fahrenheit"),
   edenPrairieCelsius: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
   edenPrairieFahrenheit: screenshot("eden-prairie-minute-by-minute-rain-forecast-fahrenheit"),
   radarUS: screenshot("united-states-live-rain-radar-lightning"),
@@ -31,10 +32,6 @@ const screenshots = {
   forecastComparisonFahrenheit: screenshot("forecast-comparison-fahrenheit"),
   possibleOutcomesGB: screenshot("paris-possible-temperature-outcomes-en-gb"),
   possibleOutcomesUS: screenshot("paris-possible-temperature-outcomes-en-us"),
-  mapDetailCelsius: screenshot("high-resolution-weather-map-detail-celsius"),
-  mapDetailFahrenheit: screenshot("high-resolution-weather-map-detail-fahrenheit"),
-  mapResolutionCelsius: screenshot("weather-map-resolution-comparison-celsius"),
-  mapResolutionFahrenheit: screenshot("weather-map-resolution-comparison-fahrenheit"),
 };
 
 // Feature blocks, presented Acme-style: heading + descriptive text first,
@@ -42,18 +39,18 @@ const screenshots = {
 // wide screens and stacks text-over-image on mobile.
 const features = [
   {
+    title: "Ultra-HD Weather Maps",
+    copy: "See the bigger picture with ultra-HD maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
+    alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
+    standalone: true,
+  },
+  {
     title: "Minute-by-Minute Rain",
     copy: "See exactly when rain will start, stop, and how intense it will be — down to the minute, for the next 4 hours. Highly accurate with hyper-local precision.",
     image: screenshots.edenPrairieCelsius,
     usImage: screenshots.edenPrairieFahrenheit,
     alt: "Vista Weather minute-by-minute rain forecast for Eden Prairie in Celsius",
     usAlt: "Vista Weather minute-by-minute rain forecast for Eden Prairie in Fahrenheit",
-  },
-  {
-    title: "Ultra-HD Weather Maps",
-    copy: "See the bigger picture with ultra-HD maps. While other apps rely on low-resolution data, we capture the details they miss, delivering more accurate forecasts across cities, valleys, and mountains.",
-    alt: "Detailed temperature map comparing Vista Weather with a lower-detail map",
-    standalone: true,
   },
   {
     title: "Rain Radar & Live Lightning",
@@ -157,8 +154,7 @@ const features = [
           class:list={[
             "feature-block",
             {
-              "feature-block-possible-outcomes": feature.title === "Possible Outcomes",
-              "feature-block-forecast-comparison": feature.title === "Forecast Comparison",
+              "feature-block-maps": feature.standalone,
             },
           ]}
         >
@@ -206,47 +202,24 @@ const features = [
           </div>
           <div class:list={["feature-media", { "feature-media-map": feature.standalone }]}>
             {feature.standalone ? (
-              <>
-                <div class="feature-map-parts">
-                  <div class="phone-case phone-case-feature map-phone-mockup">
-                    <div class="phone-screen-placeholder map-screen">
-                      <ResponsiveScreenshot
-                        webp={screenshots.mapScreen.webp}
-                        png={screenshots.mapScreen.png}
-                        alt="Vista Weather high-resolution weather map of western North America with Dynamic Island"
-                        pictureClass="phone-screen-picture"
-                        imageClass="phone-screen-image"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                  <svg class="map-callout" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M 32 59 L 56.8 25.8 L 76.3 40.5 Z" />
-                  </svg>
-                  <ResponsiveScreenshot
-                    webp={screenshots.mapDetailCelsius.webp}
-                    png={screenshots.mapDetailCelsius.png}
-                    usWebp={screenshots.mapDetailFahrenheit.webp}
-                    usPng={screenshots.mapDetailFahrenheit.png}
-                    alt="Close-up of the Vista Weather high-resolution temperature map in Celsius"
-                    usAlt="Close-up of the Vista Weather high-resolution temperature map in Fahrenheit"
-                    pictureClass="map-part map-detail"
-                    imageClass="map-part-image"
-                    loading="lazy"
-                  />
-                  <ResponsiveScreenshot
-                    webp={screenshots.mapResolutionCelsius.webp}
-                    png={screenshots.mapResolutionCelsius.png}
-                    usWebp={screenshots.mapResolutionFahrenheit.webp}
-                    usPng={screenshots.mapResolutionFahrenheit.png}
-                    alt="Comparison of high- and lower-resolution weather maps in Celsius"
-                    usAlt="Comparison of high- and lower-resolution weather maps in Fahrenheit"
-                    pictureClass="map-part map-comparison"
-                    imageClass="map-part-image"
-                    loading="lazy"
-                  />
-                </div>
-              </>
+              <div class="map-screen-comparison">
+              <ResponsiveScreenshot
+                webp={screenshots.mapComparisonCelsius.webp}
+                png={screenshots.mapComparisonCelsius.png}
+                usWebp={screenshots.mapComparisonFahrenheit.webp}
+                usPng={screenshots.mapComparisonFahrenheit.png}
+                alt="Native-resolution and 75 km weather maps, with close-ups comparing temperatures in Sierra Nevada, Death Valley and Las Vegas in Celsius"
+                usAlt="Native-resolution and 75 km weather maps, with close-ups comparing temperatures in Sierra Nevada, Death Valley and Las Vegas in Fahrenheit"
+                imageClass="map-screen-comparison-image"
+                loading="lazy"
+              />
+              <div class="radar-alert-card map-comparison-label map-comparison-label-native">
+                <div class="radar-alert-copy"><p class="radar-alert-title">Our App</p><p class="radar-alert-detail">Most accurate forecasts</p></div>
+              </div>
+              <div class="radar-alert-card map-comparison-label map-comparison-label-other">
+                <div class="radar-alert-copy"><p class="radar-alert-title">Other Apps</p><p class="radar-alert-detail">Less Details &amp; Less Accurate</p></div>
+              </div>
+              </div>
             ) : (
               <>
                 <div

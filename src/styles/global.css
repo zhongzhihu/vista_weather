@@ -865,8 +865,7 @@ input {
 }
 
 @media (min-width: 761px) {
-  .feature-block-possible-outcomes { grid-column: 1; }
-  .feature-block-forecast-comparison { grid-column: 2; }
+  .feature-block-maps { grid-column: 1 / -1; }
 
   .feature-composite-image {
     /* Offset the transparent space below the built-in phone frame. */
@@ -2017,43 +2016,31 @@ input {
   }
 }
 
+/* Paired native and 75 km map screens with magnified temperature callouts. */
 .feature-media-map { width: 100%; }
-.feature-map-parts { position: relative; width: min(100%, 360px); aspect-ratio: 1206 / 1850; align-self: center; }
-.map-part { position: absolute; height: auto; display: block; }
-.map-part-image { display: block; width: 100%; height: auto; }
-.map-callout { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.map-callout path { fill: rgb(105 124 140 / 19%); stroke: rgb(105 124 140 / 12%); stroke-width: .2; vector-effect: non-scaling-stroke; }
-.map-phone { left: 0; top: 1.081%; width: 63.847%; }
-.map-detail { left: 55.556%; top: 3.784%; width: 42.289%; }
-.map-comparison { left: 52.239%; top: 42.703%; width: 47.264%; }
-
-.map-phone-frame { position: absolute; left: 1.8%; top: 8.9%; width: 61%; height: 84%; border-radius: 9% / 4.5%; background: #171717; border: 1px solid #555; }
-
-.phone-case-feature.map-phone-mockup { position: absolute; left: 1.8%; top: 8.9%; width: 61%; max-width: none; padding: 2%; --phone-frame-radius: 12% / 6%; --phone-screen-radius: 10% / 5%; }
-/* Eden Prairie screenshot: island bounds approximately x=415–790, y=42–151
-   in a 1206 × 2622 screen. Scale with the screen at every viewport size. */
-.map-island {
-  position: absolute;
-  left: calc(415 / 1206 * 100%);
-  top: calc(42 / 2622 * 100%);
-  width: calc(376 / 1206 * 100%);
-  height: calc(110 / 2622 * 100%);
-  border-radius: 999px;
-  background: #000;
-  pointer-events: none;
-}
-
-.feature-map-parts {
-  width: min(100%, 472px);
-  margin-bottom: max(-34px, -7.2%);
-}
-
+.map-screen-comparison { position: relative; display: block; flex: none; width: min(100%, 900px); align-self: center; }
 @media (max-width: 760px) {
-  .feature-map-parts { width: min(100%, 426px); }
+  .map-screen-comparison { width: min(100%, calc(100vw - 24px)); }
+}
+.map-screen-comparison-image { display: block; width: 100%; height: auto; }
+
+.map-comparison-label { top: 40%; left: 11.49%; transform: translate(-50%, -100%); width: clamp(115px, 20%, 180px); }
+.map-comparison-label-other { left: 88.51%; }
+@media (max-width: 500px) {
+  .map-comparison-label { padding: 8px 10px; border-radius: 15px; width: 30%; }
+  .map-comparison-label .radar-alert-title { font-size: 12px; margin-bottom: 2px; }
+  .map-comparison-label .radar-alert-detail { font-size: 10px; line-height: 1.2; }
 }
 
-/* Match the feature phone's 8px frame and align its outer bottom edge. */
-.phone-case-feature.map-phone-mockup { padding: 8px; --phone-frame-radius: 44px; --phone-screen-radius: 36px; }
-.feature-map-parts { margin-bottom: -13px; }
-.feature-map-parts { margin-bottom: -52px; }
-
+/* Feature the maps comparison beside its introduction on wider screens. */
+@media (min-width: 761px) {
+  .feature-block-maps {
+    display: grid;
+    grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+    align-items: center;
+    column-gap: 10px;
+    text-align: left;
+  }
+  .feature-block-maps .feature-copy { margin: 0; }
+  .feature-block-maps .map-detail-action { justify-content: flex-start; }
+}
