@@ -18,6 +18,11 @@ const screenshot = (slug: string) => {
     png: `${assetBase}/press/${filename}.png`,
   };
 };
+const auroraScreenshots = {
+  europe: screenshot("aurora-forecast-europe"),
+  anz: screenshot("aurora-forecast-anz"),
+  northAmerica: screenshot("aurora-forecast-north-america"),
+};
 
 const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
@@ -276,6 +281,32 @@ const features = [
           </div>
         </article>
       ))}
+      <article class="feature-block aurora-feature-block">
+        <div class="feature-copy">
+          <h3>Aurora Forecast</h3>
+          <p>Track the Northern Lights</p>
+        </div>
+        <div class="feature-media">
+          <div class="phone-case phone-case-feature">
+            <div class="phone-screen-placeholder">
+              <ResponsiveScreenshot
+                webp={auroraScreenshots.europe.webp}
+                png={auroraScreenshots.europe.png}
+                northAmericaWebp={auroraScreenshots.northAmerica.webp}
+                northAmericaPng={auroraScreenshots.northAmerica.png}
+                northAmericaAlt="Vista Weather aurora forecast map over North America"
+                anzWebp={auroraScreenshots.anz.webp}
+                anzPng={auroraScreenshots.anz.png}
+                anzAlt="Vista Weather aurora forecast map over Australia and New Zealand"
+                alt="Vista Weather aurora forecast map over Europe"
+                pictureClass="phone-screen-picture"
+                imageClass="phone-screen-image"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
 
     <section class="about-section" id="about">
@@ -427,6 +458,8 @@ const features = [
     isaias: "Hurricane Isaias",
     simon: "Hurricane Simon",
   };
+  const NORTH_AMERICA_AURORA_COUNTRY_CODES = new Set(["US", "CA", "MX"]);
+  const ANZ_AURORA_COUNTRY_CODES = new Set(["AU", "NZ"]);
   // The radar promo image is North American. Keep it for the Americas, and
   // use the Europe radar screenshot everywhere else when country lookup works.
   const AMERICAS_COUNTRY_CODES = new Set([
@@ -526,6 +559,31 @@ const features = [
     }
 
     const normalizedCountryCode = countryCode?.trim().toUpperCase();
+    const auroraVariant = normalizedCountryCode && NORTH_AMERICA_AURORA_COUNTRY_CODES.has(normalizedCountryCode)
+      ? "northAmerica"
+      : normalizedCountryCode && ANZ_AURORA_COUNTRY_CODES.has(normalizedCountryCode)
+        ? "anz"
+        : null;
+    if (auroraVariant === "northAmerica") {
+      document.querySelectorAll<HTMLImageElement>("[data-north-america-image-src]").forEach((image) => {
+        setScreenshotVariant(
+          image,
+          image.dataset.northAmericaImageSrc,
+          image.dataset.northAmericaOriginalSrc,
+          image.dataset.northAmericaImageAlt,
+        );
+      });
+    } else if (auroraVariant === "anz") {
+      document.querySelectorAll<HTMLImageElement>("[data-anz-image-src]").forEach((image) => {
+        setScreenshotVariant(
+          image,
+          image.dataset.anzImageSrc,
+          image.dataset.anzOriginalSrc,
+          image.dataset.anzImageAlt,
+        );
+      });
+    }
+
     if (normalizedCountryCode && !AMERICAS_COUNTRY_CODES.has(normalizedCountryCode)) {
       document.querySelectorAll<HTMLImageElement>("[data-non-americas-image-src]").forEach((image) => {
         setScreenshotVariant(

@@ -12,6 +12,12 @@ interface Props {
   nonAmericasWebp?: string;
   nonAmericasPng?: string;
   nonAmericasAlt?: string;
+  northAmericaWebp?: string;
+  northAmericaPng?: string;
+  northAmericaAlt?: string;
+  anzWebp?: string;
+  anzPng?: string;
+  anzAlt?: string;
 }
 
 const {
@@ -27,6 +33,12 @@ const {
   nonAmericasWebp,
   nonAmericasPng,
   nonAmericasAlt,
+  northAmericaWebp,
+  northAmericaPng,
+  northAmericaAlt,
+  anzWebp,
+  anzPng,
+  anzAlt,
 } = Astro.props;
 ---
 
@@ -44,5 +56,11 @@ const {
     data-non-americas-image-src={nonAmericasWebp}
     data-non-americas-original-src={nonAmericasPng}
     data-non-americas-image-alt={nonAmericasAlt}
+    data-north-america-image-src={northAmericaWebp}
+    data-north-america-original-src={northAmericaPng}
+    data-north-america-image-alt={northAmericaAlt}
+    data-anz-image-src={anzWebp}
+    data-anz-original-src={anzPng}
+    data-anz-image-alt={anzAlt}
   />
 </picture>
