@@ -23,6 +23,7 @@ const auroraScreenshots = {
   anz: screenshot("aurora-forecast-anz"),
   northAmerica: screenshot("aurora-forecast-north-america"),
 };
+const auroraSpaceWeatherScreenshot = screenshot("aurora-basic-advanced-space-weather-conditions");
 
 const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
@@ -299,6 +300,28 @@ const features = [
                 anzPng={auroraScreenshots.anz.png}
                 anzAlt="Vista Weather aurora forecast map over Australia and New Zealand"
                 alt="Vista Weather aurora forecast map over Europe"
+                pictureClass="phone-screen-picture"
+                imageClass="phone-screen-image"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="feature-block aurora-space-weather-feature-block">
+        <div class="feature-copy">
+          <h3>Aurora: Basic &amp; Advanced</h3>
+          <p>
+            From simple aurora probability fields to advanced geomagnetic activity forecasts, solar wind and magnetic field data. Everything you need to chase the northern lights and understand the science behind them.
+          </p>
+        </div>
+        <div class="feature-media">
+          <div class="phone-case phone-case-feature">
+            <div class="phone-screen-placeholder">
+              <ResponsiveScreenshot
+                webp={auroraSpaceWeatherScreenshot.webp}
+                png={auroraSpaceWeatherScreenshot.png}
+                alt="Vista Weather space weather conditions showing magnetic field and solar wind charts"
                 pictureClass="phone-screen-picture"
                 imageClass="phone-screen-image"
                 loading="lazy"
