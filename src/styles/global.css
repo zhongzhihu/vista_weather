@@ -1401,7 +1401,7 @@ input {
 
 .data-source-region-europe ul {
   grid-auto-flow: column;
-  grid-template-rows: repeat(8, auto);
+  grid-template-rows: repeat(9, auto);
 }
 
 .data-source-region li {
