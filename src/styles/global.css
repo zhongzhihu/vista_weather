@@ -1013,6 +1013,35 @@ input {
   text-align: center;
 }
 
+.weather-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 20px;
+}
+
+.weather-service-card {
+  background: #eef4f9;
+  border-radius: 14px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  box-sizing: border-box;
+}
+
+.weather-service-card img {
+  max-width: 88%;
+  max-height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
+.weather-service-card.is-wide img {
+  max-height: 28px;
+}
+
 .about-col p {
   margin: 0;
   color: var(--ink-2);
@@ -1928,6 +1957,26 @@ input {
   .about-col p {
     margin: 0 auto;
     max-width: 560px;
+  }
+
+  .weather-services-grid {
+    gap: 10px;
+    margin: 20px auto 18px;
+    max-width: 480px;
+  }
+
+  .weather-service-card {
+    height: 72px;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .weather-service-card img {
+    max-height: 46px;
+  }
+
+  .weather-service-card.is-wide img {
+    max-height: 24px;
   }
 
   .data-sources-panel {

@@ -99,6 +99,18 @@ const features = [
     stormTracking: true,
   },
 ];
+
+const weatherServices = [
+  { name: "Foreca", logo: `${assetBase}/images/logos/foreca.svg`, wide: true },
+  { name: "NOAA", logo: `${assetBase}/images/logos/noaa.svg` },
+  { name: "National Weather Service", logo: `${assetBase}/images/logos/nws.svg` },
+  { name: "Deutscher Wetterdienst", logo: `${assetBase}/images/logos/dwd.svg` },
+  { name: "Météo-France", logo: `${assetBase}/images/logos/meteo-france.svg` },
+  { name: "MeteoSwiss", logo: `${assetBase}/images/logos/meteoswiss.svg`, wide: true },
+  { name: "Met Office", logo: `${assetBase}/images/logos/met-office.svg` },
+  { name: "KNMI", logo: `${assetBase}/images/logos/knmi.svg` },
+  { name: "ECMWF", logo: `${assetBase}/images/logos/ecmwf.svg`, wide: true },
+];
 ---
 
 <Layout>
@@ -348,9 +360,21 @@ const features = [
           <p>
             In addition, we provide full transparency about our data sources.
           </p>
+          <div class="weather-services-grid" aria-label="Weather service and forecast model providers">
+            {weatherServices.map((service) => (
+              <div class:list={["weather-service-card", { "is-wide": service.wide }]} title={service.name}>
+                <img
+                  src={service.logo}
+                  alt={service.name}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
           <div class="data-sources-action">
             <button class="data-sources-trigger" type="button" data-data-sources-toggle aria-expanded="false" aria-controls="data-sources-panel">
-              <span>View Data Sources</span>
+              <span>View all Data Sources</span>
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 <path d="m5 7.5 5 5 5-5" />
               </svg>
@@ -850,7 +874,7 @@ const features = [
     dataSourcesToggle.setAttribute("aria-expanded", String(!isExpanded));
     dataSourcesPanel.hidden = isExpanded;
     const label = dataSourcesToggle.querySelector("span");
-    if (label) label.textContent = isExpanded ? "View Data Sources" : "Hide Data Sources";
+    if (label) label.textContent = isExpanded ? "View all Data Sources" : "Hide Data Sources";
   });
 
   const mapsDetailPanel = document.querySelector<HTMLElement>("[data-maps-detail-panel]");
