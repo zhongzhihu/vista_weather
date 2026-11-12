@@ -897,7 +897,7 @@ input {
   display: none;
 }
 
-.phone-case-feature > .phone-screen-placeholder {
+.phone-case-feature > .phone-screen-placeholder:has(.phone-screen-image) {
   position: absolute;
   inset: 0;
   width: 100%;
