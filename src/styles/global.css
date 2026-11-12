@@ -580,15 +580,73 @@ input {
   left: 74px;
   top: -28px;
   z-index: 2;
-  background: linear-gradient(110deg, #51545a 0%, #25272b 3%, #090a0c 7%, #050608 94%, #303238 100%);
-  box-shadow:
-    -5px 3px 0 #222428,
-    -7px 4px 0 #0c0d0f,
-    0 44px 70px rgba(3, 18, 31, 0.34),
-    0 14px 24px rgba(3, 18, 31, 0.28),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
-    inset 0 0 0 5px rgba(0, 0, 0, 0.58);
+  aspect-ratio: 415 / 840;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 20px 25px rgba(3, 18, 31, 0.38));
   transform: rotate(-4deg) skewY(4deg);
+}
+
+/* A narrow, machined side sits behind the same photographic frame used by
+   the other phones. The highlights define the edge without rounding it over. */
+.phone-case-primary::before {
+  inset: 0;
+  width: auto;
+  height: auto;
+  background: url("../assets/postspark-phone-frame.png") center / 100% 100% no-repeat;
+  filter: brightness(0.7) drop-shadow(2px 0 #424b55) drop-shadow(2px 0 #313a44);
+  /* Crop the protruding buttons from this rear copy of the frame. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 2.3%, #000 97.3%, transparent 97.6%);
+  mask-image: linear-gradient(90deg, transparent 2%, #000 2.3%, #000 97.3%, transparent 97.6%);
+  transform: translate(-8px, 3px);
+}
+
+.phone-case-primary::after {
+  display: none;
+}
+
+/* Raised, beveled controls sit on the side face and share the phone tilt. */
+.phone-side-buttons {
+  position: absolute;
+  z-index: 2;
+  left: calc(2.2% - 6px);
+  top: 20.6%;
+  width: 4px;
+  height: 25.2%;
+  pointer-events: none;
+}
+
+.phone-side-buttons span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 2px;
+  transform: skewY(12deg);
+  background: linear-gradient(90deg, #19232d 0%, #687784 25%, #aab6bf 45%, #53616c 70%, #222c36 100%);
+  box-shadow:
+    -1px 1px 0 #121a22,
+    1px 1px 1px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(229, 237, 242, 0.8),
+    inset 0 -1px 0 #1c2630;
+}
+
+.phone-side-buttons span:nth-child(1) { top: 0; height: 19.8%; }
+.phone-side-buttons span:nth-child(2) { top: 31%; height: 31%; }
+.phone-side-buttons span:nth-child(3) { top: 68%; height: 32%; }
+
+/* The left buttons sit on the recessed side, not on the front face. */
+.phone-case-primary .phone-screen-picture {
+  -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 2.3%);
+  mask-image: linear-gradient(90deg, transparent 2%, #000 2.3%);
+}
+
+.phone-case-primary > .phone-screen-placeholder:has(.phone-screen-image) {
+  aspect-ratio: 415 / 840;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
 }
 
 .phone-case-secondary {

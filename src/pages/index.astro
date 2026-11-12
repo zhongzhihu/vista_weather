@@ -30,8 +30,8 @@ const auroraScreenshots = {
 const auroraSpaceWeatherScreenshot = framedScreenshot("aurora-basic-advanced-space-weather-conditions");
 
 const screenshots = {
-  sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
-  sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
+  sanFranciscoCelsius: framedScreenshot("san-francisco-weather-forecast-celsius"),
+  sanFranciscoFahrenheit: framedScreenshot("san-francisco-weather-forecast-fahrenheit"),
   mapComparisonCelsius: screenshot("map-screen-comparison-celsius"),
   mapComparisonFahrenheit: screenshot("map-screen-comparison-fahrenheit"),
   edenPrairieCelsius: framedScreenshot("eden-prairie-minute-by-minute-rain-forecast"),
@@ -137,6 +137,7 @@ const weatherServices = [
 
         <div class="hero-phones" aria-label="Vista Weather phone mockups">
           <div class="phone-case phone-case-primary">
+            <div class="phone-side-buttons" aria-hidden="true"><span></span><span></span><span></span></div>
             <div class="phone-screen-placeholder">
               <ResponsiveScreenshot
                 webp={screenshots.sanFranciscoCelsius.webp}
