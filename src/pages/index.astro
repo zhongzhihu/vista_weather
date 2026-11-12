@@ -10,7 +10,7 @@ import "../styles/global.css";
 const googleFormUrl = import.meta.env.PUBLIC_GOOGLE_FORM_URL;
 const googleFormEmailEntry = import.meta.env.PUBLIC_GOOGLE_FORM_EMAIL_ENTRY;
 const assetBase = import.meta.env.BASE_URL.replace(/\/$/, "");
-const stormMapScreenshot = `${assetBase}/images/vista-weather-storm-tracking-map-with-fires.webp`;
+const stormMapScreenshot = `${assetBase}/images/vista-weather-storm-tracking-map-with-fires-framed.webp`;
 const screenshot = (slug: string) => {
   const filename = `vista-weather-${slug}`;
   return {
@@ -18,28 +18,32 @@ const screenshot = (slug: string) => {
     png: `${assetBase}/press/${filename}.png`,
   };
 };
-const auroraScreenshots = {
-  europe: screenshot("aurora-forecast-europe"),
-  anz: screenshot("aurora-forecast-anz"),
-  northAmerica: screenshot("aurora-forecast-north-america"),
+const framedScreenshot = (slug: string) => {
+  const webp = `${assetBase}/images/vista-weather-${slug}-framed.webp`;
+  return { webp, png: webp };
 };
-const auroraSpaceWeatherScreenshot = screenshot("aurora-basic-advanced-space-weather-conditions");
+const auroraScreenshots = {
+  europe: framedScreenshot("aurora-forecast-europe"),
+  anz: framedScreenshot("aurora-forecast-anz"),
+  northAmerica: framedScreenshot("aurora-forecast-north-america"),
+};
+const auroraSpaceWeatherScreenshot = framedScreenshot("aurora-basic-advanced-space-weather-conditions");
 
 const screenshots = {
   sanFranciscoCelsius: screenshot("san-francisco-weather-forecast-celsius"),
   sanFranciscoFahrenheit: screenshot("san-francisco-weather-forecast-fahrenheit"),
   mapComparisonCelsius: screenshot("map-screen-comparison-celsius"),
   mapComparisonFahrenheit: screenshot("map-screen-comparison-fahrenheit"),
-  edenPrairieCelsius: screenshot("eden-prairie-minute-by-minute-rain-forecast"),
-  edenPrairieFahrenheit: screenshot("eden-prairie-minute-by-minute-rain-forecast-fahrenheit"),
-  radarUS: screenshot("united-states-live-rain-radar-lightning"),
-  radarEurope: screenshot("europe-live-rain-radar-lightning"),
-  thirtyDayCelsius: screenshot("30-day-weather-forecast-celsius"),
-  thirtyDayFahrenheit: screenshot("30-day-weather-forecast-fahrenheit"),
-  forecastComparisonCelsius: screenshot("forecast-comparison-celsius"),
-  forecastComparisonFahrenheit: screenshot("forecast-comparison-fahrenheit"),
-  possibleOutcomesGB: screenshot("paris-possible-temperature-outcomes-en-gb"),
-  possibleOutcomesUS: screenshot("paris-possible-temperature-outcomes-en-us"),
+  edenPrairieCelsius: framedScreenshot("eden-prairie-minute-by-minute-rain-forecast"),
+  edenPrairieFahrenheit: framedScreenshot("eden-prairie-minute-by-minute-rain-forecast-fahrenheit"),
+  radarUS: framedScreenshot("united-states-live-rain-radar-lightning"),
+  radarEurope: framedScreenshot("europe-live-rain-radar-lightning"),
+  thirtyDayCelsius: framedScreenshot("30-day-weather-forecast-celsius"),
+  thirtyDayFahrenheit: framedScreenshot("30-day-weather-forecast-fahrenheit"),
+  forecastComparisonCelsius: framedScreenshot("forecast-comparison-celsius"),
+  forecastComparisonFahrenheit: framedScreenshot("forecast-comparison-fahrenheit"),
+  possibleOutcomesGB: framedScreenshot("paris-possible-temperature-outcomes-en-gb"),
+  possibleOutcomesUS: framedScreenshot("paris-possible-temperature-outcomes-en-us"),
 };
 
 // Feature blocks, presented Acme-style: heading + descriptive text first,

@@ -891,31 +891,20 @@ input {
 }
 
 
-/* PostSpark's photographed frame sits above the screenshot. */
-.phone-case-feature::before {
-  display: none;
-}
-
+/* Feature screenshots include the photographed frame in their WebP. */
+.phone-case-feature::before,
 .phone-case-feature::after {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../assets/postspark-phone-frame.png") center / 100% 100% no-repeat;
-  /* Fade the outermost button pixels for a slimmer, softly rounded profile. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 97.859%, transparent 98.959%);
-  mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 97.859%, transparent 98.959%);
-  pointer-events: none;
-  z-index: 2;
+  display: none;
 }
 
 .phone-case-feature > .phone-screen-placeholder {
   position: absolute;
-  left: 5.06024%;
-  top: 2.14286%;
-  width: 89.39759%;
-  height: 95.47619%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   aspect-ratio: auto;
-  border-radius: 14.55526% / 6.73317%;
+  border-radius: 0;
+  background: transparent;
 }
 
 .phone-case-feature-radar {
@@ -2178,3 +2167,9 @@ input {
 
 .feature-media-storms { width: 100%; }
 
+
+/* Keep downloadable map phones transparent; add their shadows on the site. */
+.map-layer-native-phone,
+.map-layer-coarse-phone {
+  filter: drop-shadow(0 14px 18px rgba(3, 18, 31, 0.28));
+}

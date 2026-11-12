@@ -28,9 +28,6 @@ def phone(canvas, image, x):
     y, h = 5, 1074
     w = round(h * 415 / 840)
     x = round(x + (494 - w) / 2)
-    shadow = Image.new('RGBA', (W, H))
-    ImageDraw.Draw(shadow).rounded_rectangle((x + 12, y + 12, x + w - 12, y + h + 12), 65, fill=(22, 32, 42, 75))
-    canvas.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(18)))
     rounded_paste(canvas, image, (x + round(w * .0506024), y + round(h * .0214286), round(w * .8939759), round(h * .9547619)), round(w * .8939759 * .1455526))
     frame = Image.open(ROOT / 'src/assets/postspark-phone-frame.png').convert('RGBA').resize((w, h), Image.Resampling.LANCZOS)
     alpha = frame.getchannel('A')
