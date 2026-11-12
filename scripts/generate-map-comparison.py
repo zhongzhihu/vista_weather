@@ -23,13 +23,25 @@ def rounded_paste(canvas, image, box, radius):
     canvas.paste(image, (x, y), mask)
 
 def phone(canvas, image, x):
-    y, w, h = 5, 494, 1074
-    shadow = Image.new('RGBA', (W, H)); d = ImageDraw.Draw(shadow)
-    d.rounded_rectangle((x, y+12, x+w, y+h+12), 54, fill=(22, 32, 42, 75))
+    # Match the feature mockups: the same photographed frame, screen inset,
+    # rounded corners, and edge fade used by .phone-case-feature.
+    y, h = 5, 1074
+    w = round(h * 415 / 840)
+    x = round(x + (494 - w) / 2)
+    shadow = Image.new('RGBA', (W, H))
+    ImageDraw.Draw(shadow).rounded_rectangle((x + 12, y + 12, x + w - 12, y + h + 12), 65, fill=(22, 32, 42, 75))
     canvas.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(18)))
-    d = ImageDraw.Draw(canvas)
-    d.rounded_rectangle((x, y, x+w, y+h), 54, fill='#121416', outline='#71777a', width=3)
-    rounded_paste(canvas, image, (x+9, y+9, w-18, h-18), 45)
+    rounded_paste(canvas, image, (x + round(w * .0506024), y + round(h * .0214286), round(w * .8939759), round(h * .9547619)), round(w * .8939759 * .1455526))
+    frame = Image.open(ROOT / 'src/assets/postspark-phone-frame.png').convert('RGBA').resize((w, h), Image.Resampling.LANCZOS)
+    alpha = frame.getchannel('A')
+    fade = Image.new('L', (w, 1))
+    for px in range(w):
+        pos = (px + .5) / w * 100
+        opacity = min(1, max(0, (pos - .8) / 1.1), max(0, (98.959 - pos) / 1.1))
+        fade.putpixel((px, 0), round(opacity * 255))
+    from PIL import ImageChops
+    frame.putalpha(ImageChops.multiply(alpha, fade.resize((w, h))))
+    canvas.alpha_composite(frame, (x, y))
 
 def lens(canvas, source, x, y, coarse, fahrenheit):
     size = 360

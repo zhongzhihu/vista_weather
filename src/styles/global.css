@@ -902,8 +902,8 @@ input {
   height: 100%;
   background: url("../assets/postspark-phone-frame.png") center / 100% 100% no-repeat;
   /* Fade the outermost button pixels for a slimmer, softly rounded profile. */
-  -webkit-mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 98.1%, transparent 99.2%);
-  mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 98.1%, transparent 99.2%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 97.859%, transparent 98.959%);
+  mask-image: linear-gradient(to right, transparent 0.8%, #000 1.9%, #000 97.859%, transparent 98.959%);
   pointer-events: none;
   z-index: 2;
 }
